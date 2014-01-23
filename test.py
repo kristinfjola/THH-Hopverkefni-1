@@ -1,3 +1,3 @@
-# test, prófiğ ağ setja inn eitthvağ comment hérna
+ï»¿# test, prÃ³fiÃ° aÃ° setja inn eitthvaÃ° comment hÃ©rna
 
-Kristín: HALLÓ HEIMUR
+KristÃ­n: HALLÃ“ HEIMUR
