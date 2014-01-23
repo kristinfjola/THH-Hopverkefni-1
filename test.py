@@ -3,3 +3,5 @@
 Kristín: HALLÓ HEIMUR
 
 Steinunn: Test 12 12
+
+Edda: jæja búin að signa mig inn!
