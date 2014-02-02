@@ -105,7 +105,7 @@ def bla(H, n, v):
 def bla(H, n, v, vb):
 	import math
 	A = H*((v*(1+v)**n)/(((1+v)**n)-1))
-	greidsla = math.ceil(A*10)/10 #námunda upp
+	greidsla = math.ceil(A*10)/10 #námunda
 	def asdf(vextir, afb, eftirs, summa):
 		if(eftirs <= 0):
 			print math.ceil(summa)
