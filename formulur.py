@@ -84,16 +84,14 @@ def bla(H, n, v, vb):
 #eftirs - eftirstaða (hversu mikið að láninu er eftir)
 #summa - heildarkostnaðurinn sem hann er búinn að borga
 
-#ATH annaðhvort þarf að vera math.ceil fyrir A (ekki alveg rétt niðurstaða) eða gera if (eftirs < 1) (sem er ekki heldur alveg rétt)
-
 #óverðtryggt - jafnar greiðslur:
 def bla(H, n, v):
 	import math
 	A = H*((v*(1+v)**n)/(((1+v)**n)-1))	#Jafna til að finna greiðslu
-	greidsla = math.ceil(A) #námunda upp
+	greidsla = math.ceil(A*10)/10 #námunda
 	def asdf(vextir, afb, eftirs, summa):
 		if(eftirs <= 0):
-			print summa
+			print math.ceil(summa)
 		else:
 			asdf(v*eftirs, greidsla - v*eftirs, eftirs - (greidsla - v*eftirs), summa + greidsla)
 			#vextir = v*eftirs
@@ -107,10 +105,10 @@ def bla(H, n, v):
 def bla(H, n, v, vb):
 	import math
 	A = H*((v*(1+v)**n)/(((1+v)**n)-1))
-	greidsla = math.ceil(A) #námunda upp
+	greidsla = math.ceil(A*10)/10 #námunda upp
 	def asdf(vextir, afb, eftirs, summa):
 		if(eftirs <= 0):
-			print summa
+			print math.ceil(summa)
 		else:
 			asdf((v+vb)*eftirs, greidsla - (v+vb)*eftirs, eftirs - (greidsla - (v+vb)*eftirs), summa + greidsla)
 			#vextir = (v+vb)*eftirs
