@@ -1,3 +1,4 @@
+# -*- coding: cp1252 -*-
 import wx
 
 class MainPage(wx.Panel):
@@ -39,7 +40,7 @@ class MainPage(wx.Panel):
         
         
 		
-       self.radioListVerdtrygging = ['Verðtryggt', 'Óverðtryggt']
+        self.radioListVerdtrygging = ['Verðtryggt', 'Óverðtryggt']
         self.radioListJafnar = ['Greiðslur', 'Afborganir']
         
         for i in range(1, 4):
