@@ -39,10 +39,25 @@ class MainPage(wx.Panel):
         self.greidslutypa = wx.StaticText(self, label="Jafnar greiðslur/jafnar afborganir")
         grid.Add(self.greidslutypa, pos=(0,9))
         
+        self.umframgreidsla = wx.StaticText(self, label="Umframgreiðsla")
+        grid.Add(self.umframgreidsla, pos=(4,6))
+        
+        self.timabil = wx.StaticText(self, label="Innistæða bundin í:")
+        grid.Add(self.timabil, pos=(6,6))
+        
+        self.verdb = wx.StaticText(self, label="Tímabil verðbólgu:")
+        grid.Add(self.verdb, pos=(8,6))
+        
+        self.verdtrSparn = wx.StaticText(self, label="Ég vil sparnaðinn:")
+        grid.Add(self.verdtrSparn, pos=(10,6))
+        
         
 		
         self.radioListVerdtrygging = ['Verðtryggt', 'Óverðtryggt']
         self.radioListJafnar = ['Greiðslur', 'Afborganir']
+        self.dropdown = ['ekki bundin', '3 mánuðir', '6 mánuðir', '9 mánuðir', '12 mánuðir']
+        self.verdbolga = ['seinustu 15 ár', 'seinustu 10 ár', 'seinustu 5 ár', 'núna']
+        self.radioList2 = ['Verðtryggðan', 'Óverðtryggðan']
         
         for i in range(1, 4):
             # innsláttur fyrir lán - self.lani
@@ -100,9 +115,19 @@ class MainPage(wx.Panel):
             setattr(self, jafnar, wx.RadioBox(self, choices=self.radioListJafnar))
             grid.Add(object.__getattribute__(self, jafnar), pos=(i,9), flag=wx.FIXED_MINSIZE | wx.ALIGN_TOP)
             self.Bind(wx.EVT_RADIOBOX, self.jafnar_lana, object.__getattribute__(self, jafnar))
-            
-        
 
+        self.umframgr = wx.TextCtrl(self, size = (120,20))
+        grid.Add(self.umframgr, pos=(5,6))
+        
+        self.timab = wx.ComboBox(self, choices=self.dropdown, style=wx.CB_READONLY)
+        grid.Add(self.timab, pos=(7,6))
+        
+        self.verdb = wx.ComboBox(self, choices=self.verdbolga, style=wx.CB_READONLY)
+        grid.Add(self.verdb, pos=(9,6))
+        
+        self.verdSparn = wx.RadioBox(self, choices=self.radioList2)
+        grid.Add(self.verdSparn, pos=(11,6))
+        
         self.SetSizerAndFit(mainSizer)
         
     def upphaed_lana(self, event):
@@ -150,6 +175,19 @@ class MainPage(wx.Panel):
         if (widget == self.verdtrygging3):
             lan3_verdtrygging = event.GetString()
 
+    def timabil(self, event):
+    	innist_bundin = event.GetValue()
+    	
+    
+    def umframgreidsla(self, event):
+    	umframgr = event.GetString()
+    	
+    def verdbolga(self, event):
+    	verdb = event.GetValue()
+    
+    def verdtrSparn(self, event):
+    	verdSparn = event.GetString()
+    
     def jafnar_lana(self, event):
         widget = event.GetEventObject()
         if (widget == self.jafnar1):
@@ -158,9 +196,11 @@ class MainPage(wx.Panel):
             lan2_jafnar = event.GetInt()
         if (widget == self.jafnar3):
             lan3_jafnar = event.GetInt()
+            
+        
 
 app = wx.App(False)
-frame = wx.Frame(None, title="Fyrsta utgafa")
+frame = wx.Frame(None, title="Fyrsta útgáfa")
 frame.SetSize((800,500))
 panel = MainPage(frame)
 frame.Show()
