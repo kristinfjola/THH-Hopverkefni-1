@@ -1,4 +1,5 @@
 # -*- coding: cp1252 -*-
+# -*- coding: utf-8 -*-
 import wx
 
 class MainPage(wx.Panel):
