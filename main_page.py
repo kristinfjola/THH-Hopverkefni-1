@@ -127,28 +127,26 @@ class MainPage(wx.Panel):
 		
         self.SetSizerAndFit(mainSizer)
         
-	def lan_upph(self, event):
-		widget = event.GetEventObject()
-		if (widget == self.lan1):
-			lan1_upph = event.GetString()
-		if (widget == self.lan2):
-			lan2_upph = event.GetString()
-		if (widget == self.lan3):
-			lan3_upph = event.GetString()
-            
-
-	def timabil(self, event):
-    		innist_bundin = event.GetValue()
+    def lan_upph(self, event):
+    	widget = event.GetEventObject()
+    	if (widget == self.lan1):
+    		lan1_upph = event.GetString()
+    	if(widget == self.lan2):
+    		lan2_upph = event.GetString()
+    	if(widget == self.lan3):
+    		lan3_upp = event.GetString()
         
-	def umframgreidsla(self, event):
-    		umframgr = event.GetString()
-        	
-	def verdbolga(self, event):
-    		verdb = event.GetValue()
-        	
-	def verdtrSparn(self, event):
-    		verdSparn = event.GetString()
-        
+    def timabil(self, event):
+    	innist_bundin = event.GetValue()
+    	
+    def umframgreidsla(self, event):
+    	umframgr = event.GetString()
+    	
+    def verdbolga(self, event):
+    	verdb = event.GetValue()
+    	
+    def verdtrSparn(self, event):
+    	verdSparn = event.GetString()
 
 app = wx.App(False)
 frame = wx.Frame(None, title="Fyrsta �tg�fa")
