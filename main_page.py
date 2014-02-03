@@ -36,24 +36,24 @@ class MainPage(wx.Panel):
         self.greidslutypa = wx.StaticText(self, label="Jafnar grei�slur/jafnar afborganir")
         grid.Add(self.greidslutypa, pos=(0,9))
         
-        self.umframgreidsla = wx.StaticText(self, label="Umframgreiðsla")
+        self.umframgreidsla = wx.StaticText(self, label="Umframgrei�sla")
         grid.Add(self.umframgreidsla, pos=(4,6))
         
-        self.timabil = wx.StaticText(self, label="Innistæða bundin í:")
+        self.timabil = wx.StaticText(self, label="Innist��a bundin �:")
         grid.Add(self.timabil, pos=(6,6))
         
-        self.verdb = wx.StaticText(self, label="Tímabil verðbólgu:")
+        self.verdb = wx.StaticText(self, label="T�mabil ver�b�lgu:")
         grid.Add(self.verdb, pos=(8,6))
         
-        self.verdtrSparn = wx.StaticText(self, label="Ég vil sparnaðinn:")
+        self.verdtrSparn = wx.StaticText(self, label="Eg vil sparna�inn:")
         grid.Add(self.verdtrSparn, pos=(10,6))
 		
         # listar fyrir radio buttons
         self.radioListVerdtrygging = ['Ver�tryggt', '�ver�tryggt']
         self.radioListJafnar = ['Grei�slur', 'Afborganir']
-        self.dropdown = ['Ekki bundin', '3 mánuðir', '6 mánuðir', '9 mánuðir', '12 mánuðir']
-        self.verdbolga = ['seinustu 15 ár', 'seinustu 10 ár', 'seinustu 5 ár', 'núna']
-        self.radioList2 = ['Verðtryggðan', 'Óverðtryggðan']
+        self.dropdown = ['Ekki bundin', '3 m�nu�ir', '6 m�nu�ir', '9 m�nu�ir', '12 m�nu�ir']
+        self.verdbolga = ['seinustu 15 �r', 'seinustu 10 �r', 'seinustu 5 �r', 'nuna']
+        self.radioList2 = ['Ver�trygg�an', '�ver�trygg�an']
         
         for i in range(1, 4):
             # innsl�ttur fyrir l�n - self.lani
