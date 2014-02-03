@@ -1,14 +1,26 @@
-#LÁN
+#Lï¿½N
 
-#lánsupphæğir
+#lï¿½nsupphï¿½ï¿½ir
 lan1_upph
 lan2_upph
 lan3_upph
 
-#lánavextir
+#lï¿½navextir
+
+#lengd tÃ­mabils sem umframgreiÃ°sla er bundin
+innist_bundin
+
+#umframgreiÃ°sla
+umframgr
+        	
+#verÃ°bÃ³lga (tÃ­mabil)
+verdb
+        	
+#verÃ°tryggÃ°/Ã³verÃ°tryggÃ° sparnaÃ°arleiÃ°
+verdSparn
+        	
+
+#greiï¿½slubyrgï¿½i
 
 
-#greiğslubyrgği
-
-
-#lán-verğtryggğ/óverğtryggt
+#lï¿½n-verï¿½tryggï¿½/ï¿½verï¿½tryggt
