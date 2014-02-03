@@ -36,24 +36,11 @@ class MainPage(wx.Panel):
         self.greidslutypa = wx.StaticText(self, label="Jafnar grei�slur/jafnar afborganir")
         grid.Add(self.greidslutypa, pos=(0,9))
         
-        self.umframgreidsla = wx.StaticText(self, label="Umframgrei�sla")
-        grid.Add(self.umframgreidsla, pos=(4,6))
         
-        self.timabil = wx.StaticText(self, label="Innist��a bundin �:")
-        grid.Add(self.timabil, pos=(6,6))
-        
-        self.verdb = wx.StaticText(self, label="T�mabil ver�b�lgu:")
-        grid.Add(self.verdb, pos=(8,6))
-        
-        self.verdtrSparn = wx.StaticText(self, label="Eg vil sparna�inn:")
-        grid.Add(self.verdtrSparn, pos=(10,6))
 		
         # listar fyrir radio buttons
         self.radioListVerdtrygging = ['Ver�tryggt', '�ver�tryggt']
         self.radioListJafnar = ['Grei�slur', 'Afborganir']
-        self.dropdown = ['Ekki bundin', '3 m�nu�ir', '6 m�nu�ir', '9 m�nu�ir', '12 m�nu�ir']
-        self.verdbolga = ['seinustu 15 �r', 'seinustu 10 �r', 'seinustu 5 �r', 'nuna']
-        self.radioList2 = ['Ver�trygg�an', '�ver�trygg�an']
         
         for i in range(1, 4):
             # innsl�ttur fyrir l�n - self.lani
@@ -106,24 +93,6 @@ class MainPage(wx.Panel):
             jafnar = 'jafnar' + str(i)
             setattr(self, jafnar, wx.RadioBox(self, choices=self.radioListJafnar))
             grid.Add(object.__getattribute__(self, jafnar), pos=(i,9), flag=wx.FIXED_MINSIZE | wx.ALIGN_TOP)
-            
-        
-	
-	umframgreidsla = 'umframgreidsla'
-        setattr(self, umframgreidsla, wx.TextCtrl(self, size = (120,20)))
-        grid.Add(object.__getattribute__(self, umframgreidsla), pos=(5,6))
-        
-        timabil = 'timabil'
-        setattr(self, timabil, wx.ComboBox(self, choices=self.dropdown, style=wx.CB_READONLY))
-        grid.Add(object.__getattribute__(self, timabil), pos=(7,6))
-        
-        verdbolga = 'verdbolga'
-        setattr(self, verdbolga, wx.ComboBox(self, choices=self.verdbolga, style=wx.CB_READONLY))
-        grid.Add(object.__getattribute__(self, verdbolga), pos=(9,6))
-        
-        verdtrSparn = 'verdtrSparn'
-        setattr(self, verdtrSparn, wx.RadioBox(self, choices=self.radioList2))
-        grid.Add(object.__getattribute__(self, verdtrSparn), pos=(11,6)) 
 		
         self.SetSizerAndFit(mainSizer)
         
@@ -135,18 +104,6 @@ class MainPage(wx.Panel):
     		lan2_upph = event.GetString()
     	if(widget == self.lan3):
     		lan3_upp = event.GetString()
-        
-    def timabil(self, event):
-    	innist_bundin = event.GetValue()
-    	
-    def umframgreidsla(self, event):
-    	umframgr = event.GetString()
-    	
-    def verdbolga(self, event):
-    	verdb = event.GetValue()
-    	
-    def verdtrSparn(self, event):
-    	verdSparn = event.GetString()
 
 app = wx.App(False)
 frame = wx.Frame(None, title="Fyrsta �tg�fa")
