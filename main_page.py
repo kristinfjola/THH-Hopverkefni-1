@@ -7,107 +7,151 @@ class MainPage(wx.Panel):
         # sizers
         mainSizer = wx.BoxSizer(wx.VERTICAL)
         grid = wx.GridBagSizer(hgap=5, vgap=5)
-        hSizer = wx.BoxSizer(wx.HORIZONTAL)	#ónotaður eins og er
+        hSizer = wx.BoxSizer(wx.HORIZONTAL)	#ï¿½notaï¿½ur eins og er
 
-        # fyrirsögn
-        self.fyrirsogn = wx.StaticText(self, label="Hvað skal gera við péningana?")
+        # fyrirsï¿½gn
+        self.fyrirsogn = wx.StaticText(self, label="Hvaï¿½ skal gera viï¿½ pï¿½ningana?")
         self.fyrirsognFont = wx.Font(16, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
         self.fyrirsogn.SetFont(self.fyrirsognFont)
         mainSizer.Add(self.fyrirsogn, flag=wx.ALL|wx.EXPAND, border=10)
 
         mainSizer.Add(grid, 0, wx.ALL, 5)
 
-        # labels á lán
-        self.stadaLana = wx.StaticText(self, label="Staða láns")    
+        # labels ï¿½ lï¿½n
+        self.stadaLana = wx.StaticText(self, label="Staï¿½a lï¿½ns")    
         grid.Add(self.stadaLana, pos=(0,0))
 
         self.vextir = wx.StaticText(self, label="Vextir")
         grid.Add(self.vextir, pos=(0,2))
 
-        self.greidslubyrgdi = wx.StaticText(self, label="Greiðslubyrgði")
+        self.greidslubyrgdi = wx.StaticText(self, label="Greiï¿½slubyrgï¿½i")
         grid.Add(self.greidslubyrgdi, pos=(0,4))
 
-        self.timabilLana = wx.StaticText(self, label="Tímabil")
+        self.timabilLana = wx.StaticText(self, label="Tï¿½mabil")
         grid.Add(self.timabilLana, pos=(0,6))
 
-        self.verdtryggtLan = wx.StaticText(self, label="Verðtryggt/óverðtryggt")
+        self.verdtryggtLan = wx.StaticText(self, label="Verï¿½tryggt/ï¿½verï¿½tryggt")
         grid.Add(self.verdtryggtLan, pos=(0,8))
 
-        self.greidslutypa = wx.StaticText(self, label="Jafnar greiðslur/jafnar afborganir")
+        self.greidslutypa = wx.StaticText(self, label="Jafnar greiï¿½slur/jafnar afborganir")
         grid.Add(self.greidslutypa, pos=(0,9))
+        
+        self.umframgreidsla = wx.StaticText(self, label="UmframgreiÃ°sla")
+        grid.Add(self.umframgreidsla, pos=(4,6))
+        
+        self.timabil = wx.StaticText(self, label="InnistÃ¦Ã°a bundin Ã­:")
+        grid.Add(self.timabil, pos=(6,6))
+        
+        self.verdb = wx.StaticText(self, label="TÃ­mabil verÃ°bÃ³lgu:")
+        grid.Add(self.verdb, pos=(8,6))
+        
+        self.verdtrSparn = wx.StaticText(self, label="Ã‰g vil sparnaÃ°inn:")
+        grid.Add(self.verdtrSparn, pos=(10,6))
 		
         # listar fyrir radio buttons
-        self.radioListVerdtrygging = ['Verðtryggt', 'Óverðtryggt']
-        self.radioListJafnar = ['Greiðslur', 'Afborganir']
+        self.radioListVerdtrygging = ['Verï¿½tryggt', 'ï¿½verï¿½tryggt']
+        self.radioListJafnar = ['Greiï¿½slur', 'Afborganir']
+        self.dropdown = ['Ekki bundin', '3 mÃ¡nuÃ°ir', '6 mÃ¡nuÃ°ir', '9 mÃ¡nuÃ°ir', '12 mÃ¡nuÃ°ir']
+        self.verdbolga = ['seinustu 15 Ã¡r', 'seinustu 10 Ã¡r', 'seinustu 5 Ã¡r', 'nÃºna']
+        self.radioList2 = ['VerÃ°tryggÃ°an', 'Ã“verÃ°tryggÃ°an']
         
         for i in range(1, 4):
-            # innsláttur fyrir lán - self.lani
+            # innslï¿½ttur fyrir lï¿½n - self.lani
             lan = 'lan' + str(i)
             setattr(self, lan, wx.TextCtrl(self, size = (80,20)))  
             grid.Add(object.__getattribute__(self, lan), pos=(i,0), flag=wx.TOP, border=17)
             self.Bind(wx.EVT_TEXT, self.lan_upph, object.__getattribute__(self, lan))
             
-            # kr. merki fyrir lánsupphæð - self.kronai1
+            # kr. merki fyrir lï¿½nsupphï¿½ï¿½ - self.kronai1
             krona1 = 'krona' + str(i) + '1'
             setattr(self, krona1, wx.StaticText(self, label='kr.'))
             grid.Add(object.__getattribute__(self, krona1), pos=(i,1), flag=wx.TOP, border=17)
             
-            # innsláttur fyrir vexti - self.vextiri
+            # innslï¿½ttur fyrir vexti - self.vextiri
             vextir = 'vextir' + str(i)
             setattr(self, vextir, wx.TextCtrl(self, size = (50,20)))
             grid.Add(object.__getattribute__(self, vextir), pos=(i,2), flag=wx.TOP, border=17)
 
-            # prósentumerki - self.prosentai
+            # prï¿½sentumerki - self.prosentai
             prosenta = 'prosenta' + str(i)
             setattr(self, prosenta, wx.StaticText(self, label='%'))
             grid.Add(object.__getattribute__(self, prosenta), pos=(i,3), flag=wx.TOP, border=17)
 
-            # greiðslubyrgði - self.greidslubyrgdii
+            # greiï¿½slubyrgï¿½i - self.greidslubyrgdii
             greidslubyrgdi = 'greidslubyrgdi' + str()
             setattr(self, greidslubyrgdi, wx.TextCtrl(self, size = (80,20)))
             grid.Add(object.__getattribute__(self, greidslubyrgdi), pos=(i,4), flag=wx.TOP, border=17)
             
-            # kr. merki fyrir greiðslubyrgði - self.kronai2
+            # kr. merki fyrir greiï¿½slubyrgï¿½i - self.kronai2
             krona2 = 'krona' + str(i) + '2'
             setattr(self, krona2, wx.StaticText(self, label='kr.'))
             grid.Add(object.__getattribute__(self, krona2), pos=(i,5), flag=wx.TOP, border=17)
 
-            # tímabil láns - self.timabilLansi
+            # tï¿½mabil lï¿½ns - self.timabilLansi
             timabilLans = 'timabilLans' + str(i)
             setattr(self, timabilLans, wx.TextCtrl(self, size = (50,20)))
             grid.Add(object.__getattribute__(self, timabilLans), pos=(i,6), flag=wx.TOP, border=17)
 
-            # mánuðir - self.manudiri
+            # mï¿½nuï¿½ir - self.manudiri
             manudir = 'manudir' + str(i)
-            setattr(self, manudir, wx.StaticText(self, label='mán.'))
+            setattr(self, manudir, wx.StaticText(self, label='mï¿½n.'))
             grid.Add(object.__getattribute__(self, manudir), pos=(i,7), flag=wx.TOP, border=17)
 
-            # radio buttons fyrir verðtryggingu - self.verdtryggingi
+            # radio buttons fyrir verï¿½tryggingu - self.verdtryggingi
             verdtrygging = 'verdtrygging' + str(i)
             setattr(self, verdtrygging, wx.RadioBox(self, choices=self.radioListVerdtrygging))
             grid.Add(object.__getattribute__(self, verdtrygging), pos=(i,8), flag=wx.FIXED_MINSIZE | wx.ALIGN_TOP)
 
-            # radio buttons fyrir jafnar greiðslur/jafnar afborganir
+            # radio buttons fyrir jafnar greiï¿½slur/jafnar afborganir
             jafnar = 'jafnar' + str(i)
             setattr(self, jafnar, wx.RadioBox(self, choices=self.radioListJafnar))
             grid.Add(object.__getattribute__(self, jafnar), pos=(i,9), flag=wx.FIXED_MINSIZE | wx.ALIGN_TOP)
             
         
-
+	
+	umframgreidsla = 'umframgreidsla'
+        setattr(self, umframgreidsla, wx.TextCtrl(self, size = (120,20)))
+        grid.Add(object.__getattribute__(self, umframgreidsla), pos=(5,6))
+        
+        timabil = 'timabil'
+        setattr(self, timabil, wx.ComboBox(self, choices=self.dropdown, style=wx.CB_READONLY))
+        grid.Add(object.__getattribute__(self, timabil), pos=(7,6))
+        
+        verdbolga = 'verdbolga'
+        setattr(self, verdbolga, wx.ComboBox(self, choices=self.verdbolga, style=wx.CB_READONLY))
+        grid.Add(object.__getattribute__(self, verdbolga), pos=(9,6))
+        
+        verdtrSparn = 'verdtrSparn'
+        setattr(self, verdtrSparn, wx.RadioBox(self, choices=self.radioList2))
+        grid.Add(object.__getattribute__(self, verdtrSparn), pos=(11,6)) 
+		
         self.SetSizerAndFit(mainSizer)
         
-    def lan_upph(self, event):
-        widget = event.GetEventObject()
-        if (widget == self.lan1):
-            lan1_upph = event.GetString()
-        if (widget == self.lan2):
-            lan2_upph = event.GetString()
-        if (widget == self.lan3):
-            lan3_upph = event.GetString()
+	def lan_upph(self, event):
+		widget = event.GetEventObject()
+		if (widget == self.lan1):
+			lan1_upph = event.GetString()
+		if (widget == self.lan2):
+			lan2_upph = event.GetString()
+		if (widget == self.lan3):
+			lan3_upph = event.GetString()
+            
+
+	def timabil(self, event):
+    		innist_bundin = event.GetValue()
+        
+	def umframgreidsla(self, event):
+    		umframgr = event.GetString()
+        	
+	def verdbolga(self, event):
+    		verdb = event.GetValue()
+        	
+	def verdtrSparn(self, event):
+    		verdSparn = event.GetString()
         
 
 app = wx.App(False)
-frame = wx.Frame(None, title="Fyrsta útgáfa")
+frame = wx.Frame(None, title="Fyrsta ï¿½tgï¿½fa")
 frame.SetSize((600,500))
 panel = MainPage(frame)
 frame.Show()
