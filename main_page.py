@@ -7,8 +7,7 @@ class MainPage(wx.Panel):
         # sizers
         mainSizer = wx.BoxSizer(wx.VERTICAL)
         grid = wx.GridBagSizer(hgap=5, vgap=5)
-        hSizer = wx.BoxSizer(wx.HORIZONTAL)
-
+        hSizer = wx.BoxSizer(wx.HORIZONTAL)	#ónotaður eins og er
 
         # fyrirsögn
         self.fyrirsogn = wx.StaticText(self, label="Hvað skal gera við péningana?")
@@ -28,33 +27,18 @@ class MainPage(wx.Panel):
         self.greidslubyrgdi = wx.StaticText(self, label="Greiðslubyrgði")
         grid.Add(self.greidslubyrgdi, pos=(0,4))
 
+        self.timabilLana = wx.StaticText(self, label="Tímabil")
+        grid.Add(self.timabilLana, pos=(0,6))
+
         self.verdtryggtLan = wx.StaticText(self, label="Verðtryggt/óverðtryggt")
-        grid.Add(self.verdtryggtLan, pos=(0,6))
-        
-        '''
-        "HARÐKÓÐAÐ"
-        # inputs og valmöguleikar fyrir lán
-        self.lan1 = wx.TextCtrl(self, size = (80,20))
-        grid.Add(self.lan1, pos=(1,0))
-        self.kr11 = wx.StaticText(self, label="kr.")
-        grid.Add(self.kr11, pos=(1,1))
+        grid.Add(self.verdtryggtLan, pos=(0,8))
 
-        self.vextir1 = wx.TextCtrl(self, size = (50,20))
-        grid.Add(self.vextir1, pos=(1,2))
-        self.prosenta = wx.StaticText(self, label="%")
-        grid.Add(self.prosenta, pos=(1,3))
-
-        self.greidslubyrgdi1 = wx.TextCtrl(self, size = (80,20))
-        grid.Add(self.greidslubyrgdi1, pos=(1,4))
-        self.kr12 = wx.StaticText(self, label="kr.")
-        grid.Add(self.kr12, pos=(1,5))
-        
-        radioList1 = ['Verðtryggt', 'Óverðtryggt']
-        self.radios1 = wx.RadioBox(self, choices=radioList1)
-        grid.Add(self.radios1, pos=(1,6))
-
-        '''
-        self.radioList = ['Verðtryggt', 'Óverðtryggt']
+        self.greidslutypa = wx.StaticText(self, label="Jafnar greiðslur/jafnar afborganir")
+        grid.Add(self.greidslutypa, pos=(0,9))
+		
+        # listar fyrir radio buttons
+        self.radioListVerdtrygging = ['Verðtryggt', 'Óverðtryggt']
+        self.radioListJafnar = ['Greiðslur', 'Afborganir']
         
         for i in range(1, 4):
             # innsláttur fyrir lán - self.lani
@@ -88,10 +72,25 @@ class MainPage(wx.Panel):
             setattr(self, krona2, wx.StaticText(self, label='kr.'))
             grid.Add(object.__getattribute__(self, krona2), pos=(i,5), flag=wx.TOP, border=17)
 
+            # tímabil láns - self.timabilLansi
+            timabilLans = 'timabilLans' + str(i)
+            setattr(self, timabilLans, wx.TextCtrl(self, size = (50,20)))
+            grid.Add(object.__getattribute__(self, timabilLans), pos=(i,6), flag=wx.TOP, border=17)
+
+            # mánuðir - self.manudiri
+            manudir = 'manudir' + str(i)
+            setattr(self, manudir, wx.StaticText(self, label='mán.'))
+            grid.Add(object.__getattribute__(self, manudir), pos=(i,7), flag=wx.TOP, border=17)
+
             # radio buttons fyrir verðtryggingu - self.verdtryggingi
             verdtrygging = 'verdtrygging' + str(i)
-            setattr(self, verdtrygging, wx.RadioBox(self, choices=self.radioList))
-            grid.Add(object.__getattribute__(self, verdtrygging), pos=(i,6), flag=wx.FIXED_MINSIZE | wx.ALIGN_TOP)
+            setattr(self, verdtrygging, wx.RadioBox(self, choices=self.radioListVerdtrygging))
+            grid.Add(object.__getattribute__(self, verdtrygging), pos=(i,8), flag=wx.FIXED_MINSIZE | wx.ALIGN_TOP)
+
+            # radio buttons fyrir jafnar greiðslur/jafnar afborganir
+            jafnar = 'jafnar' + str(i)
+            setattr(self, jafnar, wx.RadioBox(self, choices=self.radioListJafnar))
+            grid.Add(object.__getattribute__(self, jafnar), pos=(i,9), flag=wx.FIXED_MINSIZE | wx.ALIGN_TOP)
             
         
 
