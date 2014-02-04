@@ -174,20 +174,7 @@ class MainPage(wx.Panel):
             lan2_verdtrygging = event.GetString()
         if (widget == self.verdtrygging3):
             lan3_verdtrygging = event.GetString()
-
-    def timabil(self, event):
-    	innist_bundin = event.GetValue()
-    	
-    
-    def umframgreidsla(self, event):
-    	umframgr = event.GetString()
-    	
-    def verdbolga(self, event):
-    	verdb = event.GetValue()
-    
-    def verdtrSparn(self, event):
-    	verdSparn = event.GetString()
-    
+            
     def jafnar_lana(self, event):
         widget = event.GetEventObject()
         if (widget == self.jafnar1):
@@ -196,7 +183,19 @@ class MainPage(wx.Panel):
             lan2_jafnar = event.GetInt()
         if (widget == self.jafnar3):
             lan3_jafnar = event.GetInt()
-            
+
+    def verdbolga(self, event):
+    	verdb = event.GetValue()
+    
+    def timabil(self, event):
+    	innist_bundin = event.GetValue()
+    	
+    
+    def umframgreidsla(self, event):
+    	umframgr = event.GetString()
+    
+    def verdtrSparn(self, event):
+    	verdSparn = event.GetString()
         
 
 app = wx.App(False)
