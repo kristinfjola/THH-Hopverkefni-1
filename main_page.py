@@ -9,6 +9,7 @@ class MainPage(wx.Panel):
         # sizers
         mainSizer = wx.BoxSizer(wx.VERTICAL)
         grid = wx.GridBagSizer(hgap=5, vgap=5)
+        grid2 = wx.GridBagSizer(hgap=5, vgap=5)
         hSizer = wx.BoxSizer(wx.HORIZONTAL)
 
 
@@ -18,6 +19,7 @@ class MainPage(wx.Panel):
         self.fyrirsogn.SetFont(self.fyrirsognFont)
         mainSizer.Add(self.fyrirsogn, flag=wx.ALL|wx.EXPAND, border=10)
 
+        mainSizer.Add(grid2, 0, wx.ALL, 5)
         mainSizer.Add(grid, 0, wx.ALL, 5)
 
         # labels á lán
@@ -40,16 +42,16 @@ class MainPage(wx.Panel):
         grid.Add(self.greidslutypa, pos=(0,9))
         
         self.umframgreidsla = wx.StaticText(self, label="Umframgreiðsla")
-        grid.Add(self.umframgreidsla, pos=(4,6))
+        grid2.Add(self.umframgreidsla, pos=(0,0))
         
         self.timabil = wx.StaticText(self, label="Innistæða bundin í:")
-        grid.Add(self.timabil, pos=(6,6))
+        grid2.Add(self.timabil, pos=(0,2))
         
         self.verdb = wx.StaticText(self, label="Tímabil verðbólgu:")
-        grid.Add(self.verdb, pos=(8,6))
+        grid2.Add(self.verdb, pos=(1,2))
         
         self.verdtrSparn = wx.StaticText(self, label="Ég vil sparnaðinn:")
-        grid.Add(self.verdtrSparn, pos=(10,6))
+        grid2.Add(self.verdtrSparn, pos=(1,0))
         
         
 		
@@ -116,17 +118,17 @@ class MainPage(wx.Panel):
             grid.Add(object.__getattribute__(self, jafnar), pos=(i,9), flag=wx.FIXED_MINSIZE | wx.ALIGN_TOP)
             self.Bind(wx.EVT_RADIOBOX, self.jafnar_lana, object.__getattribute__(self, jafnar))
 
-        self.umframgr = wx.TextCtrl(self, size = (120,20))
-        grid.Add(self.umframgr, pos=(5,6))
+        self.umframgr = wx.TextCtrl(self, size = (270,20))
+        grid2.Add(self.umframgr, pos=(0,1))
         
         self.timab = wx.ComboBox(self, choices=self.dropdown, style=wx.CB_READONLY)
-        grid.Add(self.timab, pos=(7,6))
+        grid2.Add(self.timab, pos=(0,3))
         
         self.verdb = wx.ComboBox(self, choices=self.verdbolga, style=wx.CB_READONLY)
-        grid.Add(self.verdb, pos=(9,6))
+        grid2.Add(self.verdb, pos=(1,3))
         
         self.verdSparn = wx.RadioBox(self, choices=self.radioList2)
-        grid.Add(self.verdSparn, pos=(11,6))
+        grid2.Add(self.verdSparn, pos=(1,1))
         
         self.SetSizerAndFit(mainSizer)
         
@@ -200,7 +202,7 @@ class MainPage(wx.Panel):
 
 app = wx.App(False)
 frame = wx.Frame(None, title="Fyrsta útgáfa")
-frame.SetSize((800,500))
+frame.SetSize((900,500))
 panel = MainPage(frame)
 frame.Show()
 app.MainLoop()
