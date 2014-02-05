@@ -23,16 +23,16 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga):
 			
 		
 	
-#verdbolga:	
-#0: verðbólgan núna => 2%
-#5: meðaltal síðustu 5 ár =>4%
-#10: meðaltal síðustu 10 ár => 6%
-#15: meðaltal síðustu 15 ár => 8%
+#verðbólgan er harðkóðuð
+#verdbolga = 0	gefur verðbólguna núna => 2%
+#verdbolga = 5	gefur meðaltal síðustu 5 ár => 4%
+#verdbolga = 10	gefur meðaltal síðustu 10 ár => 6%
+#verdbolga = 15	gefur meðaltal síðustu 15 ár => 8%
 
-#verdtrygging = 0	óverðtryggt
-#verdtrygging = 1	verðtryggt
-#jafnar = 0			jafnar greidslur
-#jafnar = 1			jafnar afborganir
+#óverðtryggt gefur		verdtrygging = 0
+#verðtryggt gefur 		verdtrygging = 1
+#jafnar greiðslur gefa 	jafnar = 0
+#jafnar afborganir gefa jafnar = 1
 
 
 
@@ -42,7 +42,10 @@ def overdAfborganir(H, n, v):
 	print 'Verðtryggt lán með jöfnum afborgunum:'
 	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir'
 	print '--------------'
-	afb = H/n
+	if(n == 0):
+		afb = 0
+	else:
+		afb = H/n
 	stodur = []
 	eftirs = H
 	summa = 0
@@ -65,7 +68,10 @@ def verdAfborganir(H, n, v, vb):
 	print 'Verðtryggt lán með jöfnum afborgunum:'
 	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir og verðbólgu ' + str(vb*100) + '%'
 	print '--------------'
-	afb = H/n
+	if(n == 0):
+		afb = 0
+	else:
+		afb = H/n
 	stodur = []
 	eftirs = H
 	summa = 0
