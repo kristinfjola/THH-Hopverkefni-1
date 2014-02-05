@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga):
-        v = float(v/100)
+	v = float(v/100)
 	if(verdbolga == 0): 		#verðbólga núna
 		vb = 0.02
 	elif(verdbolga == 5): 		#verðbólga 5 ár
@@ -24,7 +24,7 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga):
 			
 		
 	
-#verðbólgan er harðkóðuð
+#verðbólgan er harðkóðuð því við erum ekki búin að ná í alvöru gögnun
 #verdbolga = 0	gefur verðbólguna núna => 2%
 #verdbolga = 5	gefur meðaltal síðustu 5 ár => 4%
 #verdbolga = 10	gefur meðaltal síðustu 10 ár => 6%
@@ -156,7 +156,7 @@ def verdGreidslur(H, n, v, vb):
 		if(vb <= 0):
 			overdGreidslur(H, n, v)
 		elif(v <= 0): 
-			verdAfborganir(H, n, 0, vb)	###### ATH
+			verdAfborganir(H, n, 0, vb)
 		else:
 			A = H*((v*(1+v)**n)/(((1+v)**n)-1))
 			temp(H, n, v, vb)
