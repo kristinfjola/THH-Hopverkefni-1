@@ -124,7 +124,7 @@ class MainPage(wx.Panel):
             self.Bind(wx.EVT_RADIOBOX, self.jafnar_lana, object.__getattribute__(self, jafnar))
 
         # sparnaðar input
-        self.umframgr_ = wx.TextCtrl(self, size = (120,20))
+        self.umframgr_ = wx.TextCtrl(self, size = (270,20))
         grid2.Add(self.umframgr_, pos=(0,1))
         self.Bind(wx.EVT_TEXT, self._umframgreidsla, self.umframgr_)
         
