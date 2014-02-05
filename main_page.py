@@ -40,9 +40,9 @@ class MainPage(wx.Panel):
         self.timabilLana = wx.StaticText(self, label="Tímabil")
         grid.Add(self.timabilLana, pos=(0,6))
 
-        self.verdtryggtLan = wx.StaticText(self, label="Verðtryggt/óverðtryggt")
+        self.verdtryggtLan = wx.StaticText(self, label="Óverðtryggt/Verðtryggt")
         grid.Add(self.verdtryggtLan, pos=(0,8))
-
+	
         self.greidslutypa = wx.StaticText(self, label="Jafnar greiðslur/jafnar afborganir")
         grid.Add(self.greidslutypa, pos=(0,9))
         
@@ -60,7 +60,7 @@ class MainPage(wx.Panel):
         
         
 		
-        self.radioListVerdtrygging = ['Verðtryggt', 'Óverðtryggt']
+        self.radioListVerdtrygging = ['Óverðtryggt', 'Verðtryggt']
         self.radioListJafnar = ['Greiðslur', 'Afborganir']
         self.dropdown = ['ekki bundin', '3 mánuðir', '6 mánuðir', '9 mánuðir', '12 mánuðir']
         self.verdbolga_ = ['seinustu 15 ár', 'seinustu 10 ár', 'seinustu 5 ár', 'núna']
@@ -106,11 +106,11 @@ class MainPage(wx.Panel):
             grid.Add(object.__getattribute__(self, timabilLans), pos=(i,6), flag=wx.TOP, border=17)
             self.Bind(wx.EVT_TEXT, self.timabil_lana, object.__getattribute__(self, timabilLans))
 
-            # mánuðir - self.manudiri
-            manudir = 'manudir' + str(i)
-            setattr(self, manudir, wx.StaticText(self, label='mán.'))
-            grid.Add(object.__getattribute__(self, manudir), pos=(i,7), flag=wx.TOP, border=17)
-
+           # ar - self.ari
+            ar = 'ar' + str(i)
+            setattr(self, ar, wx.StaticText(self, label='ár'))
+            grid.Add(object.__getattribute__(self, ar), pos=(i,7), flag=wx.TOP, border=17)
+			
             # radio buttons fyrir verðtryggingu - self.verdtryggingi
             verdtrygging = 'verdtrygging' + str(i)
             setattr(self, verdtrygging, wx.RadioBox(self, choices=self.radioListVerdtrygging))
@@ -144,6 +144,9 @@ class MainPage(wx.Panel):
         self.reiknaLan = wx.Button(self, label="Reikna lán")
         self.Bind(wx.EVT_BUTTON, self.reikna_lan, self.reiknaLan)
         mainSizer.Add(self.reiknaLan, 0, wx.ALL, 5)
+
+        # upphafsstilla allar breytur sem 0
+        self.lan1_upph = self.lan2_upph = self.lan3_upph = self.lan1_vextir = self.lan2_vextir = self.lan3_vextir = self.lan1_greidslubyrgdi = self.lan2_greidslubyrgdi = self.lan3_greidslubyrgdi = self.lan1_timabil = self.lan2_timabil = self.lan3_timabil =  self.lan1_verdtrygging =  self.lan2_verdtrygging =  self.lan3_verdtrygging = self.lan1_jafnar = self.lan2_jafnar = self.lan3_jafnar = 0
 
         self.SetSizerAndFit(mainSizer)
         
@@ -223,7 +226,7 @@ class MainPage(wx.Panel):
         self.verdSparn = event.GetInt()
 
     def reikna_lan(self, event):
-        #lan_v.lan(self.lan1_upph, lan1_vextir, lan1_greidslubyrgdi
+        #lan_v.lan(self.lan1_upph, self.lan1_vextir, self.lan1_greidslubyrgdi, self.lan1_timabil, self.lan1_verdtrygging, self.lan1_jafnar, self.verdbolga) 
         print('reikna lán :D')
 
     def reikna_sparnad(self, event):
