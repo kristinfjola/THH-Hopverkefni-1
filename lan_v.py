@@ -41,7 +41,6 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga):
 # Notkun: overdAfborganir(höfuðstóll, fjöldi ára, vextir(%))
 def overdAfborganir(H, n, v):
 	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir'
-	print '--------------'
 	if(n == 0):
 		afb = 0
 	else:
@@ -60,15 +59,13 @@ def overdAfborganir(H, n, v):
 			summa = summa + greidsla
 	for i in range(0, len(stodur)):
 		print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(abs(round(stodur[i])))
-	print '***'
-	print '***'
+	print '--------------'
 
 
 # Verðtryggt, jafnar afborganir, verðbólga alltaf sú sama, reiknað árlega (er ennþá að vinna í þessu, ég gerði bara (vextir+verðbólga))
 # Noktun: verdAfborganir(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%))
 def verdAfborganir(H, n, v, vb):
 	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir og verðbólgu ' + str(vb*100) + '%'
-	print '--------------'
 	if(n == 0):
 		afb = 0
 	else:
@@ -87,8 +84,7 @@ def verdAfborganir(H, n, v, vb):
 			summa = summa + greidsla
 	for i in range(0, len(stodur)):
 		print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(abs(round(stodur[i])))
-	print '***'
-	print '***'
+	print '--------------'
 		
 
 # Óverðtryggt, jafnar greiðslur, reiknað árlega
@@ -96,7 +92,6 @@ def verdAfborganir(H, n, v, vb):
 def overdGreidslur(H, n, v):
 	def temp(H, n, v):
 		print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir'
-		print '--------------'
 		import math
 		greidsla = math.ceil(A*10)/10
 		stodur = []
@@ -114,8 +109,7 @@ def overdGreidslur(H, n, v):
 				summa = summa + greidsla
 		for i in range(0, len(stodur)):
 			print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(abs(round(stodur[i])))
-		print '***'
-		print '***'
+		print '--------------'
 	if(n <= 0):
 		A = 0
 		temp(H, n, v)
@@ -132,7 +126,6 @@ def overdGreidslur(H, n, v):
 def verdGreidslur(H, n, v, vb):
 	def temp(H, n, v, vb):
 		print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir og verðbólgu ' + str(vb*100) + '%'
-		print '--------------'
 		stodur = []
 		eftirs = H
 		greidsla = A
@@ -150,8 +143,7 @@ def verdGreidslur(H, n, v, vb):
 				summa = summa + greidsla
 		for i in range(0, len(stodur)):
 			print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(abs(round(stodur[i])))
-		print '***'
-		print '***'
+		print '--------------'
 			
 	if(n <= 0):
 		A = 0
