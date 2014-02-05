@@ -9,6 +9,30 @@
 ##summa = heildarupphæð á tímapunkti á reikningi
 import math
 
+v = 0.05  ##erum ekki enn með reikninga til þess að velja svo allir vextir eru bara 5% atm
+man = TRUE
+
+##Notkun: spar(Umframgreiðsla, mánuðir sparað, verðbólga síðustu x mánaða, verðtryggt,  )
+def spar(L, nt, verdb, verdtrygg, man = TRUE):
+	if verdb == 0:
+		vb = 0.02
+	elif verdb == 5:
+		vb = 0.04
+	elif verdb == 10:
+		vb = 0.06
+	elif verdb == 15:
+		vb = 0.08
+
+	if verdtrygg == 1:
+		if man == 1:
+			verdtryggtMan(L, nt, v, vb)
+		else:
+			verdtryggtArs(L, nt, v, vb)
+	else:
+		if man == 1:
+			overdtryggtMan(L, nt, v)
+		else:
+			overdtryggtArs(L, nt, v)
 
 
 
@@ -27,9 +51,10 @@ def overdtryggtMan(L, nt, v):
 		stada = (summa * (1 + (v/12)))
 		summa = math.ceil(stada)
 		stodur.append(summa)
-		print "Óverðtryggt, vextir greiddir mánaðalega"
-	for i in range(0, len(stodur)):
-		print stodur[i]
+	print "Óverðtryggt, vextir greiddir mánaðalega"
+	print str(stodur[0]) + " er innistæða í upphafi 1. mánaðar"
+	for i in range(1, len(stodur)):
+		print str(stodur[i]) + " er innistæða eftir " + str(i) + " mánuði"
 
 
 #Verðtryggt, vextir og verðbætur borgaðar mánaðalega (verðbólga sú sama allt árið)
@@ -42,9 +67,10 @@ def verdtryggtMan(L, nt, v, vb):
 		stada = (summa * ((1+(v/12))*(1+(vb/12))))
 		summa = math.ceil(stada)
 		stodur.append(summa)
-		print "Verðtryggt, vextir greiddir mánaðalega"
-	for i in range(0, len(stodur)):
-		print stodur[i]
+	print "Verðtryggt, vextir greiddir mánaðalega"
+	print str(stodur[0]) + " er innistæða í upphafi 1. mánaðar"
+	for i in range(1, len(stodur)):
+		print str(stodur[i]) + " er innistæða eftir " + str(i) + "mánuð"
 
 
 
@@ -83,11 +109,12 @@ def verdtryggtArs(L, nt, v, vb):
 	for i in range(0,nt):
 		summa = summa + L
 		vextir.append((summa * ((1+(v/12))*(1+(vb/12))))-summa)
-		if i == 11:
+		if i%11 == 0 and i != 0:
 			stodur.append(summa + sum(vextir))
+			summa = summa + sum(vextir)
 			print "Verðtryggt, vextir og verðbætur borgaðar 31. des"
 		else:
 			stodur.append(math.ceil(summa))
 	for i in range(0, len(stodur)):
 		print stodur[i]
-	print sum(vextir)			##Heildarvextir og verðbætur sem greiddar eru út í árslok
+	print "Vextir og verðbætur á þessu tímabili eru "+ sum(vextir)			##Heildarvextir og verðbætur sem greiddar eru út í árslok
