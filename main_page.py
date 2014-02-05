@@ -46,25 +46,29 @@ class MainPage(wx.Panel):
 	
         self.greidslutypa = wx.StaticText(self, label="Jafnar greiðslur/jafnar afborganir")
         grid.Add(self.greidslutypa, pos=(0,9))
-        
-        self.umframgreidsla = wx.StaticText(self, label="Umframgreiðsla")
+
+        # labels � sparna�
+        self.umframgreidsla = wx.StaticText(self, label="Umframgrei�sla � m�nu�i")
         grid2.Add(self.umframgreidsla, pos=(0,0))
+
+        self.umframgreidsla = wx.StaticText(self, label="Hvernig sparna�arreikning?")
+        grid2.Add(self.umframgreidsla, pos=(1,0), flag=wx.TOP, border=10)
         
-        self.timabil = wx.StaticText(self, label="Innistæða bundin í:")
-        grid2.Add(self.timabil, pos=(0,2))
+        self.timabil = wx.StaticText(self, label="Innist��a m� vera bundin �:")
+        grid2.Add(self.timabil, pos=(2,4), flag=wx.TOP, border=17)
         
         self.verdb = wx.StaticText(self, label="Tímabil verðbólgu:")
-        grid2.Add(self.verdb, pos=(1,2))
+        grid2.Add(self.verdb, pos=(2,2), flag=wx.TOP, border=17)
         
         self.verdtrSparn = wx.StaticText(self, label="Ég vil sparnaðinn:")
-        grid2.Add(self.verdtrSparn, pos=(1,0))
+        grid2.Add(self.verdtrSparn, pos=(2,0), flag=wx.TOP, border=17)
         
         
 		
         self.radioListVerdtrygging = ['Óverðtryggt', 'Verðtryggt']
         self.radioListJafnar = ['Greiðslur', 'Afborganir']
         self.dropdown = ['ekki bundin', '3 mánuðir', '6 mánuðir', '9 mánuðir', '12 mánuðir']
-        self.verdbolga_ = ['seinustu 15 ár', 'seinustu 10 ár', 'seinustu 5 ár', 'núna']
+        self.verdbolga_ = ['seinustu 15 ár', 'seinustu 10 ár', 'seinustu 5 ár', 'nuna']
         self.radioList2 = ['Óverðtryggðan', 'Verðtryggðan']
         
         for i in range(1, 4):
@@ -130,15 +134,15 @@ class MainPage(wx.Panel):
         self.Bind(wx.EVT_TEXT, self._umframgreidsla, self.umframgr_)
         
         self.timab = wx.ComboBox(self, choices=self.dropdown, style=wx.CB_READONLY)
-        grid2.Add(self.timab, pos=(0,3))
+        grid2.Add(self.timab, pos=(2,5), flag=wx.TOP, border=17)
         self.Bind(wx.EVT_COMBOBOX, self._timabil, self.timab)
         
         self.verdb = wx.ComboBox(self, choices=self.verdbolga_, style=wx.CB_READONLY)
-        grid2.Add(self.verdb, pos=(1,3))
+        grid2.Add(self.verdb, pos=(2,3), flag=wx.TOP, border=17)
         self.Bind(wx.EVT_COMBOBOX, self._verdbolga, self.verdb)
         
         self.verdSparn_ = wx.RadioBox(self, choices=self.radioList2)
-        grid2.Add(self.verdSparn_, pos=(1,1))
+        grid2.Add(self.verdSparn_, pos=(2,1))
         self.Bind(wx.EVT_RADIOBOX, self._verdtrSparn, self.verdSparn_)
         
         # reikna lán
@@ -225,23 +229,23 @@ class MainPage(wx.Panel):
         if(self.verdbolga == "nuna"):
         	self.verdbolga = 0
         else:
-        	self.verdbolga = self.verdbolga[9:-2]
+        	self.verdbolga = self.verdbolga[9:-4]
         
     def _verdtrSparn(self, event):
         self.verdSparn = event.GetInt()
 
     def reikna_lan(self, event):
         lan_v.lan(self.lan1_upph, self.lan1_vextir, self.lan1_greidslubyrgdi, self.lan1_timabil, self.lan1_verdtrygging, self.lan1_jafnar, self.verdbolga) 
+        lan_v.lan(self.lan2_upph, self.lan2_vextir, self.lan2_greidslubyrgdi, self.lan2_timabil, self.lan2_verdtrygging, self.lan2_jafnar, self.verdbolga) 
+        lan_v.lan(self.lan3_upph, self.lan3_vextir, self.lan3_greidslubyrgdi, self.lan3_timabil, self.lan3_verdtrygging, self.lan3_jafnar, self.verdbolga) 
 
     def reikna_sparnad(self, event):
-    	print 'reikna sparnad :D'
     	sparnadur1b.spar(self.umframgr, 12, self.verdbolga, self.verdSparn, 1)
-    	print(self.verdSparn)
         
 
 app = wx.App(False)
 frame = wx.Frame(None, title="Fyrsta útgáfa")
-frame.SetSize((900,500))
+frame.SetSize((950,500))
 panel = MainPage(frame)
 frame.Show()
 app.MainLoop()
