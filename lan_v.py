@@ -59,7 +59,7 @@ def overdAfborganir(H, n, v):
 			eftirs = eftirs - afb
 			summa = summa + greidsla
 	for i in range(0, len(stodur)):
-		print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(round(stodur[i]))
+		print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(abs(round(stodur[i])))
 	print '***'
 	print '***'
 
@@ -86,7 +86,7 @@ def verdAfborganir(H, n, v, vb):
 			eftirs = eftirs - afb
 			summa = summa + greidsla
 	for i in range(0, len(stodur)):
-		print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(round(stodur[i]))
+		print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(abs(round(stodur[i])))
 	print '***'
 	print '***'
 		
@@ -113,7 +113,7 @@ def overdGreidslur(H, n, v):
 				eftirs = eftirs - afb
 				summa = summa + greidsla
 		for i in range(0, len(stodur)):
-			print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(round(stodur[i]))
+			print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(abs(round(stodur[i])))
 		print '***'
 		print '***'
 	if(n <= 0):
@@ -149,7 +149,7 @@ def verdGreidslur(H, n, v, vb):
 				eftirs = eftirs - afb
 				summa = summa + greidsla
 		for i in range(0, len(stodur)):
-			print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(round(stodur[i]))	
+			print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(abs(round(stodur[i])))
 		print '***'
 		print '***'
 			
