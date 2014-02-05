@@ -10,8 +10,6 @@
 import math
 
 
-
-
 """Ef vextir eru borgaðir mánaðalega"""
 
 
@@ -24,6 +22,7 @@ def overdtryggtMan(L, nt, v):
 		stada = (summa * (1 + (v/12)))
 		summa = math.ceil(stada)
 		stodur.append(summa)
+		print "Óverðtryggt, vextir greiddir mánaðalega"
 	for i in range(0, len(stodur)):
 		print stodur[i]
 
@@ -37,6 +36,7 @@ def verdtryggtMan(L, nt, v, vb):
 		stada = (summa * ((1+(v/12))*(1+(vb/12))))
 		summa = math.ceil(stada)
 		stodur.append(summa)
+		print "Verðtryggt, vextir greiddir mánaðalega"
 	for i in range(0, len(stodur)):
 		print stodur[i]
 
@@ -57,6 +57,7 @@ def overdtryggtArs(L, nt, v):
 		vextir.append(summa * (v/12))
 		if i == 11:
 			stodur.append(summa+sum(vextir)) ##Ef það er 31.des, leggjum við vexti við summuna
+			print "Óverðtryggt, vextir borgaðir 31. des"
 		else:
 			stodur.append(math.ceil(summa))
 	for i in range(0, len(stodur)):
@@ -74,6 +75,7 @@ def verdtryggtArs(L, nt, v, vb):
 		vextir.append((summa * ((1+(v/12))*(1+(vb/12))))-summa)
 		if i == 11:
 			stodur.append(summa + sum(vextir))
+			print "Verðtryggt, vextir og verðbætur borgaðar 31. des"
 		else:
 			stodur.append(math.ceil(summa))
 	for i in range(0, len(stodur)):
