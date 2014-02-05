@@ -13,7 +13,6 @@
 import math
 
 v = 0.05  ##erum ekki enn með reikninga til þess að velja svo allir vextir eru bara 5% atm
-man = 1
 
 ##Notkun: spar(Umframgreiðsla, mánuðir sparað, verðbólga síðustu x mánaða, verðtryggt,  )
 def spar(L, nt, verdb, verdtrygg, man):
@@ -25,6 +24,8 @@ def spar(L, nt, verdb, verdtrygg, man):
 		vb = 0.06
 	elif verdb == 15:
 		vb = 0.08
+	else:
+		vb = 0.0
 
 	if verdtrygg == 1:
 		if man == 1:
