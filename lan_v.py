@@ -60,6 +60,8 @@ def overdAfborganir(H, n, v):
 			summa = summa + greidsla
 	for i in range(0, len(stodur)):
 		print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(round(stodur[i]))
+	print '***'
+	print '***'
 
 
 # Verðtryggt, jafnar afborganir, verðbólga alltaf sú sama, reiknað árlega (er ennþá að vinna í þessu, ég gerði bara (vextir+verðbólga))
@@ -85,6 +87,8 @@ def verdAfborganir(H, n, v, vb):
 			summa = summa + greidsla
 	for i in range(0, len(stodur)):
 		print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(round(stodur[i]))
+	print '***'
+	print '***'
 		
 
 # Óverðtryggt, jafnar greiðslur, reiknað árlega
@@ -110,6 +114,8 @@ def overdGreidslur(H, n, v):
 				summa = summa + greidsla
 		for i in range(0, len(stodur)):
 			print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(round(stodur[i]))
+		print '***'
+		print '***'
 	if(n <= 0):
 		A = 0
 		temp(H, n, v)
@@ -144,6 +150,8 @@ def verdGreidslur(H, n, v, vb):
 				summa = summa + greidsla
 		for i in range(0, len(stodur)):
 			print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(round(stodur[i]))	
+		print '***'
+		print '***'
 			
 	if(n <= 0):
 		A = 0
