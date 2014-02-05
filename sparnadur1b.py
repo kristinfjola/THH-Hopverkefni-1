@@ -1,3 +1,6 @@
+# -*- coding: cp1252 -*-
+# -*- coding: utf-8 -*-
+
 ##Kerfið reiknar framvindu óbreyts reiknings
 
 ##L = lagt fyrir á mánuði

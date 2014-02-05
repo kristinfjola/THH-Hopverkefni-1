@@ -1,3 +1,6 @@
+# -*- coding: cp1252 -*-
+# -*- coding: utf-8 -*-
+
 def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga):
 	if(verdbolga == 0): 		#verðbólga núna
 		vb = 0.02

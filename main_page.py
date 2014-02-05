@@ -1,7 +1,6 @@
-# -*- coding: cp1252 -*-
-# -*- coding: utf-8 -*-
 import wx
 import sparnadur1b
+import lan_v
 
 class MainPage(wx.Panel):
     def __init__(self, parent):
@@ -230,7 +229,7 @@ class MainPage(wx.Panel):
         self.verdSparn = event.GetInt()
 
     def reikna_lan(self, event):
-        #lan_v.lan(self.lan1_upph, self.lan1_vextir, self.lan1_greidslubyrgdi, self.lan1_timabil, self.lan1_verdtrygging, self.lan1_jafnar, self.verdbolga) 
+        lan_v.lan(self.lan1_upph, self.lan1_vextir, self.lan1_greidslubyrgdi, self.lan1_timabil, self.lan1_verdtrygging, self.lan1_jafnar, self.verdbolga) 
         print('reikna lán :D')
 
     def reikna_sparnad(self, event):
