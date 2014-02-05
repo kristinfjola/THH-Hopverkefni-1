@@ -15,13 +15,13 @@ class MainPage(wx.Panel):
 
 
         # fyrirsÃ¶gn
-        self.fyrirsogn = wx.StaticText(self, label="Hvað skal gera við péningana?")
+        self.fyrirsogn = wx.StaticText(self, label="Hvaï¿½ skal gera viï¿½ pï¿½ningana?")
         self.fyrirsognFont = wx.Font(16, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
         self.fyrirsogn.SetFont(self.fyrirsognFont)
         mainSizer.Add(self.fyrirsogn, flag=wx.ALL|wx.EXPAND, border=10)
 
-        # reikna sparnað
-        self.reiknaSparnad = wx.Button(self, label="Reikna sparnað")
+        # reikna sparnaï¿½
+        self.reiknaSparnad = wx.Button(self, label="Reikna sparnaï¿½")
         self.Bind(wx.EVT_BUTTON, self.reikna_sparnad, self.reiknaSparnad)
 
         mainSizer.Add(grid2, 0, wx.ALL, 5)
@@ -29,83 +29,83 @@ class MainPage(wx.Panel):
         mainSizer.Add(grid, 0, wx.ALL, 5)
 
         # labels Ã¡ lÃ¡n
-        self.stadaLana = wx.StaticText(self, label="Staða láns")    
+        self.stadaLana = wx.StaticText(self, label="Staï¿½a lï¿½ns")    
         grid.Add(self.stadaLana, pos=(0,0))
 
         self.vextir = wx.StaticText(self, label="Vextir")
         grid.Add(self.vextir, pos=(0,2))
 
-        self.greidslubyrgdi = wx.StaticText(self, label="Greiðslubyrgði")
+        self.greidslubyrgdi = wx.StaticText(self, label="Greiï¿½slubyrgï¿½i")
         grid.Add(self.greidslubyrgdi, pos=(0,4))
 
-        self.timabilLana = wx.StaticText(self, label="Tímabil")
+        self.timabilLana = wx.StaticText(self, label="Tï¿½mabil")
         grid.Add(self.timabilLana, pos=(0,6))
 
-        self.verdtryggtLan = wx.StaticText(self, label="Óverðtryggt/Verðtryggt")
+        self.verdtryggtLan = wx.StaticText(self, label="ï¿½verï¿½tryggt/Verï¿½tryggt")
         grid.Add(self.verdtryggtLan, pos=(0,8))
 	
-        self.greidslutypa = wx.StaticText(self, label="Jafnar greiðslur/jafnar afborganir")
+        self.greidslutypa = wx.StaticText(self, label="Jafnar greiï¿½slur/jafnar afborganir")
         grid.Add(self.greidslutypa, pos=(0,9))
 
-        # labels á sparnað
-        self.umframgreidsla = wx.StaticText(self, label="Umframgreiðsla á mánuði")
+        # labels ï¿½ sparnaï¿½
+        self.umframgreidsla = wx.StaticText(self, label="Umframgreiï¿½sla ï¿½ mï¿½nuï¿½i")
         grid2.Add(self.umframgreidsla, pos=(0,0))
 
-        self.umframgreidsla = wx.StaticText(self, label="Hvernig sparnaðarreikning?")
+        self.umframgreidsla = wx.StaticText(self, label="Hvernig sparnaï¿½arreikning?")
         grid2.Add(self.umframgreidsla, pos=(1,0), flag=wx.TOP, border=10)
         
-        self.timabil = wx.StaticText(self, label="Innistæða má vera bundin í:")
+        self.timabil = wx.StaticText(self, label="Innistï¿½ï¿½a mï¿½ vera bundin ï¿½:")
         grid2.Add(self.timabil, pos=(2,4), flag=wx.TOP, border=17)
         
-        self.verdb = wx.StaticText(self, label="Tímabil verðbólgu:")
+        self.verdb = wx.StaticText(self, label="Tï¿½mabil verï¿½bï¿½lgu:")
         grid2.Add(self.verdb, pos=(2,2), flag=wx.TOP, border=17)
         
-        self.verdtrSparn = wx.StaticText(self, label="Ég vil sparnaðinn:")
+        self.verdtrSparn = wx.StaticText(self, label="ï¿½g vil sparnaï¿½inn:")
         grid2.Add(self.verdtrSparn, pos=(2,0), flag=wx.TOP, border=17)
         
         
 		
-        self.radioListVerdtrygging = ['Óverðtryggt', 'Verðtryggt']
-        self.radioListJafnar = ['Greiðslur', 'Afborganir']
-        self.dropdown = ['ekki bundin', '3 mánuðir', '6 mánuðir', '9 mánuðir', '12 mánuðir']
-        self.verdbolga_ = ['seinustu 15 ár', 'seinustu 10 ár', 'seinustu 5 ár', 'nuna']
-        self.radioList2 = ['Óverðtryggðan', 'Verðtryggðan']
+        self.radioListVerdtrygging = ['ï¿½verï¿½tryggt', 'Verï¿½tryggt']
+        self.radioListJafnar = ['Greiï¿½slur', 'Afborganir']
+        self.dropdown = ['ekki bundin', '3 mï¿½nuï¿½ir', '6 mï¿½nuï¿½ir', '9 mï¿½nuï¿½ir', '12 mï¿½nuï¿½ir']
+        self.verdbolga_ = ['seinustu 15 ï¿½r', 'seinustu 10 ï¿½r', 'seinustu 5 ï¿½r', 'nuna']
+        self.radioList2 = ['ï¿½verï¿½tryggï¿½an', 'Verï¿½tryggï¿½an']
         
         for i in range(1, 4):
-            # innsláttur fyrir lán - self.lani
+            # innslï¿½ttur fyrir lï¿½n - self.lani
             lan = 'lan' + str(i)
             setattr(self, lan, wx.TextCtrl(self, size = (80,20)))  
             grid.Add(object.__getattribute__(self, lan), pos=(i,0), flag=wx.TOP, border=17)
             self.Bind(wx.EVT_TEXT, self.upphaed_lana, object.__getattribute__(self, lan))
             
-            # kr. merki fyrir lánsupphÃ¦ð - self.kronai1
+            # kr. merki fyrir lï¿½nsupphÃ¦ï¿½ - self.kronai1
             krona1 = 'krona' + str(i) + '1'
             setattr(self, krona1, wx.StaticText(self, label='kr.'))
             grid.Add(object.__getattribute__(self, krona1), pos=(i,1), flag=wx.TOP, border=17)
             
-            # innsláttur fyrir vexti - self.vextiri
+            # innslï¿½ttur fyrir vexti - self.vextiri
             vextir = 'vextir' + str(i)
             setattr(self, vextir, wx.TextCtrl(self, size = (50,20)))
             grid.Add(object.__getattribute__(self, vextir), pos=(i,2), flag=wx.TOP, border=17)
             self.Bind(wx.EVT_TEXT, self.vextir_lana, object.__getattribute__(self, vextir))
 
-            # prósentumerki - self.prosentai
+            # prï¿½sentumerki - self.prosentai
             prosenta = 'prosenta' + str(i)
             setattr(self, prosenta, wx.StaticText(self, label='%'))
             grid.Add(object.__getattribute__(self, prosenta), pos=(i,3), flag=wx.TOP, border=17)
 
-            # greiðslubyrgði - self.greidslubyrgdii
+            # greiï¿½slubyrgï¿½i - self.greidslubyrgdii
             greidslubyrgdi = 'greidslubyrgdi' + str(i)
             setattr(self, greidslubyrgdi, wx.TextCtrl(self, size = (80,20)))
             grid.Add(object.__getattribute__(self, greidslubyrgdi), pos=(i,4), flag=wx.TOP, border=17)
             self.Bind(wx.EVT_TEXT, self.greidslubyrgdi_lana, object.__getattribute__(self, greidslubyrgdi))
             
-            # kr. merki fyrir greiðslubyrgði - self.kronai2
+            # kr. merki fyrir greiï¿½slubyrgï¿½i - self.kronai2
             krona2 = 'krona' + str(i) + '2'
             setattr(self, krona2, wx.StaticText(self, label='kr.'))
             grid.Add(object.__getattribute__(self, krona2), pos=(i,5), flag=wx.TOP, border=17)
 
-            # tímabil láns - self.timabilLansi
+            # tï¿½mabil lï¿½ns - self.timabilLansi
             timabilLans = 'timabilLans' + str(i)
             setattr(self, timabilLans, wx.TextCtrl(self, size = (50,20)))
             grid.Add(object.__getattribute__(self, timabilLans), pos=(i,6), flag=wx.TOP, border=17)
@@ -113,22 +113,22 @@ class MainPage(wx.Panel):
 
            # ar - self.ari
             ar = 'ar' + str(i)
-            setattr(self, ar, wx.StaticText(self, label='ár'))
+            setattr(self, ar, wx.StaticText(self, label='ï¿½r'))
             grid.Add(object.__getattribute__(self, ar), pos=(i,7), flag=wx.TOP, border=17)
 			
-            # radio buttons fyrir verðtryggingu - self.verdtryggingi
+            # radio buttons fyrir verï¿½tryggingu - self.verdtryggingi
             verdtrygging = 'verdtrygging' + str(i)
             setattr(self, verdtrygging, wx.RadioBox(self, choices=self.radioListVerdtrygging))
             grid.Add(object.__getattribute__(self, verdtrygging), pos=(i,8), flag=wx.FIXED_MINSIZE | wx.ALIGN_TOP)
             self.Bind(wx.EVT_RADIOBOX, self.verdtrygging_lana, object.__getattribute__(self, verdtrygging))
 
-            # radio buttons fyrir jafnar greiðslur/jafnar afborganir
+            # radio buttons fyrir jafnar greiï¿½slur/jafnar afborganir
             jafnar = 'jafnar' + str(i)
             setattr(self, jafnar, wx.RadioBox(self, choices=self.radioListJafnar))
             grid.Add(object.__getattribute__(self, jafnar), pos=(i,9), flag=wx.FIXED_MINSIZE | wx.ALIGN_TOP)
             self.Bind(wx.EVT_RADIOBOX, self.jafnar_lana, object.__getattribute__(self, jafnar))
 
-        # sparnaðar input
+        # sparnaï¿½ar input
         self.umframgr_ = wx.TextCtrl(self, size = (270,20))
         grid2.Add(self.umframgr_, pos=(0,1))
         self.Bind(wx.EVT_TEXT, self._umframgreidsla, self.umframgr_)
@@ -145,8 +145,8 @@ class MainPage(wx.Panel):
         grid2.Add(self.verdSparn_, pos=(2,1))
         self.Bind(wx.EVT_RADIOBOX, self._verdtrSparn, self.verdSparn_)
         
-        # reikna lán
-        self.reiknaLan = wx.Button(self, label="Reikna lán")
+        # reikna lï¿½n
+        self.reiknaLan = wx.Button(self, label="Reikna lï¿½n")
         self.Bind(wx.EVT_BUTTON, self.reikna_lan, self.reiknaLan)
         mainSizer.Add(self.reiknaLan, 0, wx.ALL, 5)
 
@@ -229,7 +229,7 @@ class MainPage(wx.Panel):
         if(self.verdbolga == "nuna"):
         	self.verdbolga = 0
         else:
-        	self.verdbolga = self.verdbolga[9:-4]
+        	self.verdbolga = int(self.verdbolga[9:-4])
         
     def _verdtrSparn(self, event):
         self.verdSparn = event.GetInt()
@@ -244,7 +244,7 @@ class MainPage(wx.Panel):
         
 
 app = wx.App(False)
-frame = wx.Frame(None, title="Fyrsta útgáfa")
+frame = wx.Frame(None, title="Fyrsta ï¿½tgï¿½fa")
 frame.SetSize((950,500))
 panel = MainPage(frame)
 frame.Show()
