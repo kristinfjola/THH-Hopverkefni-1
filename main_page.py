@@ -119,19 +119,19 @@ class MainPage(wx.Panel):
             self.Bind(wx.EVT_RADIOBOX, self.jafnar_lana, object.__getattribute__(self, jafnar))
 
         self.umframgr = wx.TextCtrl(self, size = (120,20))
-        grid.Add(self.umframgr, pos=(5,6))
+        grid2.Add(self.umframgr, pos=(0,1))
         self.Bind(wx.EVT_TEXT, self._umframgreidsla, self.umframgr)
         
         self.timab = wx.ComboBox(self, choices=self.dropdown, style=wx.CB_READONLY)
-        grid.Add(self.timab, pos=(7,6))
+        grid2.Add(self.timab, pos=(0,3))
         self.Bind(wx.EVT_COMBOBOX, self._timabil, self.timab)
         
         self.verdb = wx.ComboBox(self, choices=self.verdbolga, style=wx.CB_READONLY)
-        grid.Add(self.verdb, pos=(9,6))
+        grid2.Add(self.verdb, pos=(1,3))
         self.Bind(wx.EVT_COMBOBOX, self._verdbolga, self.verdb)
         
         self.verdSparn = wx.RadioBox(self, choices=self.radioList2)
-        grid.Add(self.verdSparn, pos=(11,6))
+        grid2.Add(self.verdSparn, pos=(1,1))
         self.Bind(wx.EVT_RADIOBOX, self._verdtrSparn, self.verdSparn)
         
         self.SetSizerAndFit(mainSizer)
