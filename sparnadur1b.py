@@ -14,8 +14,8 @@ import math
 
 v = 0.05  ##erum ekki enn með reikninga til þess að velja svo allir vextir eru bara 5% atm
 
-##Notkun: spar(Umframgreiðsla, mánuðir sparað, verðbólga síðustu x mánaða, verðtryggt,  )
-def spar(L, nt, verdb, verdtrygg, man):
+##Notkun: spar(Umframgreiðsla, mánuðir sparað, verðbólga síðustu x mánaða, verðtryggt,  vextir borgaðir mánaðalega eða árlega)
+def spar(L, nt, verdb, verdtrygg, man): ##Núna er ekki hægt að velja í GUI-inu mánaðalega eða árlega vexti, svo mánaðalegir eru default
 	if verdb == 0:
 		vb = 0.02
 	elif verdb == 5:
@@ -74,13 +74,13 @@ def verdtryggtMan(L, nt, v, vb):
 	print "Verðtryggt, vextir greiddir mánaðalega"
 	print str(stodur[0]) + " er innistæða í upphafi 1. mánaðar"
 	for i in range(1, len(stodur)):
-		print str(stodur[i]) + " er innistæða eftir " + str(i) + "mánuð"
+		print str(stodur[i]) + " er innistæða eftir " + str(i) + " mánuði"
 
 
 
 
 
-"""Ef vextir eru borgaðir í árslok"""
+"""Ef vextir eru borgaðir í árslok-----Þessi föll eru ekki notuð í GUI fyrstu ítrun"""
 
 
 
@@ -88,6 +88,7 @@ def verdtryggtMan(L, nt, v, vb):
 #Óverðtryggt, vextir borgaðir 31.des
 #Notkun: overdtryggtArs(Lagt fyrir á mán, fjöldi mánaða, vextir)
 def overdtryggtArs(L, nt, v):
+	print "Óverðtryggt, vextir greiddir árlega"
 	summa = 0
 	stodur = [L]
 	vextir = []
@@ -96,17 +97,18 @@ def overdtryggtArs(L, nt, v):
 		vextir.append(summa * (v/12))
 		if i == 11:
 			stodur.append(summa+sum(vextir)) ##Ef það er 31.des, leggjum við vexti við summuna
-			print "Óverðtryggt, vextir borgaðir 31. des"
 		else:
 			stodur.append(math.ceil(summa))
-	for i in range(0, len(stodur)):
-		print stodur[i]
+	print str(stodur[0])+ " innistæða í upphafi 1. mánaðar"
+	for i in range(1, len(stodur)):
+		print str(stodur[i]) + " er innistæða eftir " + str(i) + " mánuði" 
 	print sum(vextir) 			##Heildarvextir sem greiddir eru út í árslok
 
 
 #Verðtryggt, vextir og verðbætur borgað 31.des (verðbólga sú sama út allt árið)
 #Notkun: verdtryggtArs(Lagt fyrir á mán, fjöldi mánaða, vextir, verðbólga/bætur)
 def verdtryggtArs(L, nt, v, vb):
+	print "Verðtryggt, vextir og verð greiddar árlega"
 	summa = 0
 	stodur = [L]
 	vextir = []
@@ -116,9 +118,9 @@ def verdtryggtArs(L, nt, v, vb):
 		if i%11 == 0 and i != 0:
 			stodur.append(summa + sum(vextir))
 			summa = summa + sum(vextir)
-			print "Verðtryggt, vextir og verðbætur borgaðar 31. des"
 		else:
 			stodur.append(math.ceil(summa))
-	for i in range(0, len(stodur)):
-		print stodur[i]
+	print str(stodur[0]) + " innistæða í upphafi 1. mánaðar"
+	for i in range(1, len(stodur)):
+		print str(stodur[i]) + " er innistæða eftir " + str(i) + " mánuði" 
 	print "Vextir og verðbætur á þessu tímabili eru "+ sum(vextir)			##Heildarvextir og verðbætur sem greiddar eru út í árslok
