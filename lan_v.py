@@ -40,7 +40,6 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga):
 # Óverðtryggt, jafnar afborganir, reiknað árlega
 # Notkun: overdAfborganir(höfuðstóll, fjöldi ára, vextir(%))
 def overdAfborganir(H, n, v):
-	print 'Verðtryggt lán með jöfnum afborgunum:'
 	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir'
 	print '--------------'
 	if(n == 0):
@@ -66,7 +65,6 @@ def overdAfborganir(H, n, v):
 # Verðtryggt, jafnar afborganir, verðbólga alltaf sú sama, reiknað árlega (er ennþá að vinna í þessu, ég gerði bara (vextir+verðbólga))
 # Noktun: verdAfborganir(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%))
 def verdAfborganir(H, n, v, vb):
-	print 'Verðtryggt lán með jöfnum afborgunum:'
 	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir og verðbólgu ' + str(vb*100) + '%'
 	print '--------------'
 	if(n == 0):
@@ -93,7 +91,6 @@ def verdAfborganir(H, n, v, vb):
 # Notkun: overdGreidslur(höfuðstóll, fjöldi ára, vextir(%))
 def overdGreidslur(H, n, v):
 	def temp(H, n, v):
-		print 'Óverðtryggt lán með jöfnum greiðslum:'
 		print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir'
 		print '--------------'
 		import math
@@ -128,7 +125,6 @@ def overdGreidslur(H, n, v):
 # Notkun: verdGreidslur(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%))	
 def verdGreidslur(H, n, v, vb):
 	def temp(H, n, v, vb):
-		print 'Verðtryggt lán með jöfnum greiðslum:'
 		print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir og verðbólgu ' + str(vb*100) + '%'
 		print '--------------'
 		stodur = []
