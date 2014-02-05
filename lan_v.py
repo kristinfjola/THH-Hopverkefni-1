@@ -1,7 +1,3 @@
-##lan_v.py
-# def lan(lan_upph, lan_vextir, lan_verdbolga, lan_greidslubyrgdi, lan_timabil, lan_verdtrygging, lan_jafnar):
-an_v.lan(self.lan1_upph, self.lan1_vextir, self.lan1_greidslubyrgdi, self.lan1_timabil, self.lan1_verdtrygging, self.lan1_jafnar, self.verdbolga)
-
 def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga)
 	if(verdbolga == 0): 		#verðbólga núna
 		vb = 0.02
