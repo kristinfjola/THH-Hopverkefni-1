@@ -1,6 +1,7 @@
 # -*- coding: cp1252 -*-
 # -*- coding: utf-8 -*-
 import wx
+import sparnadur1b
 
 class MainPage(wx.Panel):
     def __init__(self, parent):
@@ -230,7 +231,8 @@ class MainPage(wx.Panel):
         print('reikna lán :D')
 
     def reikna_sparnad(self, event):
-        print('reikna sparnað :D')
+    	print 'reikna sparnad :D'
+    	sparnadur1b.spar(self.umframgr, self.innist_bundin, self.verdbolga, self.verdSparn, 1)
         
 
 app = wx.App(False)
