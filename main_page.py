@@ -150,7 +150,7 @@ class MainPage(wx.Panel):
         self.lan1_upph = self.lan2_upph = self.lan3_upph = self.lan1_vextir = self.lan2_vextir = self.lan3_vextir = self.lan1_greidslubyrgdi = self.lan2_greidslubyrgdi = self.lan3_greidslubyrgdi = self.lan1_timabil = self.lan2_timabil = self.lan3_timabil =  self.lan1_verdtrygging =  self.lan2_verdtrygging =  self.lan3_verdtrygging = self.lan1_jafnar = self.lan2_jafnar = self.lan3_jafnar = self.umframgr = 0
         
         self.verdbolga = 15
-        self.verdSparn = 1
+        self.verdSparn = 0
         
         
         self.SetSizerAndFit(mainSizer)
@@ -235,7 +235,8 @@ class MainPage(wx.Panel):
 
     def reikna_sparnad(self, event):
     	print 'reikna sparnad :D'
-    	sparnadur1b.spar(self.umframgr, self.innist_bundin, self.verdbolga, self.verdSparn, 1)
+    	sparnadur1b.spar(self.umframgr, 12, self.verdbolga, self.verdSparn, 1)
+    	print(self.verdSparn)
         
 
 app = wx.App(False)
