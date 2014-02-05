@@ -79,7 +79,21 @@ verdSparn
 ##         Lán
 #########################
 
+# Óverðtryggt, jafnar afborganir, reiknað árlega
+# Notkun: overdAfborganir(höfuðstóll, fjöldi ára, vextir(%))
+def overdAfborganir(H, n, v):
 
+# Verðtryggt, jafnar afborganir, verðbólga alltaf sú sama, reiknað árlega (er ennþá að vinna í þessu, ég gerði bara (vextir+verðbólga))
+# Noktun: verdAfborganir(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%))
+def verdAfborganir(H, n, v, vb):
+
+# Óverðtryggt, jafnar greiðslur, reiknað árlega
+# Notkun: overdGreidslur(höfuðstóll, fjöldi ára, vextir(%))
+def overdGreidslur(H, n, v):
+
+# Verðtryggt, jafnar greiðslur, verðbólga alltaf sú sama, reiknað árlega (er í lagi ef eyjan.is	er ok)
+# Notkun: verdGreidslur(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%))	
+def verdGreidslur(H, n, v, vb):
 
 
 
