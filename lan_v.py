@@ -94,7 +94,7 @@ def overdGreidslur(H, n, v):
 	greidsla = math.ceil(A*10)/10 #námunda með einn aukastaf
 	stodur = []
 	def temp(vextir, afb, eftirs, summa):
-		if(eftirs <= 0):
+		if(round(eftirs) <= 0):
 			stodur.append(eftirs)
 			print 'Heildargreiðsla er: ' + str(round(summa))
 		else:
@@ -123,7 +123,7 @@ def verdGreidslur(H, n, v, vb):
 	A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))	
 	
 	def temp(eftirs, greidsla, summa):
-		if (round(eftirs) == 0):
+		if (round(eftirs) <= 0):
 			stodur.append(eftirs)
 			print 'Heildargreiðsla er: ' + str(round(summa))
 		else:
