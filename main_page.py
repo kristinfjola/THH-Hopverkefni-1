@@ -59,7 +59,7 @@ class MainPage(wx.Panel):
         self.radioListJafnar = ['Greiðslur', 'Afborganir']
         self.dropdown = ['ekki bundin', '3 mánuðir', '6 mánuðir', '9 mánuðir', '12 mánuðir']
         self.verdbolga = ['seinustu 15 ár', 'seinustu 10 ár', 'seinustu 5 ár', 'núna']
-        self.radioList2 = ['Verðtryggðan', 'Óverðtryggðan']
+        self.radioList2 = ['Óverðtryggðan', 'Verðtryggðan']
         
         for i in range(1, 4):
             # innsláttur fyrir lán - self.lani
