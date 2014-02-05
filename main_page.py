@@ -63,7 +63,7 @@ class MainPage(wx.Panel):
         self.radioListVerdtrygging = ['Verðtryggt', 'Óverðtryggt']
         self.radioListJafnar = ['Greiðslur', 'Afborganir']
         self.dropdown = ['ekki bundin', '3 mánuðir', '6 mánuðir', '9 mánuðir', '12 mánuðir']
-        self.verdbolga = ['seinustu 15 ár', 'seinustu 10 ár', 'seinustu 5 ár', 'núna']
+        self.verdbolga_ = ['seinustu 15 ár', 'seinustu 10 ár', 'seinustu 5 ár', 'núna']
         self.radioList2 = ['Óverðtryggðan', 'Verðtryggðan']
         
         for i in range(1, 4):
@@ -124,21 +124,21 @@ class MainPage(wx.Panel):
             self.Bind(wx.EVT_RADIOBOX, self.jafnar_lana, object.__getattribute__(self, jafnar))
 
         # sparnaðar input
-        self.umframgr = wx.TextCtrl(self, size = (120,20))
-        grid2.Add(self.umframgr, pos=(0,1))
-        self.Bind(wx.EVT_TEXT, self._umframgreidsla, self.umframgr)
+        self.umframgr_ = wx.TextCtrl(self, size = (120,20))
+        grid2.Add(self.umframgr_, pos=(0,1))
+        self.Bind(wx.EVT_TEXT, self._umframgreidsla, self.umframgr_)
         
         self.timab = wx.ComboBox(self, choices=self.dropdown, style=wx.CB_READONLY)
         grid2.Add(self.timab, pos=(0,3))
         self.Bind(wx.EVT_COMBOBOX, self._timabil, self.timab)
         
-        self.verdb = wx.ComboBox(self, choices=self.verdbolga, style=wx.CB_READONLY)
+        self.verdb = wx.ComboBox(self, choices=self.verdbolga_, style=wx.CB_READONLY)
         grid2.Add(self.verdb, pos=(1,3))
         self.Bind(wx.EVT_COMBOBOX, self._verdbolga, self.verdb)
         
-        self.verdSparn = wx.RadioBox(self, choices=self.radioList2)
-        grid2.Add(self.verdSparn, pos=(1,1))
-        self.Bind(wx.EVT_RADIOBOX, self._verdtrSparn, self.verdSparn)
+        self.verdSparn_ = wx.RadioBox(self, choices=self.radioList2)
+        grid2.Add(self.verdSparn_, pos=(1,1))
+        self.Bind(wx.EVT_RADIOBOX, self._verdtrSparn, self.verdSparn_)
         
         # reikna lán
         self.reiknaLan = wx.Button(self, label="Reikna lán")
@@ -213,11 +213,11 @@ class MainPage(wx.Panel):
         self.umframgr = int(event.GetString())
         	
     def _verdbolga(self, event):
-        self.verdb = event.GetString()
-        if(self.verdb == "nuna"):
-        	self.verdb = 0
+        self.verdbolga = event.GetString()
+        if(self.verdbolga == "nuna"):
+        	self.verdbolga = 0
         else:
-        	self.verdb = verdb[9:-2]
+        	self.verdbolga = self.verdbolga[9:-2]
         
     def _verdtrSparn(self, event):
         self.verdSparn = event.GetInt()
