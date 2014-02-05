@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga):
+        v = float(v/100)
 	if(verdbolga == 0): 		#verðbólga núna
 		vb = 0.02
 	elif(verdbolga == 5): 		#verðbólga 5 ár
