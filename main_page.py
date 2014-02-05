@@ -232,13 +232,6 @@ class MainPage(wx.Panel):
 
     def reikna_lan(self, event):
         lan_v.lan(self.lan1_upph, self.lan1_vextir, self.lan1_greidslubyrgdi, self.lan1_timabil, self.lan1_verdtrygging, self.lan1_jafnar, self.verdbolga) 
-        print('upph: ' + str(self.lan1_upph))
-        print('upph: ' + str(self.lan1_vextir))
-        print('upph: ' + str(self.lan1_greidslubyrgdi))
-        print('upph: ' + str(self.lan1_timabil))
-        print('upph: ' + str(self.lan1_verdtrygging))
-        print('upph: ' + str(self.lan1_jafnar))
-        print('upph: ' + str(self.verdbolga))
 
     def reikna_sparnad(self, event):
     	print 'reikna sparnad :D'
