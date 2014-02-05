@@ -1,4 +1,4 @@
-def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga)
+def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga):
 	if(verdbolga == 0): 		#verðbólga núna
 		vb = 0.02
 	elif(verdbolga == 5): 		#verðbólga 5 ár
@@ -44,7 +44,7 @@ def overdAfborganir(H, n, v):
 	def temp(greidsla, eftirs, summa):
 		if (eftirs == 0):
 			stodur.append(eftirs)
-			print 'Heildargreiðsla er: ' + str(rouns(summa))
+			print 'Heildargreiðsla er: ' + str(round(summa))
 		else:
 			stodur.append(eftirs)
 			#greidsla = afb + v*eftirs
