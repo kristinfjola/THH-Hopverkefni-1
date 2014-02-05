@@ -118,17 +118,21 @@ class MainPage(wx.Panel):
             grid.Add(object.__getattribute__(self, jafnar), pos=(i,9), flag=wx.FIXED_MINSIZE | wx.ALIGN_TOP)
             self.Bind(wx.EVT_RADIOBOX, self.jafnar_lana, object.__getattribute__(self, jafnar))
 
-        self.umframgr = wx.TextCtrl(self, size = (270,20))
-        grid2.Add(self.umframgr, pos=(0,1))
+        self.umframgr = wx.TextCtrl(self, size = (120,20))
+        grid.Add(self.umframgr, pos=(5,6))
+        self.Bind(wx.EVT_TEXT, self._umframgreidsla, self.umframgr)
         
         self.timab = wx.ComboBox(self, choices=self.dropdown, style=wx.CB_READONLY)
-        grid2.Add(self.timab, pos=(0,3))
+        grid.Add(self.timab, pos=(7,6))
+        self.Bind(wx.EVT_COMBOBOX, self._timabil, self.timab)
         
         self.verdb = wx.ComboBox(self, choices=self.verdbolga, style=wx.CB_READONLY)
-        grid2.Add(self.verdb, pos=(1,3))
+        grid.Add(self.verdb, pos=(9,6))
+        self.Bind(wx.EVT_COMBOBOX, self._verdbolga, self.verdb)
         
         self.verdSparn = wx.RadioBox(self, choices=self.radioList2)
-        grid2.Add(self.verdSparn, pos=(1,1))
+        grid.Add(self.verdSparn, pos=(11,6))
+        self.Bind(wx.EVT_RADIOBOX, self._verdtrSparn, self.verdSparn)
         
         self.SetSizerAndFit(mainSizer)
         
@@ -186,18 +190,26 @@ class MainPage(wx.Panel):
         if (widget == self.jafnar3):
             lan3_jafnar = event.GetInt()
 
-    def verdbolga(self, event):
-    	verdb = event.GetValue()
-    
-    def timabil(self, event):
-    	innist_bundin = event.GetValue()
-    	
-    
-    def umframgreidsla(self, event):
-    	umframgr = event.GetString()
-    
-    def verdtrSparn(self, event):
-    	verdSparn = event.GetString()
+    def _timabil(self, event):
+        innist_bundin = event.GetString()[:1]
+        if(innist_bundin == "1"):
+        	innist_bundin = "12"
+        if(innist_bundin == "e"):
+        	innist_bundin = 0
+        innist_bundin = int(innist_bundin)
+        
+    def _umframgreidsla(self, event):
+        umframgr = int(event.GetString())
+        	
+    def _verdbolga(self, event):
+        verdb = event.GetString()
+        if(verdb == "nuna"):
+        	verdb = 0
+        else:
+        	verdb = verdb[9:-2]
+        
+    def _verdtrSparn(self, event):
+        verdSparn = event.GetInt()
         
 
 app = wx.App(False)
