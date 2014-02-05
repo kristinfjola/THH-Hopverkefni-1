@@ -44,19 +44,17 @@ def overdAfborganir(H, n, v):
 	print '--------------'
 	afb = H/n
 	stodur = []
-	def temp(greidsla, eftirs, summa):
-		if (eftirs == 0):
+	eftirs = H
+	summa = 0
+	for i in range(0, n+1):
+		if (round(eftirs) == 0):
 			stodur.append(eftirs)
 			print 'Heildargreiðsla er: ' + str(round(summa))
 		else:
 			stodur.append(eftirs)
-			#greidsla = afb + v*eftirs
-			#eftirs = eftirs - afb
-			#summa = summa + greidsla
-			temp(afb + v*eftirs, eftirs - afb, summa + (afb + v*eftirs))
-	temp(0, H, 0)
-	
-	# Prenta stöðu lánsins á hverjum tíma t (checka hvort stodur[] virkar)
+			greidsla = afb + v*eftirs
+			eftirs = eftirs - afb
+			summa = summa + greidsla
 	for i in range(0, len(stodur)):
 		print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(round(stodur[i]))
 
@@ -69,19 +67,17 @@ def verdAfborganir(H, n, v, vb):
 	print '--------------'
 	afb = H/n
 	stodur = []
-	def temp(greidsla, eftirs, summa):
-		if (eftirs == 0):
+	eftirs = H
+	summa = 0
+	for i in range(0, n+1):
+		if (round(eftirs) == 0):
 			stodur.append(eftirs)
 			print 'Heildargreiðsla er: ' + str(round(summa))
 		else:
 			stodur.append(eftirs)
-			#greidsla = afb + (v+vb)*eftirs
-			#eftirs = eftirs - afb
-			#summa = summa + greidsla
-			temp(afb + (v+vb)*eftirs, eftirs - afb, summa + (afb + (v+vb)*eftirs))
-	temp(0, H, 0)
-	
-	# Prenta stöðu lánsins á hverjum tíma t (checka hvort stodur[] virkar)
+			greidsla = afb + (v+vb)*eftirs
+			eftirs = eftirs - afb
+			summa = summa + greidsla
 	for i in range(0, len(stodur)):
 		print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(round(stodur[i]))
 		
@@ -89,53 +85,71 @@ def verdAfborganir(H, n, v, vb):
 # Óverðtryggt, jafnar greiðslur, reiknað árlega
 # Notkun: overdGreidslur(höfuðstóll, fjöldi ára, vextir(%))
 def overdGreidslur(H, n, v):
-	print 'Óverðtryggt lán með jöfnum greiðslum:'
-	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir'
-	print '--------------'
-	import math
-	A = H*((v*(1+v)**n)/(((1+v)**n)-1))	#Jafna til að finna greiðslu
-	greidsla = math.ceil(A*10)/10 #námunda með einn aukastaf
-	stodur = []
-	def temp(vextir, afb, eftirs, summa):
-		if(round(eftirs) <= 0):
-			stodur.append(eftirs)
-			print 'Heildargreiðsla er: ' + str(round(summa))
+	def temp(H, n, v):
+		print 'Óverðtryggt lán með jöfnum greiðslum:'
+		print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir'
+		print '--------------'
+		import math
+		greidsla = math.ceil(A*10)/10
+		stodur = []
+		eftirs = H
+		summa = 0
+		for i in range(0, n+1):
+			if(round(eftirs) <= 0):
+				stodur.append(eftirs)
+				print 'Heildargreiðsla er: ' + str(round(summa))
+			else:
+				stodur.append(eftirs)
+				vextir = v*eftirs
+				afb = greidsla - vextir
+				eftirs = eftirs - afb
+				summa = summa + greidsla
+		for i in range(0, len(stodur)):
+			print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(round(stodur[i]))
+	if(n <= 0):
+		A = 0
+		temp(H, n, v)
+	else:
+		if(v <= 0):
+			overdAfborganir(H, n, 0)
 		else:
-			stodur.append(eftirs)
-			vextir = v*eftirs
-			afb = greidsla - vextir
-			eftirs = eftirs - afb
-			summa = summa + greidsla
-			temp(vextir, afb, eftirs, summa)
-	temp(0, 0, H, 0)
-	
-	# Prenta stöðu lánsins á hverjum tíma t (checka hvort stodur[] virkar)
-	for i in range(0, len(stodur)):
-		print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(round(stodur[i]))
+			A = H*((v*(1+v)**n)/(((1+v)**n)-1))
+			temp(H, n, v)
 
 		
 # Verðtryggt, jafnar greiðslur, verðbólga alltaf sú sama, reiknað árlega (er í lagi ef eyjan.is	er ok)
 # Notkun: verdGreidslur(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%))	
 def verdGreidslur(H, n, v, vb):
-	print 'Verðtryggt lán með jöfnum greiðslum:'
-	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir og verðbólgu ' + str(vb*100) + '%'
-	print '--------------'
-	vt = v 
-	nt = n 
-	stodur = []
-	A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))	
-	
-	def temp(eftirs, greidsla, summa):
-		if (round(eftirs) <= 0):
-			stodur.append(eftirs)
-			print 'Heildargreiðsla er: ' + str(round(summa))
+	def temp(H, n, v, vb):
+		print 'Verðtryggt lán með jöfnum greiðslum:'
+		print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir og verðbólgu ' + str(vb*100) + '%'
+		print '--------------'
+		stodur = []
+		eftirs = H
+		greidsla = A
+		summa = 0
+		for i in range(0, n+1):
+			if (round(eftirs) <= 0):
+				stodur.append(eftirs)
+				print 'Heildargreiðsla er: ' + str(round(summa))
+			else:
+				stodur.append(eftirs)
+				eftirs = eftirs + vb*eftirs
+				greidsla = (1+vb)*greidsla
+				afb = greidsla - v*eftirs
+				eftirs = eftirs - afb
+				summa = summa + greidsla
+		for i in range(0, len(stodur)):
+			print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(round(stodur[i]))	
+			
+	if(n <= 0):
+		A = 0
+		temp(H, n, v, vb)
+	else:
+		if(vb <= 0):
+			overdGreidslur(H, n, v)
+		elif(v <= 0): 
+			verdAfborganir(H, n, 0, vb)	###### ATH
 		else:
-			stodur.append(eftirs)
-			eftirs = eftirs + vb*eftirs
-			greidsla = (1+vb)*greidsla
-			afb = greidsla - v*eftirs
-			temp(eftirs-afb, greidsla, summa+greidsla)
-	temp(H, A, 0)
-
-	for i in range(0, len(stodur)):
-		print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(round(stodur[i]))
+			A = H*((v*(1+v)**n)/(((1+v)**n)-1))
+			temp(H, n, v, vb)
