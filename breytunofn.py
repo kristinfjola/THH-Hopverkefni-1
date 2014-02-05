@@ -65,3 +65,49 @@ verdSparn
 
 
 #l�n-ver�trygg�/�ver�tryggt
+
+
+
+
+
+
+
+##Föll
+
+
+#########################
+##         Lán
+#########################
+
+
+
+
+
+
+
+
+#########################
+##     Sparnaður
+#########################
+
+"""Ef vextir eru borgaðir mánaðalega"""
+#Óverðtryggður, vextir greiddir mánaðalega
+#Notkun: overdtryggtMan(Lagt fyrir á mán, fjöldi mánaða, vextir)
+def overdtryggtMan(L, nt, v):
+
+
+#Verðtryggður, vextir og verðbætur borgaðar mánaðalega (verðbólga sú sama allt árið)
+#Notkun: verdtryggtMan(Lagt fyrir á mán, fjöldi mánaða, vextir, verðbólga/bætur)
+def verdtryggtMan(L, nt, v, vb):
+
+
+
+"""Ef vextir eru borgaðir í árslok"""
+#Óverðtryggður, vextir borgaðir 31.des
+#Notkun: overdtryggtArs(Lagt fyrir á mán, fjöldi mánaða, vextir)
+def overdtryggtArs(L, nt, v):
+
+
+#Verðtryggður, vextir og verðbætur borgaðar 31.des (verðbólga sú sama út allt árið)
+#Notkun: verdtryggtArs(Lagt fyrir á mán, fjöldi mánaða, vextir, verðbólga/bætur)
+def verdtryggtArs(L, nt, v, vb):

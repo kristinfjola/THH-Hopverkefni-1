@@ -10,10 +10,15 @@
 import math
 
 
+
+
 """Ef vextir eru borgaðir mánaðalega"""
 
 
+
+
 #Óverðtryggt, vextir greiddir mánaðalega
+#Notkun: overdtryggtMan(Lagt fyrir á mán, fjöldi mánaða, vextir)
 def overdtryggtMan(L, nt, v):
 	summa = 0
 	stodur = [L]
@@ -28,6 +33,7 @@ def overdtryggtMan(L, nt, v):
 
 
 #Verðtryggt, vextir og verðbætur borgaðar mánaðalega (verðbólga sú sama allt árið)
+#Notkun: verdtryggtMan(Lagt fyrir á mán, fjöldi mánaða, vextir, verðbólga/bætur)
 def verdtryggtMan(L, nt, v, vb):
 	summa = 0
 	stodur = [L]
@@ -47,7 +53,10 @@ def verdtryggtMan(L, nt, v, vb):
 """Ef vextir eru borgaðir í árslok"""
 
 
+
+
 #Óverðtryggt, vextir borgaðir 31.des
+#Notkun: overdtryggtArs(Lagt fyrir á mán, fjöldi mánaða, vextir)
 def overdtryggtArs(L, nt, v):
 	summa = 0
 	stodur = [L]
@@ -66,6 +75,7 @@ def overdtryggtArs(L, nt, v):
 
 
 #Verðtryggt, vextir og verðbætur borgað 31.des (verðbólga sú sama út allt árið)
+#Notkun: verdtryggtArs(Lagt fyrir á mán, fjöldi mánaða, vextir, verðbólga/bætur)
 def verdtryggtArs(L, nt, v, vb):
 	summa = 0
 	stodur = [L]
