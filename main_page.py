@@ -19,7 +19,12 @@ class MainPage(wx.Panel):
         self.fyrirsogn.SetFont(self.fyrirsognFont)
         mainSizer.Add(self.fyrirsogn, flag=wx.ALL|wx.EXPAND, border=10)
 
+        # reikna sparnað
+        self.reiknaSparnad = wx.Button(self, label="Reikna sparnað")
+        self.Bind(wx.EVT_BUTTON, self.reikna_sparnad, self.reiknaSparnad)
+
         mainSizer.Add(grid2, 0, wx.ALL, 5)
+        mainSizer.Add(self.reiknaSparnad, 0, wx.ALL, 5)
         mainSizer.Add(grid, 0, wx.ALL, 5)
 
         # labels á lán
@@ -118,6 +123,7 @@ class MainPage(wx.Panel):
             grid.Add(object.__getattribute__(self, jafnar), pos=(i,9), flag=wx.FIXED_MINSIZE | wx.ALIGN_TOP)
             self.Bind(wx.EVT_RADIOBOX, self.jafnar_lana, object.__getattribute__(self, jafnar))
 
+        # sparnaðar input
         self.umframgr = wx.TextCtrl(self, size = (120,20))
         grid2.Add(self.umframgr, pos=(0,1))
         self.Bind(wx.EVT_TEXT, self._umframgreidsla, self.umframgr)
@@ -134,82 +140,94 @@ class MainPage(wx.Panel):
         grid2.Add(self.verdSparn, pos=(1,1))
         self.Bind(wx.EVT_RADIOBOX, self._verdtrSparn, self.verdSparn)
         
+        # reikna lán
+        self.reiknaLan = wx.Button(self, label="Reikna lán")
+        self.Bind(wx.EVT_BUTTON, self.reikna_lan, self.reiknaLan)
+        mainSizer.Add(self.reiknaLan, 0, wx.ALL, 5)
+
         self.SetSizerAndFit(mainSizer)
         
     def upphaed_lana(self, event):
         widget = event.GetEventObject()
         if (widget == self.lan1):
-            lan1_upph = event.GetString()
+            self.lan1_upph = event.GetString()
         if (widget == self.lan2):
-            lan2_upph = event.GetString()
+            self.lan2_upph = event.GetString()
         if (widget == self.lan3):
-            lan3_upph = event.GetString()
+            self.lan3_upph = event.GetString()
 
     def vextir_lana(self, event):
         widget = event.GetEventObject()
         if (widget == self.vextir1):
-            lan1_vextir = event.GetString()
+            self.lan1_vextir = event.GetString()
         if (widget == self.vextir2):
-            lan2_vextir = event.GetString()
+            self.lan2_vextir = event.GetString()
         if (widget == self.vextir3):
-            lan3_vextir = event.GetString()
+            self.lan3_vextir = event.GetString()
 
     def greidslubyrgdi_lana(self, event):
         widget = event.GetEventObject()
         if (widget == self.greidslubyrgdi1):
-            lan1_greidslubyrgdi = event.GetString()
+            self.lan1_greidslubyrgdi = event.GetString()
         if (widget == self.greidslubyrgdi2):
-            lan2_greidslubyrgdi = event.GetString()
+            self.lan2_greidslubyrgdi = event.GetString()
         if (widget == self.greidslubyrgdi3):
-            lan3_greidslubyrgdi = event.GetString()
+            self.lan3_greidslubyrgdi = event.GetString()
 
     def timabil_lana(self, event):
         widget = event.GetEventObject()
         if (widget == self.timabilLans1):
-            lan1_timabil = event.GetString()
+            self.lan1_timabil = event.GetString()
         if (widget == self.timabilLans2):
-            lan2_timabil = event.GetString()
+            self.lan2_timabil = event.GetString()
         if (widget == self.timabilLans3):
-            lan3_timabil = event.GetString()
+            self.lan3_timabil = event.GetString()
 
     def verdtrygging_lana(self, event):
         widget = event.GetEventObject()
         if (widget == self.verdtrygging1):
-            lan1_verdtrygging = event.GetString()
+            self.lan1_verdtrygging = event.GetString()
         if (widget == self.verdtrygging2):
-            lan2_verdtrygging = event.GetString()
+            self.lan2_verdtrygging = event.GetString()
         if (widget == self.verdtrygging3):
-            lan3_verdtrygging = event.GetString()
-            
+            self.lan3_verdtrygging = event.GetString()
+
     def jafnar_lana(self, event):
         widget = event.GetEventObject()
         if (widget == self.jafnar1):
-            lan1_jafnar = event.GetInt()
+            self.lan1_jafnar = event.GetInt()
         if (widget == self.jafnar2):
-            lan2_jafnar = event.GetInt()
+            self.lan2_jafnar = event.GetInt()
         if (widget == self.jafnar3):
-            lan3_jafnar = event.GetInt()
+            self.lan3_jafnar = event.GetInt()
 
     def _timabil(self, event):
-        innist_bundin = event.GetString()[:1]
-        if(innist_bundin == "1"):
-        	innist_bundin = "12"
-        if(innist_bundin == "e"):
-        	innist_bundin = 0
-        innist_bundin = int(innist_bundin)
+        self.innist_bundin = event.GetString()[:1]
+        if(self.innist_bundin == "1"):
+        	self.innist_bundin = "12"
+        if(self.innist_bundin == "e"):
+        	self.innist_bundin = 0
+        self.innist_bundin = int(self.innist_bundin)
         
     def _umframgreidsla(self, event):
-        umframgr = int(event.GetString())
+        self.umframgr = int(event.GetString())
         	
     def _verdbolga(self, event):
-        verdb = event.GetString()
-        if(verdb == "nuna"):
-        	verdb = 0
+        self.verdb = event.GetString()
+        if(self.verdb == "nuna"):
+        	self.verdb = 0
         else:
-        	verdb = verdb[9:-2]
+        	self.verdb = verdb[9:-2]
         
     def _verdtrSparn(self, event):
-        verdSparn = event.GetInt()
+        self.verdSparn = event.GetInt()
+
+    def reikna_lan(self, event):
+        #lan_v.lan(self.lan1_upph, lan1_vextir, lan1_greidslubyrgdi
+        print('reikna lán :D')
+
+    def reikna_sparnad(self, event):
+        print('reikna sparnað :D')
         
 
 app = wx.App(False)
