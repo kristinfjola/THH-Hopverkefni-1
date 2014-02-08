@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga):
-	v = float(v/100)
+	v = float(v)/100
 	if(verdbolga == 0): 		#verðbólga núna
 		vb = 0.02
 	elif(verdbolga == 5): 		#verðbólga 5 ár
@@ -21,10 +21,8 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga):
 			overdGreidslur(H, n, v)				#greiðslur, óverðtryggt
 		else:
 			verdGreidslur(H, n, v, vb)			#greiðslur, verðtryggt
-			
-		
-	
-#verðbólgan er harðkóðuð því við erum ekki búin að ná í alvöru gögnun
+
+
 #verdbolga = 0	gefur verðbólguna núna => 2%
 #verdbolga = 5	gefur meðaltal síðustu 5 ár => 4%
 #verdbolga = 10	gefur meðaltal síðustu 10 ár => 6%
@@ -36,123 +34,123 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga):
 #jafnar afborganir gefa jafnar = 1
 
 
-
-# Óverðtryggt, jafnar afborganir, reiknað árlega
+# Óverðtryggt, jafnar afborganir, reiknað mánaðarlega
 # Notkun: overdAfborganir(höfuðstóll, fjöldi ára, vextir(%))
 def overdAfborganir(H, n, v):
 	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir'
-	if(n == 0):
+	nt = n*12	#fjöldi mán
+	vt = float(v)/12	#vextur á mán
+	if(nt == 0):
 		afb = 0
 	else:
-		afb = H/n
-	stodur = []
+		afb = float(H)/nt
 	eftirs = H
 	summa = 0
-	for i in range(0, n+1):
-		if (round(eftirs) == 0):
-			stodur.append(eftirs)
-			print 'Heildargreiðsla er: ' + str(round(summa))
-		else:
-			stodur.append(eftirs)
-			greidsla = afb + v*eftirs
+	stodur = [eftirs]
+	for i in range(0, nt):
+		if (round(eftirs) != 0):
+			greidsla = afb + vt*eftirs
 			eftirs = eftirs - afb
 			summa = summa + greidsla
+			stodur.append(round(eftirs))
+	print 'Heildargreiðslan er: ' + str(round(summa)) + ' kr'
 	for i in range(0, len(stodur)):
-		print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(abs(round(stodur[i])))
+		print 'Eftirstaðan eftir ' + str(i) + ' mán er: '+ str(abs(stodur[i]))
 	print '--------------'
 
 
-# Verðtryggt, jafnar afborganir, verðbólga alltaf sú sama, reiknað árlega (er ennþá að vinna í þessu, ég gerði bara (vextir+verðbólga))
+# Verðtryggt, jafnar afborganir, verðbólga alltaf sú sama, reiknað mánaðarlega (er ennþá að vinna í þessu, ég gerði bara (vextir+verðbólga))
 # Noktun: verdAfborganir(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%))
 def verdAfborganir(H, n, v, vb):
-	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir og verðbólgu ' + str(vb*100) + '%'
+	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir og ' + str(vb*100) + '% verðbólgu'
+	nt = n*12	#fjöldi mán
+	vt = float(v)/12	#vextur á mán
+	vbt = float(vb)/12	#verðbólga á mán
 	if(n == 0):
 		afb = 0
 	else:
-		afb = H/n
-	stodur = []
+		afb = float(H)/nt
 	eftirs = H
 	summa = 0
-	for i in range(0, n+1):
-		if (round(eftirs) == 0):
-			stodur.append(eftirs)
-			print 'Heildargreiðsla er: ' + str(round(summa))
-		else:
-			stodur.append(eftirs)
-			greidsla = afb + (v+vb)*eftirs
+	stodur = [eftirs]
+	for i in range(0, nt):
+		if (round(eftirs) != 0):
+			greidsla = afb + (vt+vbt)*eftirs
 			eftirs = eftirs - afb
 			summa = summa + greidsla
+			stodur.append(round(eftirs))
+	print 'Heildargreiðslan er: ' + str(round(summa)) + ' kr'
 	for i in range(0, len(stodur)):
-		print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(abs(round(stodur[i])))
+		print 'Eftirstaðan eftir ' + str(i) + ' mán er: '+ str(abs(stodur[i]))
 	print '--------------'
-		
 
-# Óverðtryggt, jafnar greiðslur, reiknað árlega
+
+# Óverðtryggt, jafnar greiðslur, reiknað mánaðarlega
 # Notkun: overdGreidslur(höfuðstóll, fjöldi ára, vextir(%))
 def overdGreidslur(H, n, v):
+	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir'
+	nt = n*12	#fjöldi mán
+	vt = float(v)/12	#vextur á mán
 	def temp(H, n, v):
-		print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir'
-		import math
-		greidsla = math.ceil(A*10)/10
-		stodur = []
+		greidsla = A
 		eftirs = H
 		summa = 0
-		for i in range(0, n+1):
-			if(round(eftirs) <= 0):
-				stodur.append(eftirs)
-				print 'Heildargreiðsla er: ' + str(round(summa))
-			else:
-				stodur.append(eftirs)
+		stodur = [eftirs]
+		for i in range(0, n):
+			if(round(eftirs) > 0):
 				vextir = v*eftirs
 				afb = greidsla - vextir
 				eftirs = eftirs - afb
 				summa = summa + greidsla
+				stodur.append(round(eftirs))
+		print 'Heildargreiðslan er: ' + str(round(summa)) + ' kr'
 		for i in range(0, len(stodur)):
-			print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(abs(round(stodur[i])))
+			print 'Eftirstaðan eftir ' + str(i) + ' mán er: '+ str(abs(stodur[i])) + ' kr'
 		print '--------------'
-	if(n <= 0):
+	if(nt <= 0):
 		A = 0
-		temp(H, n, v)
+		temp(H, nt, vt)
 	else:
-		if(v <= 0):
-			overdAfborganir(H, n, 0)
+		if(vt <= 0):
+			overdAfborganir(H, nt, 0)
 		else:
-			A = H*((v*(1+v)**n)/(((1+v)**n)-1))
-			temp(H, n, v)
+			A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
+			temp(H, nt, vt)
 
-		
-# Verðtryggt, jafnar greiðslur, verðbólga alltaf sú sama, reiknað árlega (er í lagi ef eyjan.is	er ok)
+
+# Verðtryggt, jafnar greiðslur, verðbólga alltaf sú sama, reiknað mánaðarlega (er í lagi ef eyjan.is	er ok)
 # Notkun: verdGreidslur(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%))	
 def verdGreidslur(H, n, v, vb):
+def bla(H, n, v, vb):
+	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir og ' + str(vb*100) + '% verðbólgu'
+	nt = n*12	#fjöldi mán
+	vt = float(v)/12	#vextur á mán
+	vbt = float(vb)/12	#verðbólga á mán
 	def temp(H, n, v, vb):
-		print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir og verðbólgu ' + str(vb*100) + '%'
-		stodur = []
 		eftirs = H
 		greidsla = A
 		summa = 0
+		stodur = [eftirs]
 		for i in range(0, n+1):
-			if (round(eftirs) <= 0):
-				stodur.append(eftirs)
-				print 'Heildargreiðsla er: ' + str(round(summa))
-			else:
-				stodur.append(eftirs)
+			if (round(eftirs) > 0):
 				eftirs = eftirs + vb*eftirs
 				greidsla = (1+vb)*greidsla
 				afb = greidsla - v*eftirs
 				eftirs = eftirs - afb
 				summa = summa + greidsla
+				stodur.append(eftirs)
+		print 'Heildargreiðslan er: ' + str(round(summa)) + ' kr'
 		for i in range(0, len(stodur)):
 			print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(abs(round(stodur[i])))
 		print '--------------'
-			
-	if(n <= 0):
+	if(nt <= 0):
 		A = 0
-		temp(H, n, v, vb)
+		temp(H, nt, vt, vbt)
 	else:
-		if(vb <= 0):
-			overdGreidslur(H, n, v)
+		if(vbt <= 0):
+			overdGreidslur(H, nt, vt)
 		elif(v <= 0): 
-			verdAfborganir(H, n, 0, vb)
+			verdAfborganir(H, nt, 0, vbt)
 		else:
-			A = H*((v*(1+v)**n)/(((1+v)**n)-1))
-			temp(H, n, v, vb)
+			A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
+			temp(H, nt, vt, vbt)
