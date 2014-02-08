@@ -121,7 +121,6 @@ def overdGreidslur(H, n, v):
 # Verðtryggt, jafnar greiðslur, verðbólga alltaf sú sama, reiknað mánaðarlega (er í lagi ef eyjan.is	er ok)
 # Notkun: verdGreidslur(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%))	
 def verdGreidslur(H, n, v, vb):
-def bla(H, n, v, vb):
 	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v*100) + '% vextir og ' + str(vb*100) + '% verðbólgu'
 	nt = n*12	#fjöldi mán
 	vt = float(v)/12	#vextur á mán
