@@ -12,6 +12,8 @@
 ##summa = heildarupphæð á tímapunkti á reikningi
 import math
 
+v = 0.05
+fjarmagns = 0.8
 #eingreiðsla = 0
 #Mánaðalega = 1
 
@@ -47,18 +49,15 @@ def manadalega(L, nt, v, vb):
 	summa = 0
 	stodur = [L]
 	vextir = []
-	fjarmagns = 0
 	for i in range(0,nt):
 		summa = summa + L
 		vextir.append((summa * ((1+(v/12))*(1+(vb/12))))-summa)
 		if (i+1)%12 == 0 and i != 0:		
-			stodur.append(math.ceil(summa + sum(vextir)))
-			summa = summa + sum(vextir)
+			stodur.append(math.ceil(summa + sum(vextir)*fjarmagns))
+			summa = summa + sum(vextir)*fjarmagns
 		else:
 			stodur.append(math.ceil(summa))
 	return stodur
-
-	##
 
 
 ##Eingreiðsla, verðtryggð, vextir og verðbætur greiddar 31. des
@@ -67,12 +66,11 @@ def eingreidsla(L, nt, v, vb):
 	summa = L
 	stodur = [L]
 	vextir = []
-	fjarmagns = 0
 	for i in range(0, nt):
 		vextir.append((summa * ((1+(v/12))*(1+(vb/12))))-summa)
 		if (i+1)%12 == 0 and i != 0:
-			stodur.append(math.ceil(summa + sum(vextir)))
-			summa = summa + sum(vextir)
+			stodur.append(math.ceil(summa + sum(vextir)*fjarmagns))
+			summa = summa + sum(vextir)*fjarmagns
 		else:
 			stodur.append(math.ceil(summa))
 	return stodur
