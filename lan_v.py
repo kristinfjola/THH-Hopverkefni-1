@@ -1,45 +1,231 @@
 # -*- coding: cp1252 -*-
 # -*- coding: utf-8 -*-
 
-def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga):
+def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman):
 	if(verdbolga == 0): 		#verðbólga núna
 		vb = 3.1
 	elif(verdbolga == 5): 		#verðbólga 5 ár
 		vb = 6.07868852459016
 	elif(verdbolga == 10): 		#verðbólga 10 ár
 		vb = 6.19421487603305
-	else:						#verðbólga 15 ár
+	elif(verdbolga == 15):		#verðbólga 15 ár
 		vb = 5.60276243093922
-	
-	umfram = 10000	#hef umframgreiðslu 10.000 kr þangað til búið er að bæta því við í fjarmal.py
-	if(jafnar == 1):
-		if(verdtrygging == 0):
-			overdAfborganir(H, n, v, umfram)			#afborganir, óverðtryggt
-		else:
-			verdAfborganir(H, n, v, vb, umfram)			#afborganir, verðtryggt
 	else:
-		if(verdtrygging == 0):
-			overdGreidslur(H, n, v, umfram)				#greiðslur, óverðtryggt
+		vb = 0.0
+	
+	if(einman == 0):	#umframgreiðslan er eingreiðsla
+		if(jafnar == 1):
+			if(verdtrygging == 0):
+				overdAfborganirEin(H, n, v, umfram)			#afborganir, óverðtryggt
+			else:
+				verdAfborganirEin(H, n, v, vb, umfram)		#afborganir, verðtryggt
 		else:
-			verdGreidslur(H, n, v, vb, umfram)			#greiðslur, verðtryggt
-	#v = float(v)/100
-	#vb = float(vb)/100
-	
-	
-#verdbolga = 0	gefur verðbólguna núna => 3.1%
-#verdbolga = 5	gefur meðaltal síðustu 5 ár => 6.08%
-#verdbolga = 10	gefur meðaltal síðustu 10 ár => 6.19%
-#verdbolga = 15	gefur meðaltal síðustu 15 ár => 5.60%
+			if(verdtrygging == 0):
+				overdGreidslurEin(H, n, v, umfram)			#greiðslur, óverðtryggt
+			else:
+				verdGreidslurEin(H, n, v, vb, umfram)		#greiðslur, verðtryggt
+	else:				#umframgreiðslan er mánaðarlega
+		if(jafnar == 1):	#jafnar afborganir
+			if(verdtrygging == 0):
+				overdAfborganirMan(H, n, v, umfram)			#afborganir, óverðtryggt
+			else:
+				verdAfborganirMan(H, n, v, vb, umfram)		#afborganir, verðtryggt
+		else:		#jafnar greiðslur
+			if(verdtrygging == 0):
+				overdGreidslurMan(H, n, v, umfram)			#greiðslur, óverðtryggt
+			else:
+				verdGreidslurMan(H, n, v, vb, umfram)		#greiðslur, verðtryggt
 
-#óverðtryggt gefur		verdtrygging = 0
-#verðtryggt gefur 		verdtrygging = 1
-#jafnar greiðslur gefa 	jafnar = 0
-#jafnar afborganir gefa jafnar = 1
 
 
-# Óverðtryggt, jafnar afborganir, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%)
-# Notkun: overdAfborganir(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
-def overdAfborganir(H, n, v, umfram):
+----------#Umfram einu sinni#-------------
+
+
+
+
+# Óverðtryggt, jafnar afborganir, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
+# Notkun: overdAfborganirEin(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
+def overdAfborganirEin(H, n, v, umfram):
+	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v) + '% vextir og ' + str(umfram) + ' kr umframgreiðslu fyrsta mánuðinn'
+	v = float(v)/100
+	nt = n*12
+	vt = float(v)/12
+	if(nt == 0):
+		afb = 0
+	else:
+		afb = float(H)/nt
+	eftirs = H
+	summa = 0
+	stodur = [eftirs]
+	#Fyrsti mánuðurinn:
+	greidsla = afb + vt*eftirs + umfram
+	eftirs = eftirs - afb - 0.99*umfram
+	summa = summa + greidsla
+	stodur.append(round(eftirs))
+	while(round(eftirs) >= afb):
+		greidsla = afb + vt*eftirs
+		eftirs = eftirs - afb
+		summa = summa + greidsla
+		stodur.append(round(eftirs))
+	#Síðasti mánuðurinn:
+	afb = eftirs
+	greidsla = afb + vt*eftirs
+	eftirs = eftirs - afb
+	summa = summa + greidsla
+	stodur.append(round(eftirs))
+	print 'Heildargreiðslan er: ' + str(round(summa)) + ' kr'
+	for i in range(0, len(stodur)):
+		print 'Eftirstaðan eftir ' + str(i) + ' mán er: '+ str(stodur[i])
+	print '--------------'
+	#return stodur
+
+
+# Verðtryggt, jafnar afborganir, verðbólga alltaf sú sama, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
+# Noktun: verdAfborganirEin(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umframgreiðsla)
+def verdAfborganirEin(H, n, v, vb, umfram):
+	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v) + '% vextir, ' + str(math.ceil(vb*100)/100) + '% verðbólgu og '  + str(umfram) + ' kr umframgreiðslu fyrsta mánuðinn'
+	v = float(v)/100
+	vb = float(vb)/100
+	nt = n*12
+	vt = float(v)/12
+	vbt = float(vb)/12
+	if(n == 0):
+		afb = 0
+	else:
+		afb = float(H)/nt
+	eftirs = H
+	summa = 0
+	stodur = [eftirs]
+	#Fyrsti mánuðurinn:
+	greidsla = afb + (vt+vbt)*eftirs + umfram
+	eftirs = eftirs - afb - 0.99*umfram
+	summa = summa + greidsla
+	stodur.append(round(eftirs))
+	while(round(eftirs) >= afb):
+		greidsla = afb + (vt+vbt)*eftirs
+		eftirs = eftirs - afb
+		summa = summa + greidsla
+		stodur.append(round(eftirs))
+	#Síðasti mánuðurinn:
+	afb = eftirs
+	greidsla = afb + (vt+vbt)*eftirs
+	eftirs = eftirs - afb
+	summa = summa + greidsla
+	stodur.append(round(eftirs))
+	print 'Heildargreiðslan er: ' + str(round(summa)) + ' kr'
+	for i in range(0, len(stodur)):
+		print 'Eftirstaðan eftir ' + str(i) + ' mán er: '+ str(stodur[i])
+	print '--------------'
+	#return stodur
+
+
+# Óverðtryggt, jafnar greiðslur, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
+# Notkun: overdGreidslurEin(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
+def overdGreidslurEin(H, n, v, umfram):
+	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v) + '% vextir og ' + str(umfram) + ' kr umframgreiðslu fyrsta mánuðinn'
+	v = float(v)/100
+	nt = n*12
+	vt = float(v)/12
+	def temp(H, n, v):
+		greidsla = A
+		eftirs = H
+		summa = 0
+		stodur = [eftirs]
+		#Fyrsti mánuðurinn:
+		vextir = v*eftirs
+		afb = greidsla - vextir + 0.99*umfram
+		eftirs = eftirs - afb
+		summa = summa + greidsla + umfram
+		stodur.append(round(eftirs))
+		while(round(eftirs) >= greidsla - vextir):
+			vextir = v*eftirs
+			afb = greidsla - vextir
+			eftirs = eftirs - afb
+			summa = summa + greidsla
+			stodur.append(round(eftirs))
+		#Síðasti mánuðurinn:
+		afb = eftirs
+		greidsla = afb + v*eftirs
+		eftirs = eftirs - afb
+		summa = summa + greidsla
+		stodur.append(round(eftirs))
+		print 'Heildargreiðslan er: ' + str(round(summa)) + ' kr'
+		for i in range(0, len(stodur)):
+			print 'Eftirstaðan eftir ' + str(i) + ' mán er: '+ str(stodur[i]) + ' kr'
+		print '--------------'
+		
+	if(nt <= 0):
+		A = 0
+		temp(H, nt, vt)
+	else:
+		if(vt <= 0):
+			overdAfborganir(H, nt, 0)
+		else:
+			A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
+			temp(H, nt, vt)
+	#return stodur
+
+
+# Verðtryggt, jafnar greiðslur, verðbólga alltaf sú sama, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
+# Notkun: verdGreidslurEin(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umfram)	
+def verdGreidslurEin(H, n, v, vb, umfram):
+	import math
+	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v) + '% vextir, ' + str((math.ceil(vb*100)/100)) + '% verðbólgu og ' + str(umfram) + ' kr umframgreiðslu fyrsta mánuðinn'
+	v = float(v)/100
+	vb = float(vb)/100
+	nt = n*12
+	vt = float(v)/12
+	vbt = float(vb)/12
+	def temp(H, n, v, vb):
+		eftirs = H
+		greidsla = A
+		summa = 0
+		stodur = [eftirs]
+		#Fyrsti mánuðurinn:
+		eftirs = eftirs + vb*eftirs
+		greidsla = (1+vb)*greidsla
+		afb = greidsla - v*eftirs + 0.99*umfram
+		eftirs = eftirs - afb
+		summa = summa + greidsla + umfram
+		stodur.append(round(eftirs))
+		while(round(eftirs) >= greidsla - v*eftirs):
+			eftirs = eftirs + vb*eftirs
+			greidsla = (1+vb)*greidsla
+			afb = greidsla - v*eftirs
+			eftirs = eftirs - afb
+			summa = summa + greidsla
+			stodur.append(round(eftirs))
+		#Síðasti mánuðurinn:
+		afb = eftirs
+		greidsla = afb + v*eftirs
+		eftirs = eftirs - afb
+		summa = summa + greidsla
+		stodur.append(round(eftirs))
+		print 'Heildargreiðslan er: ' + str(round(summa)) + ' kr'
+		for i in range(0, len(stodur)):
+			print 'Eftirstaðan eftir ' + str(i) + ' ár er: '+ str(round(stodur[i]))
+		print '--------------'
+	if(nt <= 0):
+		A = 0
+		temp(H, nt, vt, vbt)
+	else:
+		if(vbt <= 0):
+			overdGreidslur(H, nt, vt)
+		elif(v <= 0): 
+			verdAfborganir(H, nt, 0, vbt)
+		else:
+			A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
+			temp(H, nt, vt, vbt)
+
+
+
+
+----------#Umfram mánaðarlega#-------------
+
+
+# Óverðtryggt, jafnar afborganir, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með mánaðarlegri umframgreiðslu
+# Notkun: overdAfborganirMan(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
+def overdAfborganirMan(H, n, v, umfram):
 	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v) + '% vextir og ' + str(umfram) + ' kr í umframgreiðslu mánaðarlega'
 	v = float(v)/100
 	nt = n*12
@@ -75,11 +261,12 @@ def overdAfborganir(H, n, v, umfram):
 	for i in range(0, len(stodur)):
 		print 'Eftirstaðan eftir ' + str(i) + ' mán er: '+ str(stodur[i])
 	print '--------------'
+	#return stodur
 
 
-# Verðtryggt, jafnar afborganir, verðbólga alltaf sú sama, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%)
-# Noktun: verdAfborganir(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umframgreiðsla)
-def verdAfborganir(H, n, v, vb, umfram):
+# Verðtryggt, jafnar afborganir, verðbólga alltaf sú sama, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með mánaðarlegri umframgreiðslu
+# Noktun: verdAfborganirMan(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umframgreiðsla)
+def verdAfborganirMan(H, n, v, vb, umfram):
 	import math
 	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v) + '% vextir, ' + str(math.ceil(vb*100)/100) + '% verðbólgu og '  + str(umfram) + ' kr í umframgreiðslu mánaðarlega'
 	v = float(v)/100
@@ -118,11 +305,12 @@ def verdAfborganir(H, n, v, vb, umfram):
 	for i in range(0, len(stodur)):
 		print 'Eftirstaðan eftir ' + str(i) + ' mán er: '+ str(stodur[i])
 	print '--------------'
+	#return stodur
 
 
-# Óverðtryggt, jafnar greiðslur, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%)
-# Notkun: overdGreidslur(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
-def overdGreidslur(H, n, v, umfram):
+# Óverðtryggt, jafnar greiðslur, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með mánaðarlegri umframgreiðslu
+# Notkun: overdGreidslurMan(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
+def overdGreidslurMan(H, n, v, umfram):
 	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v) + '% vextir og ' + str(umfram) + ' kr í umframgreiðslu mánaðarlega'
 	v = float(v)/100
 	nt = n*12
@@ -156,6 +344,7 @@ def overdGreidslur(H, n, v, umfram):
 		for i in range(0, len(stodur)):
 			print 'Eftirstaðan eftir ' + str(i) + ' mán er: '+ str(stodur[i]) + ' kr'
 		print '--------------'
+		#return stodur
 	#áður en við förum í temp þarf að ath hvort n=0 eða v=0 svo við séum ekki að deila með 0 og fá keyrsluvillu
 	if(nt <= 0):
 		A = 0
@@ -168,9 +357,9 @@ def overdGreidslur(H, n, v, umfram):
 			temp(H, nt, vt, umfram)
 
 
-# Verðtryggt, jafnar greiðslur, verðbólga alltaf sú sama, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%)
-# Notkun: verdGreidslur(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umfram)	
-def verdGreidslur(H, n, v, vb, umfram):
+# Verðtryggt, jafnar greiðslur, verðbólga alltaf sú sama, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með mánaðarlegri umframgreiðslu
+# Notkun: verdGreidslurMan(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umfram)	
+def verdGreidslurMan(H, n, v, vb, umfram):
 	import math
 	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v) + '% vextir, ' + str((math.ceil(vb*100)/100)) + '% verðbólgu og ' + str(umfram) + ' kr í umframgreiðslu mánaðarlega'
 	v = float(v)/100
@@ -212,6 +401,7 @@ def verdGreidslur(H, n, v, vb, umfram):
 		for i in range(0, len(stodur)):
 			print 'Eftirstaðan eftir ' + str(i) + ' mán er: '+ str(stodur[i])
 		print '--------------'
+		#return stodur
 	#áður en við förum í temp þarf að ath hvort n=0 eða v=0 svo við séum ekki að deila með 0 og fá keyrsluvillu
 	if(nt <= 0):
 		A = 0
