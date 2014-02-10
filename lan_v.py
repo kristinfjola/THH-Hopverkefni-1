@@ -153,7 +153,7 @@ def overdGreidslurEin(H, n, v, umfram):
 		temp(H, nt, vt)
 	else:
 		if(vt <= 0):
-			overdAfborganir(H, nt, 0)
+			overdAfborganirEin(H, nt, 0)
 		else:
 			A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 			temp(H, nt, vt)
@@ -204,9 +204,9 @@ def verdGreidslurEin(H, n, v, vb, umfram):
 		temp(H, nt, vt, vbt)
 	else:
 		if(vbt <= 0):
-			overdGreidslur(H, nt, vt)
+			overdGreidslurEin(H, nt, vt)
 		elif(v <= 0): 
-			verdAfborganir(H, nt, 0, vbt)
+			verdAfborganirEin(H, nt, 0, vbt)
 		else:
 			A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 			temp(H, nt, vt, vbt)
@@ -340,7 +340,7 @@ def overdGreidslurMan(H, n, v, umfram):
 		temp(H, nt, vt, umfram)
 	else:
 		if(vt <= 0):
-			overdAfborganir(H, nt, 0, umfram)
+			overdAfborganirMan(H, nt, 0, umfram)
 		else:
 			A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 			temp(H, nt, vt, umfram)
@@ -397,9 +397,9 @@ def verdGreidslurMan(H, n, v, vb, umfram):
 		temp(H, nt, vt, vbt, umfram)
 	else:
 		if(vbt <= 0):
-			overdGreidslur(H, nt, vt, umfram)
+			overdGreidslurMan(H, nt, vt, umfram)
 		elif(v <= 0): 
-			verdAfborganir(H, nt, 0, vbt, umfram)
+			verdAfborganirMan(H, nt, 0, vbt, umfram)
 		else:
 			A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 			temp(H, nt, vt, vbt, umfram)
