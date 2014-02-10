@@ -77,6 +77,7 @@ def overdAfborganirEin(H, n, v, umfram):
 # Verðtryggt, jafnar afborganir, verðbólga alltaf sú sama, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
 # Noktun: verdAfborganirEin(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umframgreiðsla)
 def verdAfborganirEin(H, n, v, vb, umfram):
+	import math
 	print 'Höfuðstóll ' + str(H) + ' kr í ' + str(n) + ' ár með ' + str(v) + '% vextir, ' + str(math.ceil(vb*100)/100) + '% verðbólgu og '  + str(umfram) + ' kr umframgreiðslu fyrsta mánuðinn'
 	v = float(v)/100
 	vb = float(vb)/100
