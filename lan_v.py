@@ -218,11 +218,6 @@ def verdGreidslurEin(H, n, v, vb, umfram):
 			temp(H, nt, vt, vbt)
 
 
-
-
-----------#Umfram mánaðarlega#-------------
-
-
 # Óverðtryggt, jafnar afborganir, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með mánaðarlegri umframgreiðslu
 # Notkun: overdAfborganirMan(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
 def overdAfborganirMan(H, n, v, umfram):
