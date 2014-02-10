@@ -37,12 +37,6 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman):
 				verdGreidslurMan(H, n, v, vb, umfram)		#greiðslur, verðtryggt
 
 
-
-----------#Umfram einu sinni#-------------
-
-
-
-
 # Óverðtryggt, jafnar afborganir, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
 # Notkun: overdAfborganirEin(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
 def overdAfborganirEin(H, n, v, umfram):
