@@ -12,11 +12,10 @@
 ##summa = heildarupphæð á tímapunkti á reikningi
 import math
 
-v = 0.05  ##Harðkóðaðir 5% vextir. Þessu æltar Þórhildur að breyta
 #eingreiðsla = 0
 #Mánaðalega = 1
 
-##Notkun: spar(Umframgreiðsla, mánuðir sparað, verðbólga síðustu x mánaða, verðtryggt,  vextir borgaðir mánaðalega eða árlega)
+##Notkun: spar(Umframgreiðsla, mánuðir sparað, verðbólga síðustu x mánaða, verðtryggt, eingreiðsla eða mánaðaleg greiðsla)
 def spar(L, nt, verdb, verdtrygg, manadagr): ##Núna er ekki hægt að velja í GUI-inu mánaðalega eða árlega vexti, svo mánaðalegir eru default
 	if(verdb == 0): 		#verðbólga núna
 		vb = 0.031
@@ -48,10 +47,11 @@ def manadalega(L, nt, v, vb):
 	summa = 0
 	stodur = [L]
 	vextir = []
+	fjarmagns = 0
 	for i in range(0,nt):
 		summa = summa + L
 		vextir.append((summa * ((1+(v/12))*(1+(vb/12))))-summa)
-		if (i+1)%12 == 0 and i != 0:							#Þessi lína er í fokki!
+		if (i+1)%12 == 0 and i != 0:		
 			stodur.append(math.ceil(summa + sum(vextir)))
 			summa = summa + sum(vextir)
 		else:
@@ -67,6 +67,7 @@ def eingreidsla(L, nt, v, vb):
 	summa = L
 	stodur = [L]
 	vextir = []
+	fjarmagns = 0
 	for i in range(0, nt):
 		vextir.append((summa * ((1+(v/12))*(1+(vb/12))))-summa)
 		if (i+1)%12 == 0 and i != 0:
