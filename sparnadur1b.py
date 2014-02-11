@@ -32,14 +32,14 @@ def spar(L, nt, verdb, verdtrygg, manadagr): ##Núna er ekki hægt að velja í 
 
 	if verdtrygg == 1:
 		if manadagr == 1:
-			manadalega(L, nt, v, vb)
+			return manadalega(L, nt, v, vb)
 		else:
-			eingreidsla(L, nt, v, vb)
+			return eingreidsla(L, nt, v, vb)
 	else:
 		if manadagr == 1:
-			manadalega(L, nt, v, 0.0)
+			return manadalega(L, nt, v, 0.0)
 		else:
-			eingreidsla(L, nt, v, 0.0)
+			return eingreidsla(L, nt, v, 0.0)
 
 
 
@@ -49,7 +49,10 @@ def manadalega(L, nt, v, vb):
 	summa = 0
 	stodur = [L]
 	vextir = []
+	x = []
+	skil = []
 	for i in range(0,nt):
+		x.append(i)
 		summa = summa + L
 		vextir.append((summa * ((1+(v/12))*(1+(vb/12))))-summa)
 		if (i+1)%12 == 0 and i != 0:		
@@ -57,7 +60,10 @@ def manadalega(L, nt, v, vb):
 			summa = summa + sum(vextir)*fjarmagns
 		else:
 			stodur.append(math.ceil(summa))
-	return stodur
+	x.append(nt)
+	skil.append(x)
+	skil.append(stodur)
+	return skil
 
 
 ##Eingreiðsla, verðtryggð, vextir og verðbætur greiddar 31. des
@@ -66,14 +72,20 @@ def eingreidsla(L, nt, v, vb):
 	summa = L
 	stodur = [L]
 	vextir = []
+	x = []
+	skil = []
 	for i in range(0, nt):
+		x.append(i)
 		vextir.append((summa * ((1+(v/12))*(1+(vb/12))))-summa)
 		if (i+1)%12 == 0 and i != 0:
 			stodur.append(math.ceil(summa + sum(vextir)*fjarmagns))
 			summa = summa + sum(vextir)*fjarmagns
 		else:
 			stodur.append(math.ceil(summa))
-	return stodur
+	x.append(nt)
+	skil.append(x)
+	skil.append(stodur)
+	return skil
 
 
 
