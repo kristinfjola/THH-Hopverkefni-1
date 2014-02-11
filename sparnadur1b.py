@@ -13,27 +13,32 @@
 import math
 
 #=========================================================
-v = sparivx(vt,b)
+v = raunvx(vt,b,vb)
 """
-Fall sem skilar vöxtum reiknings, óháð verðbólgu.
-Notkun: sparivx(vt,b)
+====
+Reiknar raunvexti reiknings. Ef verðtryggður breytast vextirnir með verðbólgunni
+Ef óverðtryggður minnka/hækka raunvextir m.t.t. verðbólgu
+Notkun: raunvx(vt,b,vb)
 Fyrir: 	vt er 1 ef verðtryggður reikningur, 0 annars. 
 		b er binditíminn í mánuðum.
-Eftir: 	vextir eru vextirnir á viðeigandi reikningi.
+		vb er verðbólga sem reiknað er með (ef 3 prósent verðbólga er vb = 0.03)
+Eftir: 	vextir eru vextirnir á viðeigandi reikningi m.t.t. verðbólgu 
 """
-
-def sparivx(vt,b):
+def raunvx(vt,b,vb):
+	#óverðtryggt - breytist ekki með verðbólgu
+	#raunvextir = nafnvextir - verðbólga
 	if vt==0:
 		if b==0:
-			vextir = 0.036
+			vextir = 0.036-vb
 		elif b==12:
-			vextir = 0.046
+			vextir = 0.046-vb
 		elif b==18:
-			vextir = 0.048
+			vextir = 0.048-vb
 		elif b==24:
-			vextir = 0.048
+			vextir = 0.048-vb
 		else:
 			vextir = 1000
+	#verðtryggt - breytist með verðbólgu
 	else:
 		if vt==1:
 			if b==36:
