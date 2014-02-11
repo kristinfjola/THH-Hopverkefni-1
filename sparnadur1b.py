@@ -16,6 +16,16 @@ fjarmagns = 0.8
 globvextir = 0
 globfjarmagns = 0
 #=========================================================
+def fa_bestu_sparnadarleid():
+	"""hér þar Þórhildur að galdra"""
+
+
+def fa_uppl_um_sparnadarleid():
+	"""Hér þarf Þóhildur að galdra"""
+
+
+
+
 
 """
 ====
@@ -170,20 +180,17 @@ def eingreidsla(L, nt, v, vb):
 	skil.append(stodur)
 	return skil
 
-def fa_bestu_sparnadarleid():
-	#hér þar Þórhildur að galdra
-
-
-def fa_uppl_um_sparnadarleid():
-	#Hér þarf Þóhildur að galdra
-
 
 def fa_arsvexti():
+	global globvextir
+	global globfjarmagns
 	return globvextir
 
 
 ##Fall gerir ráð fyrir
 def fa_fjarmagnstekjuskatt():
+	global globvextir
+	global globfjarmagns
 	return globfjarmagns
 
 
