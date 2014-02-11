@@ -13,10 +13,15 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman):
 	else:
 		vb = 0.0
 		
-	#óverðtryggt - breytist ekki með verðbólgu
-	#raunvextir = nafnvextir - verðbólga
+	# Óverðtryggt - breytist ekki með verðbólgu
+	# Raunvextir = nafnvextir - verðbólga
 	if verdtrygging == 0:
-		v = v-vb
+		# Ef vextir láns eru lægri en verðbólga mun verðbólgan éta vextina.
+		# Þá vextir = verðbólga. Þannig eru 0 prósent vextir.
+		if v<vb:
+			v = vb
+		else:
+			v = v-vb
 		print 'Raunvextir óverðtryggðs láns á tímabilinu eru ' + str(v)
 	
 	if(einman == 0):	#umframgreiðslan er eingreiðsla
