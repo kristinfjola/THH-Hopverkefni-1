@@ -25,7 +25,7 @@ Eftir: 	vextir eru vextirnir á viðeigandi reikningi.
 def sparivx(vt,b):
 	if vt==0:
 		if b==0:
-			vextir = 0.36
+			vextir = 0.036
 		elif b==12:
 			vextir = 0.046
 		elif b==18:
