@@ -51,7 +51,7 @@ def raunvx(vt,b,vb):
 				vextir = 1000
 	return vextir
 #======================================================0
-v = raunvx(vt,b,vb)
+v = raunvx(verdtrygg,nt,verdb)
 fjarmagns = 0.8
 #eingreiðsla = 0
 #Mánaðalega = 1
