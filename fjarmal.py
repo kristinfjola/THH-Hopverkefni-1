@@ -247,11 +247,77 @@ class MainPage(wx.Panel):
     	lan_v.lan(self.lan1_upph, self.lan1_vextir, self.lan1_greidslubyrgdi, self.lan1_timabil, self.lan1_verdtrygging, self.lan1_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla)
     	lan_v.lan(self.lan2_upph, self.lan2_vextir, self.lan2_greidslubyrgdi, self.lan2_timabil, self.lan2_verdtrygging, self.lan2_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla)
     	lan_v.lan(self.lan3_upph, self.lan3_vextir, self.lan3_greidslubyrgdi, self.lan3_timabil, self.lan3_verdtrygging, self.lan3_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla)
+    	self.syna_svar_glugga()
+
+    def syna_svar_glugga(self):
+        self.svar_gluggi = SvarGluggi(parent=None, id=-1)
+        self.svar_gluggi.Show()
+
+class SvarGluggi(wx.Frame):
+
+    def __init__(self,parent,id):
+        wx.Frame.__init__(self, parent, id, 'Svör', size=(500,400))
+        wx.Frame.CenterOnScreen(self)
+
+        panel_svar = wx.Panel(self)
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        
+        #besti_kostur = hvad_er_best_ad_gera();  -- úr hvaða file er þetta? lan_v eða sparnadur1b?
+        besti_kostur = '<temp besti kostur>'
+
+        bestAdGera = wx.StaticText(panel_svar, -1, "Það væri best fyrir þig að " + besti_kostur )
+        bestAdGera_font = wx.Font(16, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
+        bestAdGera.SetFont(bestAdGera_font)
+        sizer.Add(bestAdGera, 0, wx.ALL, 10)
+
+
+
+        ## ------        setja hér gröf        ------------##
         
 
+        #besta_sparnadarleid = sparnadur1b.fa_bestu_sparnadarleid()
+        besta_sparnadarleid = '<temp sparðanarleið>'
+
+        #uppl_um_sparnadarleid = sparnadur1b.fa_uppl_um_sparnadarleid()
+        uppl_um_sparnadarleid  = '<temp uppl>'
+
+        sparnadarleid = wx.StaticText(panel_svar, -1, "Besta sparnaðarleiðin fyrir þig er " + besta_sparnadarleid)
+        sizer.Add(sparnadarleid, 0, wx.ALL, 10)
+
+        sparnadar_box = wx.StaticBox(panel_svar, wx.ID_ANY, "Upplýsingar um sparnaðarleið")
+        sparnadar_box_sizer = wx.StaticBoxSizer(sparnadar_box, wx.VERTICAL)
+        sparnadar_uppl = wx.StaticText(panel_svar, -1, uppl_um_sparnadarleid)    
+        sparnadar_box_sizer.Add(sparnadar_uppl, 0, wx.ALL, 10)
+        sizer.Add(sparnadar_box_sizer, 0, wx.ALL, 10)
+
+
+        #arsvextir = sparnadur1b.fa_arsvexti()
+        arsvextir = '<temp ársvextir>'
+
+        ars_vextir = wx.StaticText(panel_svar, -1, "Vextir yfir 12 mánuði: " + arsvextir)
+        sizer.Add(ars_vextir, 0, wx.ALL, 10)
+
+        #fjarmagnstekjuskattur = sparnadur1b.fa_fjarmagnstekjuskatt()
+        fjarmagnstekjuskattur = '<temp fjármagnstekjuskattur>'
+
+        ars_fjarmagnstekjuskattur = wx.StaticText(panel_svar, -1, "Fjármagnstekjuskattur yfir 12 mánuði: " + fjarmagnstekjuskattur)
+        sizer.Add(ars_fjarmagnstekjuskattur, 0, wx.ALL, 10)
+
+        #lana_kostnadur = lan_v.fa_lanakostnad()
+        lana_kostnadur = '<temp lánakostnaður>'
+
+        lanakostnadur = wx.StaticText(panel_svar, -1, "Auka kostnaður við lán (vextir, uppgreiðslugjald): " + lana_kostnadur)
+        sizer.Add(lanakostnadur, 0, wx.ALL, 10)
+
+        
+        panel_svar.SetSizerAndFit(sizer)
+        panel_svar.Layout()
+ 
+
+        
 app = wx.App(False)
 frame = wx.Frame(None, title="Önnur útgáfa")
-frame.SetSize((950,600))
+frame.SetSize((850,500))
 panel = MainPage(frame)
 frame.Show()
 app.MainLoop()
