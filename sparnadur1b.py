@@ -15,7 +15,7 @@ import math
 #=========================================================
 v = sparivx(vt,b)
 """Notkun: sparivx(v,b)
-Fyrir: 	v er 1 ef verðtryggður reikningur, 0 annars. 
+Fyrir: 	vt er 1 ef verðtryggður reikningur, 0 annars. 
 		b er binditíminn í mánuðum.
 Eftir: 	vextir eru vextirnir á viðeigandi reikningi.
 """
