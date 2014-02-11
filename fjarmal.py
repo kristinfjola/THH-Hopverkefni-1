@@ -275,11 +275,11 @@ class SvarGluggi(wx.Frame):
         ## ------        setja hér gröf        ------------##
         
 
-        #besta_sparnadarleid = sparnadur1b.fa_bestu_sparnadarleid()
-        besta_sparnadarleid = '<temp sparğanarleiğ>'
+        besta_sparnadarleid = str(sparnadur1b.fa_bestu_sparnadarleid())
+        #besta_sparnadarleid = '<temp sparğanarleiğ>'
 
-        #uppl_um_sparnadarleid = sparnadur1b.fa_uppl_um_sparnadarleid()
-        uppl_um_sparnadarleid  = '<temp uppl>'
+        uppl_um_sparnadarleid = str(sparnadur1b.fa_uppl_um_sparnadarleid())
+        #uppl_um_sparnadarleid  = '<temp uppl>'
 
         sparnadarleid = wx.StaticText(panel_svar, -1, "Besta sparnağarleiğin fyrir şig er " + besta_sparnadarleid)
         sizer.Add(sparnadarleid, 0, wx.ALL, 10)
@@ -290,20 +290,19 @@ class SvarGluggi(wx.Frame):
         sparnadar_box_sizer.Add(sparnadar_uppl, 0, wx.ALL, 10)
         sizer.Add(sparnadar_box_sizer, 0, wx.ALL, 10)
 
-
-        #arsvextir = sparnadur1b.fa_arsvexti()
-        arsvextir = '<temp ársvextir>'
+        arsvextir = str(sparnadur1b.fa_arsvexti())
+        #arsvextir = '<temp ársvextir>'
 
         ars_vextir = wx.StaticText(panel_svar, -1, "Vextir yfir 12 mánuği: " + arsvextir)
         sizer.Add(ars_vextir, 0, wx.ALL, 10)
 
-        #fjarmagnstekjuskattur = sparnadur1b.fa_fjarmagnstekjuskatt()
-        fjarmagnstekjuskattur = '<temp fjármagnstekjuskattur>'
+        fjarmagnstekjuskattur = str(sparnadur1b.fa_fjarmagnstekjuskatt())
+        #fjarmagnstekjuskattur = '<temp fjármagnstekjuskattur>'
 
         ars_fjarmagnstekjuskattur = wx.StaticText(panel_svar, -1, "Fjármagnstekjuskattur yfir 12 mánuği: " + fjarmagnstekjuskattur)
         sizer.Add(ars_fjarmagnstekjuskattur, 0, wx.ALL, 10)
 
-        #lana_kostnadur = lan_v.fa_lanakostnad()
+        #lana_kostnadur = str(lan_v.fa_lanakostnad())
         lana_kostnadur = '<temp lánakostnağur>'
 
         lanakostnadur = wx.StaticText(panel_svar, -1, "Auka kostnağur viğ lán (vextir, uppgreiğslugjald): " + lana_kostnadur)
