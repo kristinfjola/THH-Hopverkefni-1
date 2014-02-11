@@ -61,7 +61,7 @@ Fyrir: 	vt er 1 ef verðtryggður reikningur, 0 annars.
 		b er binditíminn í mánuðum.
 Eftir: 	vextir eru vextirnir á viðeigandi reikningi.
 """
-def sparivx(v,b):
+def sparivx(vt,b):
 	if vt==0:
 		if b==0:
 			vextir = 0.36
