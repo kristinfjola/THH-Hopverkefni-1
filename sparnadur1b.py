@@ -126,6 +126,45 @@ def eingreidsla(L, nt, v, vb):
 	skil.append(stodur)
 	return skil
 
+def fa_bestu_sparnadarleid():
+	#hér þar Þórhildur að galdra
+
+
+def fa_uppl_um_sparnadarleid():
+	#Hér þarf Þóhildur að galdra
+
+
+def fa_arsvexti():
+	summa = 0
+	stodur = [L]
+	vextir = []
+	for i in range(0,nt):
+		x.append(i)
+		summa = summa + L
+		vextir.append((summa * ((1+(v/12))*(1+(vb/12))))-summa)
+		if (i+1)%12 == 0 and i != 0:		
+			stodur.append(math.ceil(summa + sum(vextir)*fjarmagns))
+			summa = summa + sum(vextir)*fjarmagns
+		else:
+			stodur.append(math.ceil(summa))
+	return sum(vextir)*fjarmagns
+
+
+##Fall gerir ráð fyrir
+def fa_fjarmagnstekjuskatt():
+	summa = 0
+	stodur = [L]
+	vextir = []
+	for i in range(0,nt):
+		x.append(i)
+		summa = summa + L
+		vextir.append((summa * ((1+(v/12))*(1+(vb/12))))-summa)
+		if (i+1)%12 == 0 and i != 0:		
+			stodur.append(math.ceil(summa + sum(vextir)*fjarmagns))
+			summa = summa + sum(vextir)*fjarmagns
+		else:
+			stodur.append(math.ceil(summa))
+	return sum(vextir)*(1-fjarmagns)
 
 
 """Óþörf föll??"""
