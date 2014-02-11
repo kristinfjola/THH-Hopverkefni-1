@@ -11,6 +11,8 @@
 ##vextir = fylki, stak fyrir hvern mánuð, vextir sem maður fær í hverjum mánuði, lagt við í lok 
 ##summa = heildarupphæð á tímapunkti á reikningi
 import math
+globvextir = 0
+globfjarmagns = 0
 
 #=========================================================
 
@@ -99,6 +101,8 @@ def manadalega(L, nt, v, vb):
 			summa = summa + sum(vextir)*fjarmagns
 		else:
 			stodur.append(math.ceil(summa))
+	globvextir = sum(vextir)*fjarmagns
+	globfjarmagns = sum(vextir)*(1-fjarmagns)
 	x.append(nt)
 	skil.append(x)
 	skil.append(stodur)
@@ -121,6 +125,8 @@ def eingreidsla(L, nt, v, vb):
 			summa = summa + sum(vextir)*fjarmagns
 		else:
 			stodur.append(math.ceil(summa))
+	globvextir = sum(vextir)*fjarmagns
+	globfjarmagns = sum(vextir)*(1-fjarmagns)
 	x.append(nt)
 	skil.append(x)
 	skil.append(stodur)
@@ -135,36 +141,12 @@ def fa_uppl_um_sparnadarleid():
 
 
 def fa_arsvexti():
-	summa = 0
-	stodur = [L]
-	vextir = []
-	for i in range(0,nt):
-		x.append(i)
-		summa = summa + L
-		vextir.append((summa * ((1+(v/12))*(1+(vb/12))))-summa)
-		if (i+1)%12 == 0 and i != 0:		
-			stodur.append(math.ceil(summa + sum(vextir)*fjarmagns))
-			summa = summa + sum(vextir)*fjarmagns
-		else:
-			stodur.append(math.ceil(summa))
-	return sum(vextir)*fjarmagns
+	return globvextir
 
 
 ##Fall gerir ráð fyrir
 def fa_fjarmagnstekjuskatt():
-	summa = 0
-	stodur = [L]
-	vextir = []
-	for i in range(0,nt):
-		x.append(i)
-		summa = summa + L
-		vextir.append((summa * ((1+(v/12))*(1+(vb/12))))-summa)
-		if (i+1)%12 == 0 and i != 0:		
-			stodur.append(math.ceil(summa + sum(vextir)*fjarmagns))
-			summa = summa + sum(vextir)*fjarmagns
-		else:
-			stodur.append(math.ceil(summa))
-	return sum(vextir)*(1-fjarmagns)
+	return globfjarmagns
 
 
 """Óþörf föll??"""
