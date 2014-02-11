@@ -11,9 +11,10 @@
 ##vextir = fylki, stak fyrir hvern mánuð, vextir sem maður fær í hverjum mánuði, lagt við í lok 
 ##summa = heildarupphæð á tímapunkti á reikningi
 import math
+
+fjarmagns = 0.8
 globvextir = 0
 globfjarmagns = 0
-
 #=========================================================
 
 """
@@ -85,13 +86,12 @@ def sparivx(vt,b):
 				vextir = 1000
 	return vextir
 #===========================================================
-v = raunvx(verdtrygg,nt,verdb)
-fjarmagns = 0.8
+
 #eingreiðsla = 0
 #Mánaðalega = 1
 
-##Notkun: spar(Umframgreiðsla, mánuðir sparað, verðbólga síðustu x mánaða, verðtryggt, eingreiðsla eða mánaðaleg greiðsla)
-def spar(L, nt, verdb, verdtrygg, manadagr): ##Núna er ekki hægt að velja í GUI-inu mánaðalega eða árlega vexti, svo mánaðalegir eru default
+##Notkun: spar(Umframgreiðsla, mánuðir sparað, verðbólga síðustu x mánaða(0, 5, 10, 15), verðtryggt eða ekki (0/1), eingreiðsla eða mánaðaleg greiðsla(0/1), bundið í x mánuði (12, 18, 24, 36...))
+def spar(L, nt, verdb, verdtrygg, manadagr, bundid): ##Núna er ekki hægt að velja í GUI-inu mánaðalega eða árlega vexti, svo mánaðalegir eru default
 	if(verdb == 0): 		#verðbólga núna
 		vb = 0.031
 	elif(verdb == 5): 		#verðbólga 5 ár
@@ -102,6 +102,8 @@ def spar(L, nt, verdb, verdtrygg, manadagr): ##Núna er ekki hægt að velja í 
 		vb = 0.0560276243093922
 	else:					#verðbólga 0 ef allt klikkar
 		vb = 0.0
+
+	v = sparivx(verdtrygg, bundid) 
 
 	if verdtrygg == 1:
 		if manadagr == 1:
@@ -119,6 +121,8 @@ def spar(L, nt, verdb, verdtrygg, manadagr): ##Núna er ekki hægt að velja í 
 #Verðtryggt, vextir og verðbætur borgað 31.des (verðbólga sú sama út allt árið)
 #Notkun: verdtryggtArs(Lagt fyrir á mán, fjöldi mánaða, vextir, verðbólga/bætur)
 def manadalega(L, nt, v, vb):
+	global globvextir
+	global globfjarmagns
 	summa = 0
 	stodur = [L]
 	vextir = []
@@ -144,6 +148,8 @@ def manadalega(L, nt, v, vb):
 ##Eingreiðsla, verðtryggð, vextir og verðbætur greiddar 31. des
 #Notkun: eingreidslaArs(Lagt fyrir í upphafi, fjöldi mánaða, vextir, verðbólga)
 def eingreidsla(L, nt, v, vb):
+	global globvextir
+	global globfjarmagns
 	summa = L
 	stodur = [L]
 	vextir = []
