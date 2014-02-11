@@ -12,7 +12,38 @@
 ##summa = heildarupphæð á tímapunkti á reikningi
 import math
 
-v = 0.05
+#=========================================================
+v = sparivx(vt,b)
+"""Notkun: sparivx(v,b)
+Fyrir: 	v er 1 ef verðtryggður reikningur, 0 annars. 
+		b er binditíminn í mánuðum.
+Eftir: 	vextir eru vextirnir á viðeigandi reikningi.
+"""
+
+def sparivx(vt,b):
+	if vt==0:
+		if b==0:
+			vextir = 0.36
+		elif b==12:
+			vextir = 0.046
+		elif b==18:
+			vextir = 0.048
+		elif b==24:
+			vextir = 0.048
+		else:
+			vextir = 1000
+	else:
+		if vt==1:
+			if b==36:
+				vextir = 0.0175
+			elif b==48:
+				vextir = 0.0185
+			elif b==60:
+				vextir = 0.0195
+			else:
+				vextir = 1000
+	return vextir
+#======================================================0
 fjarmagns = 0.8
 #eingreiðsla = 0
 #Mánaðalega = 1
