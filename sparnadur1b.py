@@ -13,7 +13,7 @@
 import math
 
 #=========================================================
-v = raunvx(vt,b,vb)
+
 """
 ====
 Reiknar raunvexti reiknings. Ef verðtryggður breytast vextirnir með verðbólgunni
@@ -51,6 +51,7 @@ def raunvx(vt,b,vb):
 				vextir = 1000
 	return vextir
 #======================================================0
+v = raunvx(vt,b,vb)
 fjarmagns = 0.8
 #eingreiðsla = 0
 #Mánaðalega = 1
