@@ -12,6 +12,12 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman):
 		vb = 5.60276243093922
 	else:
 		vb = 0.0
+		
+	#óverðtryggt - breytist ekki með verðbólgu
+	#raunvextir = nafnvextir - verðbólga
+	if verdtrygging == 0:
+		v = v-vb
+		print 'Raunvextir óverðtryggðs láns á tímabilinu eru ' + str(v)
 	
 	if(einman == 0):	#umframgreiðslan er eingreiðsla
 		if(jafnar == 1):
