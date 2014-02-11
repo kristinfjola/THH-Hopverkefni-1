@@ -24,9 +24,6 @@ def fa_uppl_um_sparnadarleid():
 	"""Hér þarf Þóhildur að galdra"""
 
 
-
-
-
 """
 ====
 Reiknar raunvexti reiknings. Ef verðtryggður breytast vextirnir með verðbólgunni
@@ -183,15 +180,13 @@ def eingreidsla(L, nt, v, vb):
 
 def fa_arsvexti():
 	global globvextir
-	global globfjarmagns
-	return globvextir
+	return math.ceil(globvextir)
 
 
 ##Fall gerir ráð fyrir
 def fa_fjarmagnstekjuskatt():
-	global globvextir
 	global globfjarmagns
-	return globfjarmagns
+	return math.ceil(globfjarmagns)
 
 
 """Óþörf föll??"""
