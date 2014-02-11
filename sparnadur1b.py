@@ -52,7 +52,39 @@ def raunvx(vt,b,vb):
 			else:
 				vextir = 1000
 	return vextir
-#======================================================0
+#======================================================
+"""
+
+Fall sem skilar vöxtum reiknings, óháð verðbólgu.
+Notkun: sparivx(vt,b)
+Fyrir: 	vt er 1 ef verðtryggður reikningur, 0 annars. 
+		b er binditíminn í mánuðum.
+Eftir: 	vextir eru vextirnir á viðeigandi reikningi.
+"""
+def sparivx(v,b):
+	if vt==0:
+		if b==0:
+			vextir = 0.36
+		elif b==12:
+			vextir = 0.046
+		elif b==18:
+			vextir = 0.048
+		elif b==24:
+			vextir = 0.048
+		else:
+			vextir = 1000
+	else:
+		if vt==1:
+			if b==36:
+				vextir = 0.0175
+			elif b==48:
+				vextir = 0.0185
+			elif b==60:
+				vextir = 0.0195
+			else:
+				vextir = 1000
+	return vextir
+#===========================================================
 v = raunvx(verdtrygg,nt,verdb)
 fjarmagns = 0.8
 #eingreiðsla = 0
