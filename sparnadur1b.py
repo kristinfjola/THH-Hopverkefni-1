@@ -17,6 +17,7 @@ besta_spar = ['�� ert ekki b�in/n a� sl� neitt inn kj�ni', '', '', '
 fjarmagns = 0.8
 globvextir = 0
 globfjarmagns = 0
+vb = 0
 #=========================================================
 """
 Notkun: hvad_er_best_ad_gera(b)
@@ -135,6 +136,7 @@ def sparivx(vt,b):
 
 ##Notkun: spar(Umframgreiðsla, mánuðir sparað, verðbólga síðustu x mánaða(0, 5, 10, 15), verðtryggt eða ekki (0/1), eingreiðsla eða mánaðaleg greiðsla(0/1), bundið í x mánuði (12, 18, 24, 36...))
 def spar(L, verdb, verdtrygg, manadagr, bundid): ##Núna er ekki hægt að velja í GUI-inu mánaðalega eða árlega vexti, svo mánaðalegir eru default
+	global vb
 	if(verdb == 0): 		#verðbólga núna
 		vb = 0.031
 	elif(verdb == 5): 		#verðbólga 5 ár
@@ -173,8 +175,8 @@ def manadalega(L, nt, v, vb):
 	skil = []
 	for i in range(0,nt):
 		x.append(i)
-		summa = summa + L
-		vextir.append((summa * ((1+(v/12))*(1+(vb/12))))-summa)
+		summa = (summa + L)*(1+(vb/12))
+		vextir.append(summa * v/12)
 		if (i+1)%12 == 0 and i != 0:		
 			stodur.append(math.ceil(summa + sum(vextir)*fjarmagns))
 			summa = summa + sum(vextir)*fjarmagns
@@ -200,7 +202,8 @@ def eingreidsla(L, nt, v, vb):
 	skil = []
 	for i in range(0, nt):
 		x.append(i)
-		vextir.append((summa * ((1+(v/12))*(1+(vb/12))))-summa)
+		summa = summa * (1+(vb/12)
+		vextir.append(summa * (v/12))
 		if (i+1)%12 == 0 and i != 0:
 			stodur.append(math.ceil(summa + sum(vextir)*fjarmagns))
 			summa = summa + sum(vextir)*fjarmagns
