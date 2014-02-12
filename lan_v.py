@@ -5,7 +5,7 @@
 
 
 #global breyta sem heldur utan lántökukostnaðinn (verðbólga, vextir, uppgreiðslugjald..)
-kostnadur = 0
+kostnadur = []
 #global breyta sem heldur utan um nöfn lána og raunvexti þeirra
 lan_uppl = []
 
@@ -44,33 +44,33 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):
 	else:
 		lan_uppl.append([nafnLan, (v+vb)/100.0])
 	
-	if(einman == 0):									#umframgreiðslan er eingreiðsla
+	if(einman == 0):	#umframgreiðslan er eingreiðsla
 		if(jafnar == 1):
 			if(verdtrygging == 0):
-				overdAfborganirEin(H, n, v, umfram)			#afborganir, óverðtryggt
+				overdAfborganirEin(H, n, v, umfram, nafnLan)		#afborganir, óverðtryggt
 			else:
-				verdAfborganirEin(H, n, v, vb, umfram)		#afborganir, verðtryggt
+				verdAfborganirEin(H, n, v, vb, umfram, nafnLan)		#afborganir, verðtryggt
 		else:
 			if(verdtrygging == 0):
-				overdGreidslurEin(H, n, v, umfram)			#greiðslur, óverðtryggt
+				overdGreidslurEin(H, n, v, umfram, nafnLan)			#greiðslur, óverðtryggt
 			else:
-				verdGreidslurEin(H, n, v, vb, umfram)		#gremaiðslur, verðtryggt
-	else:												#umframgreiðslan er mánaðarlega
+				verdGreidslurEin(H, n, v, vb, umfram, nafnLan)		#gremaiðslur, verðtryggt
+	else:				#umframgreiðslan er mánaðarlega
 		if(jafnar == 1):	#jafnar afborganir
 			if(verdtrygging == 0):
-				overdAfborganirMan(H, n, v, umfram)			#afborganir, óverðtryggt
+				overdAfborganirMan(H, n, v, umfram, nafnLan)		#afborganir, óverðtryggt
 			else:
-				verdAfborganirMan(H, n, v, vb, umfram)		#afborganir, verðtryggt
+				verdAfborganirMan(H, n, v, vb, umfram, nafnLan)		#afborganir, verðtryggt
 		else:		#jafnar greiðslur
 			if(verdtrygging == 0):
-				overdGreidslurMan(H, n, v, umfram)			#greiðslur, óverðtryggt
+				overdGreidslurMan(H, n, v, umfram, nafnLan)			#greiðslur, óverðtryggt
 			else:
-				verdGreidslurMan(H, n, v, vb, umfram)		#greiðslur, verðtryggt
+				verdGreidslurMan(H, n, v, vb, umfram, nafnLan)		#greiðslur, verðtryggt
 
 
 # Óverðtryggt, jafnar afborganir, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
 # Notkun: overdAfborganirEin(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
-def overdAfborganirEin(H, n, v, umfram):
+def overdAfborganirEin(H, n, v, umfram, nafn):
 	global kostnadur
 	def temp(H, n, v, umfram):
 		v = float(v)/100
@@ -101,7 +101,10 @@ def overdAfborganirEin(H, n, v, umfram):
 		eftirs = eftirs - afb
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
-		kostnadur = summa - H
+		
+		auka = [nafn, summa - H]
+		kostnadur.append(auka)
+		
 		for i in range(0, len(stodur)):
 			x.append(i)
 		skil.append(x)
@@ -119,7 +122,7 @@ def overdAfborganirEin(H, n, v, umfram):
 
 # Verðtryggt, jafnar afborganir, verðbólga alltaf sú sama, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
 # Noktun: verdAfborganirEin(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umframgreiðsla)
-def verdAfborganirEin(H, n, v, vb, umfram):
+def verdAfborganirEin(H, n, v, vb, umfram, nafn):
 	global kostnadur
 	def temp(H, n, v, vb, umfram):
 		import math
@@ -153,7 +156,10 @@ def verdAfborganirEin(H, n, v, vb, umfram):
 		eftirs = eftirs - afb
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
-		kostnadur = summa - H
+		
+		auka = [nafn, summa - H]
+		kostnadur.append(auka)
+		
 		for i in range(0, len(stodur)):
 			x.append(i)
 		skil.append(x)
@@ -172,7 +178,7 @@ def verdAfborganirEin(H, n, v, vb, umfram):
 
 # Óverðtryggt, jafnar greiðslur, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
 # Notkun: overdGreidslurEin(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
-def overdGreidslurEin(H, n, v, umfram):
+def overdGreidslurEin(H, n, v, umfram, nafn):
 	global kostnadur
 	v = float(v)/100
 	nt = n*12
@@ -202,7 +208,10 @@ def overdGreidslurEin(H, n, v, umfram):
 		eftirs = eftirs - afb
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
-		kostnadur = summa - H
+		
+		auka = [nafn, summa - H]
+		kostnadur.append(auka)
+		
 		for i in range(0, len(stodur)):
 			x.append(i)
 		skil.append(x)
@@ -224,7 +233,7 @@ def overdGreidslurEin(H, n, v, umfram):
 
 # Verðtryggt, jafnar greiðslur, verðbólga alltaf sú sama, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
 # Notkun: verdGreidslurEin(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umfram)	
-def verdGreidslurEin(H, n, v, vb, umfram):
+def verdGreidslurEin(H, n, v, vb, umfram, nafn):
 	global kostnadur
 	import math
 	v = float(v)/100
@@ -259,7 +268,10 @@ def verdGreidslurEin(H, n, v, vb, umfram):
 		eftirs = eftirs - afb
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
-		kostnadur = summa - H
+		
+		auka = [nafn, summa - H]
+		kostnadur.append(auka)
+		
 		for i in range(0, len(stodur)):
 			x.append(i)
 		skil.append(x)
@@ -283,7 +295,7 @@ def verdGreidslurEin(H, n, v, vb, umfram):
 
 # Óverðtryggt, jafnar afborganir, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með mánaðarlegri umframgreiðslu
 # Notkun: overdAfborganirMan(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
-def overdAfborganirMan(H, n, v, umfram):
+def overdAfborganirMan(H, n, v, umfram, nafn):
 	global kostnadur
 	v = float(v)/100
 	nt = n*12
@@ -318,7 +330,10 @@ def overdAfborganirMan(H, n, v, umfram):
 			eftirs = eftirs - afb - 0.99*umfram		# == eftirs - afb - (eftirs - afb) = 0
 			summa = summa + greidsla
 			stodur.append(round(eftirs))
-		kostnadur = summa - H
+		
+		auka = [nafn, summa - H]
+		kostnadur.append(auka)
+		
 		for i in range(0, len(stodur)):
 			x.append(i)
 		skil.append(x)
@@ -329,7 +344,7 @@ def overdAfborganirMan(H, n, v, umfram):
 
 # Verðtryggt, jafnar afborganir, verðbólga alltaf sú sama, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með mánaðarlegri umframgreiðslu
 # Noktun: verdAfborganirMan(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umframgreiðsla)
-def verdAfborganirMan(H, n, v, vb, umfram):
+def verdAfborganirMan(H, n, v, vb, umfram, nafn):
 	global kostnadur
 	import math
 	v = float(v)/100
@@ -367,7 +382,10 @@ def verdAfborganirMan(H, n, v, vb, umfram):
 			eftirs = eftirs - afb - 0.99*umfram
 			summa = summa + greidsla
 			stodur.append(round(eftirs))
-		kostnadur = summa - H
+		
+		auka = [nafn, summa - H]
+		kostnadur.append(auka)
+		
 		for i in range(0, len(stodur)):
 			x.append(i)
 		skil.append(x)
@@ -378,7 +396,7 @@ def verdAfborganirMan(H, n, v, vb, umfram):
 
 # Óverðtryggt, jafnar greiðslur, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með mánaðarlegri umframgreiðslu
 # Notkun: overdGreidslurMan(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
-def overdGreidslurMan(H, n, v, umfram):
+def overdGreidslurMan(H, n, v, umfram, nafn):
 	global kostnadur
 	v = float(v)/100
 	nt = n*12
@@ -410,7 +428,10 @@ def overdGreidslurMan(H, n, v, umfram):
 			eftirs = eftirs - afb
 			summa = summa + greidsla + umfram
 			stodur.append(round(eftirs))
-		kostnadur = summa - H
+		
+		auka = [nafn, summa - H]
+		kostnadur.append(auka)
+		
 		for i in range(0, len(stodur)):
 			x.append(i)
 		skil.append(x)
@@ -433,7 +454,7 @@ def overdGreidslurMan(H, n, v, umfram):
 
 # Verðtryggt, jafnar greiðslur, verðbólga alltaf sú sama, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með mánaðarlegri umframgreiðslu
 # Notkun: verdGreidslurMan(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umfram)	
-def verdGreidslurMan(H, n, v, vb, umfram):
+def verdGreidslurMan(H, n, v, vb, umfram, nafn):
 	global kostnadur
 	import math
 	v = float(v)/100
@@ -473,7 +494,10 @@ def verdGreidslurMan(H, n, v, vb, umfram):
 			eftirs = eftirs - afb
 			summa = summa + greidsla + umfram
 			stodur.append(round(eftirs))
-		kostnadur = summa - H
+		
+		auka = [nafn, summa - H]
+		kostnadur.append(auka)
+		
 		for i in range(0, len(stodur)):
 			x.append(i)
 		skil.append(x)
