@@ -222,7 +222,7 @@ def overdGreidslurEin(H, n, v, umfram, nafn):
 		print [[],[]]
 		return [[],[]]
 	elif(vt == 0):
-		overdAfborganirEin(H, nt, 0, umfram)
+		overdAfborganirEin(H, nt, 0, umfram, nafn)
 	else:
 		A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 		if(H > A-v*H+0.99*umfram):
@@ -282,9 +282,9 @@ def verdGreidslurEin(H, n, v, vb, umfram, nafn):
 		print [[],[]]
 		return [[],[]]
 	elif(vbt == 0):
-		overdGreidslurEin(H, nt, vt, umfram)
+		overdGreidslurEin(H, nt, vt, umfram, nafn)
 	elif(v == 0):
-		verdAfborganirEin(H, nt, 0, vbt, umfram)
+		verdAfborganirEin(H, nt, 0, vbt, umfram, nafn)
 	else:
 		A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 		if((1+vb)*H > (1+vb)*A-v*H+0.99*umfram):
@@ -443,7 +443,7 @@ def overdGreidslurMan(H, n, v, umfram, nafn):
 		print [[],[]]
 		return [[],[]]
 	elif(v == 0):
-			overdAfborganirMan(H, n, 0, umfram)
+			overdAfborganirMan(H, n, 0, umfram, nafn)
 	else:
 		A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 		if(H > A-v*H+0.99*umfram):
@@ -509,9 +509,9 @@ def verdGreidslurMan(H, n, v, vb, umfram, nafn):
 		print [[],[]]
 		return [[],[]]
 	elif(vb == 0):
-			overdGreidslurMan(H, n, v, umfram)
+			overdGreidslurMan(H, n, v, umfram, nafn)
 	elif(v == 0): 
-		verdAfborganirMan(H, n, 0, vb, umfram)
+		verdAfborganirMan(H, n, 0, vb, umfram, nafn)
 	else:
 		A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 		if((1+vb)*H > (1+vb)*A-v*H+0.99*umfram):
