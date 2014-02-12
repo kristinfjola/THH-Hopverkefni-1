@@ -12,42 +12,54 @@
 ##summa = heildarupphæð á tímapunkti á reikningi
 import math
 import gogn
-besta_leid = ['�� ert ekki b�in/n a� sl� neitt inn kj�ni', '', '', '', '�� ert ekki b�in/n a� sl� neitt inn kj�ni']
+import lan_v
+besta_spar = ['�� ert ekki b�in/n a� sl� neitt inn kj�ni', '', '', '', '�� ert ekki b�in/n a� sl� neitt inn kj�ni']
 fjarmagns = 0.8
 globvextir = 0
 globfjarmagns = 0
 #=========================================================
 """
-Notkun: hvad_er_best_ad_gera(18)
+Notkun: hvad_er_best_ad_gera(b)
 Fyrir: 	b er binditíminn sem notandi valdi
-Eftir:	besta_leid er fylki með öllum upplýsingum um valda sparnaðarleið
+Eftir:	besta_leid er fylki með nafni og vaxtauppl um valda bestu leið
 	best_ad_gera skilar streng um hvort sé betra að leggja inn á sparnað eða borga lán
 """
 def hvad_er_best_ad_gera(b):
         global besta_leid
+        global verstu_lan
+        global besta_spar
 	for i in range(len(gogn.sparnadarleidir)):
 		for j in range(len(gogn.sparnadarleidir[0])):
 			if gogn.sparnadarleidir[i][2] == b:
-				besta_leid = gogn.sparnadarleidir[i]
+				besta_spar = gogn.sparnadarleidir[i] #fylki með öllum uppl um bestu sparnaðarleið
 				break
 	# fá hæstu lánavexti
+	verstu_lan = lan_v.raunvLan()[1] # hæstu vextir láns
+	bestu_leid = besta_spar[1] #hæstu vextir sparnaðar
+
 	# bera saman lána og sparnaðarvexti
+	if (verstu_lan < bestu_leid):
+		besta_leid = besta_spar
+	else:
+		if (verstu_lan >= bestu_leid):
+			besta_leid = lan_v.raunvLan()
 	# segja hvað er best að gera í streng t.d. return 'að leggja inná ' + besta_leid 
-	return 'best að gera... vantar'
+	return 'Að borga inn á ' + str(besta_leid[0])
+
 """
 Notkun: fa_bestu_sparnadarleid()
 Fyrir: 	Besta sparnaðarleið hefur verið valin
-Eftir:	besta_leid er strengur með nafni á valinni sparnaðarleið
+Eftir:	besta_spar er strengur með nafni á valinni sparnaðarleið
 """
 def fa_bestu_sparnadarleid():
-	return besta_leid[0]
+	return besta_spar[0]
 """
 Notkun: fa_uppl_um_bestu_sparnadarleid()
 Fyrir: 	Besta sparnaðarleið hefur verið valin
 Eftir:	uppl_um_bestu_leid er strengur með lýsingu á valinni sparnaðarleið
 """
 def fa_uppl_um_sparnadarleid():
-	return besta_leid[4]
+	return besta_spar[4]
 """
 ====
 Reiknar raunvexti reiknings. Ef verðtryggður breytast vextirnir með verðbólgunni
