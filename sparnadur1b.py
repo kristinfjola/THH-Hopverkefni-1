@@ -72,13 +72,13 @@ Eftir: 	vextir eru vextirnir á viðeigandi reikningi.
 def sparivx(vt,b):
 	if vt==0:
 		if b==0:
-			vextir = 0.36
+			vextir = 0.036
 		elif b==12:
 			vextir = 0.046
 		elif b==18:
 			vextir = 0.048
 		elif b==24:
-			vextir = 0.048
+			vextir = 0.053
 		else:
 			vextir = 1000
 	else:
