@@ -202,7 +202,7 @@ def eingreidsla(L, nt, v, vb):
 	skil = []
 	for i in range(0, nt):
 		x.append(i)
-		summa = summa * (1+(vb/12)
+		summa = summa * (1+(vb/12))
 		vextir.append(summa * (v/12))
 		if (i+1)%12 == 0 and i != 0:
 			stodur.append(math.ceil(summa + sum(vextir)*fjarmagns))
