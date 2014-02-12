@@ -16,14 +16,33 @@ fjarmagns = 0.8
 globvextir = 0
 globfjarmagns = 0
 #=========================================================
-def fa_bestu_sparnadarleid():
-	"""hér þar Þórhildur að galdra"""
-
-
-def fa_uppl_um_sparnadarleid():
-	"""Hér þarf Þóhildur að galdra"""
-
-
+"""
+Notkun: hvad_er_best_ad_gera(18)
+Fyrir: 	b er binditíminn sem notandi valdi
+Eftir:	best er fylki með öllum upplýsingum um valdasparnaðarleið
+"""
+def hvad_er_best_ad_gera(b):
+	for i in range(len(gogn.sparnadarleidir)):
+		for j in range(len(gogn.sparnadarleidir[0])):
+			if gogn.sparnadarleidir[i][2] == b:
+				best = gogn.sparnadarleidir[i]
+	return best
+"""
+Notkun: fa_bestu_sparnadarleid()
+Fyrir: 	Besta sparnaðarleið hefur verið valin
+Eftir:	besta_leid er strengur með nafni á valinni sparnaðarleið
+"""
+def fa_bestu_sparnadarleid(b):
+	besta_leid = hvad_er_best_ad_gera(b)
+	return besta_leid[0]
+"""
+Notkun: fa_uppl_um_bestu_sparnadarleid()
+Fyrir: 	Besta sparnaðarleið hefur verið valin
+Eftir:	uppl_um_bestu_leid er strengur með lýsingu á valinni sparnaðarleið
+"""
+def fa_uppl_um_sparnadarleid(b):
+	uppl_um_bestu_leid = hvad_er_best_ad_gera(b)
+	return uppl_um_bestu_leid[4]
 """
 ====
 Reiknar raunvexti reiknings. Ef verðtryggður breytast vextirnir með verðbólgunni
