@@ -11,7 +11,7 @@
 ##vextir = fylki, stak fyrir hvern mánuð, vextir sem maður fær í hverjum mánuði, lagt við í lok 
 ##summa = heildarupphæð á tímapunkti á reikningi
 import math
-
+besta_leid = 0
 fjarmagns = 0.8
 globvextir = 0
 globfjarmagns = 0
@@ -19,30 +19,32 @@ globfjarmagns = 0
 """
 Notkun: hvad_er_best_ad_gera(18)
 Fyrir: 	b er binditíminn sem notandi valdi
-Eftir:	best er fylki með öllum upplýsingum um valdasparnaðarleið
+Eftir:	besta_leid er fylki með öllum upplýsingum um valda sparnaðarleið
+	best_ad_gera skilar streng um hvort sé betra að leggja inn á sparnað eða borga lán
 """
 def hvad_er_best_ad_gera(b):
 	for i in range(len(gogn.sparnadarleidir)):
 		for j in range(len(gogn.sparnadarleidir[0])):
 			if gogn.sparnadarleidir[i][2] == b:
-				best = gogn.sparnadarleidir[i]
-	return best
+				besta_leid = gogn.sparnadarleidir[i]
+	# fá hæstu lánavexti
+	# bera saman lána og sparnaðarvexti
+	# segja hvað er best að gera í streng t.d. return 'að leggja inná ' + besta_leid 
+	return 'best að gera... vantar'
 """
 Notkun: fa_bestu_sparnadarleid()
 Fyrir: 	Besta sparnaðarleið hefur verið valin
 Eftir:	besta_leid er strengur með nafni á valinni sparnaðarleið
 """
-def fa_bestu_sparnadarleid(b):
-	besta_leid = hvad_er_best_ad_gera(b)
+def fa_bestu_sparnadarleid():
 	return besta_leid[0]
 """
 Notkun: fa_uppl_um_bestu_sparnadarleid()
 Fyrir: 	Besta sparnaðarleið hefur verið valin
 Eftir:	uppl_um_bestu_leid er strengur með lýsingu á valinni sparnaðarleið
 """
-def fa_uppl_um_sparnadarleid(b):
-	uppl_um_bestu_leid = hvad_er_best_ad_gera(b)
-	return uppl_um_bestu_leid[4]
+def fa_uppl_um_sparnadarleid():
+	return besta_leid[4]
 """
 ====
 Reiknar raunvexti reiknings. Ef verðtryggður breytast vextirnir með verðbólgunni
