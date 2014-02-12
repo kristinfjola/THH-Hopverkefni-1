@@ -12,11 +12,3 @@ verd48 = ['Verðtryggður 48', 0.0185, 48, 'ver�trygg�ur', 'Verðtryggður s
 verd60 = ['Verðtryggður 60', 0.0195, 60, 'ver�trygg�ur', 'Verðtryggður sparireikningur er góð lausn fyrir reglulegan sparnað og gefur góða ávöxtun. Hver innborgun er bundin í 60 mánuði. Eftir það er innborgunin laus til útborgunar í einn mánuð í senn á sex mánaða fresti. Vextirnir, 1,95%, eru bókfærðir í árslok og þeir eru lausir til útborgunar eftir hverja vaxtafærslu.					']
 
 sparnadarleidir = [vaxtasproti, overd12, overd18, overd24, verd36, verd48, verd60]
-
-# d�mi um lykkju til a� fara i gegnum
-for i in range(len(sparnadarleidir)):
-    for j in range(len(sparnadarleidir[0])):
-        print(sparnadarleidir[i][j])
-        #if [i][2] == bindistimi:
-            #'r�tta lei�in'
-            #sparnadarleidir[i][0] = nafni� � r�ttu lei�inni
