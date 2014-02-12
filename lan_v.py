@@ -24,7 +24,7 @@ def raunvLan():
 	return max
 
 	
-def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman. nafnLan):
+def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):
 	global lan
 	
 	if(verdbolga == 0): 		#verðbólga núna
