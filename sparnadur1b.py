@@ -25,10 +25,12 @@ Fyrir: 	b er binditíminn sem notandi valdi
 Eftir:	besta_leid er fylki með nafni og vaxtauppl um valda bestu leið
 	best_ad_gera skilar streng um hvort sé betra að leggja inn á sparnað eða borga lán
 """
-def hvad_er_best_ad_gera(b):
+def hvad_er_best_ad_gera(b, vb):
+	global vb
         global besta_leid
         global verstu_lan
         global besta_spar
+    #finnum bestu sparnaðarleið miðað við binditíma
 	for i in range(len(gogn.sparnadarleidir)):
 		for j in range(len(gogn.sparnadarleidir[0])):
 			if gogn.sparnadarleidir[i][2] == b:
@@ -36,14 +38,18 @@ def hvad_er_best_ad_gera(b):
 				break
 	# fá hæstu lánavexti
 	verstu_lan = lan_v.raunvLan()[1] # hæstu vextir láns
-	besta_leid = besta_spar[1] #hæstu vextir sparnaðar
+	# reikna með verðbólgu verðtryggðra reikninga
+	if (besta_spar[3]==1):
+		bestu_spar_vx = besta_spar[1]+vb 
+	else:
+		bestu_spar_vx = besta_spar[1]
 
 	# bera saman lána og sparnaðarvexti
-	if (verstu_lan < besta_leid):
-		besta_leid = besta_spar
+	if (verstu_lan < bestu_spar_vx):
+		besta_leid = besta_spar #besta_leid er fylki fyrir sparnaðarleið
 	else:
-		if (verstu_lan >= besta_leid):
-			besta_leid = lan_v.raunvLan()
+		if (verstu_lan >= bestu_spar_vx):
+			besta_leid = lan_v.raunvLan() #besta_leid er fylki með nafni og vöxtum láns
 	# segja hvað er best að gera í streng t.d. return 'að leggja inná ' + besta_leid 
 	return 'Að borga inn á ' + str(besta_leid[0])
 
