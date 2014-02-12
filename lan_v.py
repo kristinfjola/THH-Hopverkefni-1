@@ -39,7 +39,10 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):
 	else:
 		vb = 0.0
 	
-	lan_uppl.append([nafnLan, (v+vb)/100.0])
+	if(verdtrygging == 0):
+		lan_uppl.append([nafnLan, v/100.0])
+	else:
+		lan_uppl.append([nafnLan, (v+vb)/100.0])
 	
 	if(einman == 0):									#umframgreiðslan er eingreiðsla
 		if(jafnar == 1):
