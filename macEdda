@@ -37,9 +37,12 @@ class SvarGluggi(wx.Frame):
         wx.Frame.__init__(self, parent, id, 'Svor', size=(800,650))
         wx.Frame.CenterOnScreen(self)
         
+        self.scroll = wx.ScrolledWindow(self, -1) #NÝTT
+        self.scroll.SetScrollbars(1, 1, 800, 650) #NÝTT
+        
         fig, ax = plt.subplots()
-
-        panel_svar = wx.Panel(self)
+        
+        panel_svar = wx.Panel(self.scroll) #NÝTT
         sizer = wx.BoxSizer(wx.VERTICAL)
         canvas = FigCanvas(panel_svar, -1, fig)
         
@@ -61,13 +64,27 @@ class SvarGluggi(wx.Frame):
         ax.legend(loc=2); # upper left corner
         
         canvas.draw()
-        sizer.Add(canvas, 1, wx.GROW)
 
         #...
-
         
-        panel_svar.SetSizerAndFit(sizer)
+        lanakostnadur = wx.StaticText(panel_svar, -1, "Auka kostnadur vid lan (vextir, uppgreidslugjald): " )#+ lana_kostnadur)
+        sizer.Add(lanakostnadur, 0, wx.ALL, 10)
+        
+        sizer.Add(canvas, 0, wx.ALL, 10) #NÝTT -> nýr staður
+        
+        # !! NÝTT !!! (út þetta fall)
+        
+        panel_svar.SetSizer(sizer)
+        panel_svar.SetAutoLayout(True)
         panel_svar.Layout()
+        panel_svar.Fit()
+        
+        self.Center()
+        self.MakeModal( True )
+        
+        self.frmPanelWid, self.frmPanelHgt = panel_svar.GetSize()
+        self.unit = 1
+        self.scroll.SetScrollbars( self.unit, self.unit, self.frmPanelWid/self.unit, self.frmPanelHgt/self.unit )
         
 app = wx.App(False)
 frame = wx.Frame(None, title="Onnur utgafa")
