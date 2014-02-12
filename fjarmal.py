@@ -47,7 +47,7 @@ class MainPage(wx.Panel):
         self.grid.Add(self.greidslutypa, pos=(0,7))
 
         # labels á sparnað
-        self.umframgreidsla = wx.StaticText(self, label="Umframgreiðsla á mánuði")
+        self.umframgreidsla = wx.StaticText(self, label="Umframgreiðsla")
         self.grid2.Add(self.umframgreidsla, pos=(0,0))
 		
         self.greidsla = wx.StaticText(self, label="Eingreiðsla/mánaðarlega")
@@ -292,7 +292,6 @@ class SvarGluggi(wx.Frame):
         sizer.Add(bestAdGera, 0, wx.ALL, 10)
 
 
-
         ## --------------   gröf byrja        ------------##
 
         nidurstodur = MainPage.fa_nidurstodur(panel)
@@ -325,8 +324,9 @@ class SvarGluggi(wx.Frame):
 
         sparnadar_box = wx.StaticBox(panel_svar, wx.ID_ANY, "Upplýsingar um sparnaðarleið")
         sparnadar_box_sizer = wx.StaticBoxSizer(sparnadar_box, wx.VERTICAL)
-        sparnadar_uppl = wx.StaticText(panel_svar, -1, uppl_um_sparnadarleid)    
-        sparnadar_box_sizer.Add(sparnadar_uppl, 0, wx.ALL, 10)
+        sparnadar_box_sizer.SetMinSize((700, 50))
+        sparnadar_uppl = wx.TextCtrl(panel_svar, value=uppl_um_sparnadarleid, size=(700,50), style=wx.TE_READONLY|wx.TE_MULTILINE|wx.TE_NO_VSCROLL|wx.BORDER_NONE) 
+        sparnadar_box_sizer.Add(sparnadar_uppl, 0, wx.EXPAND, 10)
         sizer.Add(sparnadar_box_sizer, 0, wx.ALL, 10)
 
         arsvextir = str(sparnadur1b.fa_arsvexti())
