@@ -135,7 +135,7 @@ class MainPage(wx.Panel):
         self.grid2.Add(self.verdSparn_, pos=(4,1))
         self.Bind(wx.EVT_RADIOBOX, self._verdtrSparn, self.verdSparn_)
                 
-        self.timab = wx.ComboBox(self, choices=self.timabil_overd, style=wx.CB_READONLY)
+        self.timab = wx.ComboBox(self, value=self.timabil_overd[0], choices=self.timabil_overd, style=wx.CB_READONLY)
         self.Bind(wx.EVT_COMBOBOX, self._timabil, self.timab)      
         self.timab_sizer = wx.BoxSizer(wx.VERTICAL)
         self.grid2.Add(self.timab_sizer, pos=(4, 3), flag=wx.TOP, border=10)
@@ -211,6 +211,7 @@ class MainPage(wx.Panel):
         if(self.innist_bundin == "ek"):
         	self.innist_bundin = 0
         self.innist_bundin = int(self.innist_bundin)
+        print(self.innist_bundin)
         
     def _umframgreidsla(self, event):
         self.umframgr = int(event.GetString())
@@ -225,19 +226,23 @@ class MainPage(wx.Panel):
     def _verdtrSparn(self, event):
         self.verdSparn = event.GetInt()
         self.breyta_timabil()
+        print(self.innist_bundin)
 
     def breyta_timabil(self):
         if (self.verdSparn == 0):
-            self.timab2 = wx.ComboBox(self, choices=self.timabil_overd, style=wx.CB_READONLY)
+            self.timab2 = wx.ComboBox(self, value=self.timabil_overd[0], choices=self.timabil_overd, style=wx.CB_READONLY)
             self.Bind(wx.EVT_COMBOBOX, self._timabil, self.timab2)
+            self.innist_bundin = 0
         else:
-            self.timab2 = wx.ComboBox(self, choices=self.timabil_verd, style=wx.CB_READONLY)
+            self.timab2 = wx.ComboBox(self, value=self.timabil_verd[0], choices=self.timabil_verd, style=wx.CB_READONLY)
             self.Bind(wx.EVT_COMBOBOX, self._timabil, self.timab2)
+            self.innist_bundin = 36
 
         self.timab_sizer.Replace(self.timab, self.timab2, False)
         self.timab.Destroy()
         self.timab_sizer.Layout()
         self.timab = self.timab2
+        
         
     def hvernig_greidsla(self, event):
         self.ein_man_greidsla = event.GetInt()
