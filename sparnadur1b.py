@@ -98,7 +98,7 @@ def sparivx(vt,b):
 #Mánaðalega = 1
 
 ##Notkun: spar(Umframgreiðsla, mánuðir sparað, verðbólga síðustu x mánaða(0, 5, 10, 15), verðtryggt eða ekki (0/1), eingreiðsla eða mánaðaleg greiðsla(0/1), bundið í x mánuði (12, 18, 24, 36...))
-def spar(L, nt, verdb, verdtrygg, manadagr, bundid): ##Núna er ekki hægt að velja í GUI-inu mánaðalega eða árlega vexti, svo mánaðalegir eru default
+def spar(L, verdb, verdtrygg, manadagr, bundid): ##Núna er ekki hægt að velja í GUI-inu mánaðalega eða árlega vexti, svo mánaðalegir eru default
 	if(verdb == 0): 		#verðbólga núna
 		vb = 0.031
 	elif(verdb == 5): 		#verðbólga 5 ár
@@ -114,14 +114,14 @@ def spar(L, nt, verdb, verdtrygg, manadagr, bundid): ##Núna er ekki hægt að v
 
 	if verdtrygg == 1:
 		if manadagr == 1:
-			return manadalega(L, nt, v, vb)
+			return manadalega(L, 12, v, vb)
 		else:
-			return eingreidsla(L, nt, v, vb)
+			return eingreidsla(L, 12, v, vb)
 	else:
 		if manadagr == 1:
-			return manadalega(L, nt, v, 0.0)
+			return manadalega(L, 12, v, 0.0)
 		else:
-			return eingreidsla(L, nt, v, 0.0)
+			return eingreidsla(L, 12, v, 0.0)
 
 
 
