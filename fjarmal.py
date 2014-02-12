@@ -2,6 +2,13 @@
 import wx
 import sparnadur1b
 import lan_v
+from pylab import *
+import matplotlib.pyplot as plt
+import matplotlib
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_wxagg import \
+	FigureCanvasWxAgg as FigCanvas, \
+	NavigationToolbar2WxAgg as NavigationToolbar
 
 class MainPage(wx.Panel):
     def __init__(self, parent):
@@ -14,8 +21,8 @@ class MainPage(wx.Panel):
         self.hSizer = wx.BoxSizer(wx.HORIZONTAL)
 
 
-        # fyrirsögn
-        self.fyrirsogn = wx.StaticText(self, label="Hvað skal gera við peningana?")
+        # fyrirsï¿½gn
+        self.fyrirsogn = wx.StaticText(self, label="Hvaï¿½ skal gera viï¿½ peningana?")
         self.fyrirsognFont = wx.Font(16, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
         self.fyrirsogn.SetFont(self.fyrirsognFont)
         self.mainSizer.Add(self.fyrirsogn, flag=wx.ALL|wx.EXPAND, border=10)
@@ -23,79 +30,79 @@ class MainPage(wx.Panel):
         self.mainSizer.Add(self.grid2, 0, wx.ALL, 5)
         self.mainSizer.Add(self.grid, 0, wx.ALL, 5)
 
-        # labels á lán
-        self.stadaLana = wx.StaticText(self, label="Staða láns")    
+        # labels ï¿½ lï¿½n
+        self.stadaLana = wx.StaticText(self, label="Staï¿½a lï¿½ns")    
         self.grid.Add(self.stadaLana, pos=(0,0))
 
         self.vextir = wx.StaticText(self, label="Vextir")
         self.grid.Add(self.vextir, pos=(0,2))
 
-        self.timabilLana = wx.StaticText(self, label="Tímabil")
+        self.timabilLana = wx.StaticText(self, label="Tï¿½mabil")
         self.grid.Add(self.timabilLana, pos=(0,4))
 
-        self.verdtryggtLan = wx.StaticText(self, label="Óverðtryggt/Verðtryggt")
+        self.verdtryggtLan = wx.StaticText(self, label="ï¿½verï¿½tryggt/Verï¿½tryggt")
         self.grid.Add(self.verdtryggtLan, pos=(0,6))
 	
-        self.greidslutypa = wx.StaticText(self, label="Jafnar greiðslur/jafnar afborganir")
+        self.greidslutypa = wx.StaticText(self, label="Jafnar greiï¿½slur/jafnar afborganir")
         self.grid.Add(self.greidslutypa, pos=(0,7))
 
-        # labels á sparnað
-        self.umframgreidsla = wx.StaticText(self, label="Umframgreiðsla á mánuði")
+        # labels ï¿½ sparnaï¿½
+        self.umframgreidsla = wx.StaticText(self, label="Umframgreiï¿½sla ï¿½ mï¿½nuï¿½i")
         self.grid2.Add(self.umframgreidsla, pos=(0,0))
 		
-        self.greidsla = wx.StaticText(self, label="Eingreiðsla/mánaðarlega")
+        self.greidsla = wx.StaticText(self, label="Eingreiï¿½sla/mï¿½naï¿½arlega")
         self.grid2.Add(self.greidsla, pos=(1,0), flag=wx.TOP, border=17)
 
-        self.verdb = wx.StaticText(self, label="Tímabil verðbólgu:")
+        self.verdb = wx.StaticText(self, label="Tï¿½mabil verï¿½bï¿½lgu:")
         self.grid2.Add(self.verdb, pos=(2,0), flag=wx.TOP, border=17)
         
-        self.umframgreidsla = wx.StaticText(self, label="Hvernig sparnaðarreikning?")
+        self.umframgreidsla = wx.StaticText(self, label="Hvernig sparnaï¿½arreikning?")
         self.grid2.Add(self.umframgreidsla, pos=(3,0), flag=wx.TOP, border=10)
         
-        self.verdtrSparn = wx.StaticText(self, label="Ég vil sparnaðinn:")
+        self.verdtrSparn = wx.StaticText(self, label="ï¿½g vil sparnaï¿½inn:")
         self.grid2.Add(self.verdtrSparn, pos=(4,0), flag=wx.TOP, border=17)
 
-        self.timabil = wx.StaticText(self, label="Innistæða má vera bundin í:")
+        self.timabil = wx.StaticText(self, label="Innistï¿½ï¿½a mï¿½ vera bundin ï¿½:")
         self.grid2.Add(self.timabil, pos=(4, 2), flag=wx.TOP, border=17)
 	
-        self.radioListVerdtrygging = ['Óverðtryggt', 'Verðtryggt']
-        self.radioListJafnar = ['Greiðslur', 'Afborganir']
-        self.radioListGreidsla = ['Eingreiðsla', 'Mánaðarlega']
-        self.timabil_overd = ['ekki bundin', '12 mánuðir', '18 mánuðir', '24 mánuðir']
-        self.timabil_verd = ['36 mánuðir', '48 mánuðir', '60 mánuðir']
-        self.verdbolga_ = ['seinustu 15 ár', 'seinustu 10 ár', 'seinustu 5 ár', 'nuna']
-        self.radioList2 = ['Óverðtryggðan', 'Verðtryggðan']
+        self.radioListVerdtrygging = ['ï¿½verï¿½tryggt', 'Verï¿½tryggt']
+        self.radioListJafnar = ['Greiï¿½slur', 'Afborganir']
+        self.radioListGreidsla = ['Eingreiï¿½sla', 'Mï¿½naï¿½arlega']
+        self.timabil_overd = ['ekki bundin', '12 mï¿½nuï¿½ir', '18 mï¿½nuï¿½ir', '24 mï¿½nuï¿½ir']
+        self.timabil_verd = ['36 mï¿½nuï¿½ir', '48 mï¿½nuï¿½ir', '60 mï¿½nuï¿½ir']
+        self.verdbolga_ = ['seinustu 15 ï¿½r', 'seinustu 10 ï¿½r', 'seinustu 5 ï¿½r', 'nuna']
+        self.radioList2 = ['ï¿½verï¿½tryggï¿½an', 'Verï¿½tryggï¿½an']
 
         # upphafsstilla allar breytur sem 0
         self.lan1_upph = self.lan2_upph = self.lan3_upph = self.lan1_vextir = self.lan2_vextir = self.lan3_vextir = self.lan1_greidslubyrgdi = self.lan2_greidslubyrgdi = self.lan3_greidslubyrgdi = self.lan1_timabil = self.lan2_timabil = self.lan3_timabil =  self.lan1_verdtrygging =  self.lan2_verdtrygging =  self.lan3_verdtrygging = self.lan1_jafnar = self.lan2_jafnar = self.lan3_jafnar = self.umframgr = 0      
         self.verdbolga = 15
         self.verdSparn = self.ein_man_greidsla = self.innist_bundin = 0
         
-        # lána input
+        # lï¿½na input
         for i in range(1, 4):
-            # innsláttur fyrir lán - self.lani
+            # innslï¿½ttur fyrir lï¿½n - self.lani
             lan = 'lan' + str(i)
             setattr(self, lan, wx.TextCtrl(self, size = (80,20)))  
             self.grid.Add(object.__getattribute__(self, lan), pos=(i,0), flag=wx.TOP, border=17)
             self.Bind(wx.EVT_TEXT, self.upphaed_lana, object.__getattribute__(self, lan))
             
-            # kr. merki fyrir lánsupphæð - self.kronai1
+            # kr. merki fyrir lï¿½nsupphï¿½ï¿½ - self.kronai1
             krona1 = 'krona' + str(i) + '1'
             setattr(self, krona1, wx.StaticText(self, label='kr.'))
             self.grid.Add(object.__getattribute__(self, krona1), pos=(i,1), flag=wx.TOP, border=17)
             
-            # innsláttur fyrir vexti - self.vextiri
+            # innslï¿½ttur fyrir vexti - self.vextiri
             vextir = 'vextir' + str(i)
             setattr(self, vextir, wx.TextCtrl(self, size = (50,20)))
             self.grid.Add(object.__getattribute__(self, vextir), pos=(i,2), flag=wx.TOP, border=17)
             self.Bind(wx.EVT_TEXT, self.vextir_lana, object.__getattribute__(self, vextir))
 
-            # prósentumerki - self.prosentai
+            # prï¿½sentumerki - self.prosentai
             prosenta = 'prosenta' + str(i)
             setattr(self, prosenta, wx.StaticText(self, label='%'))
             self.grid.Add(object.__getattribute__(self, prosenta), pos=(i,3), flag=wx.TOP, border=17)
 
-            # tímabil láns - self.timabilLansi
+            # tï¿½mabil lï¿½ns - self.timabilLansi
             timabilLans = 'timabilLans' + str(i)
             setattr(self, timabilLans, wx.TextCtrl(self, size = (50,20)))
             self.grid.Add(object.__getattribute__(self, timabilLans), pos=(i,4), flag=wx.TOP, border=17)
@@ -103,22 +110,22 @@ class MainPage(wx.Panel):
 
            # ar - self.ari
             ar = 'ar' + str(i)
-            setattr(self, ar, wx.StaticText(self, label='ár'))
+            setattr(self, ar, wx.StaticText(self, label='ï¿½r'))
             self.grid.Add(object.__getattribute__(self, ar), pos=(i,5), flag=wx.TOP, border=17)
 			
-            # radio buttons fyrir verðtryggingu - self.verdtryggingi
+            # radio buttons fyrir verï¿½tryggingu - self.verdtryggingi
             verdtrygging = 'verdtrygging' + str(i)
             setattr(self, verdtrygging, wx.RadioBox(self, choices=self.radioListVerdtrygging))
             self.grid.Add(object.__getattribute__(self, verdtrygging), pos=(i,6), flag=wx.FIXED_MINSIZE | wx.ALIGN_TOP)
             self.Bind(wx.EVT_RADIOBOX, self.verdtrygging_lana, object.__getattribute__(self, verdtrygging))
 
-            # radio buttons fyrir jafnar greiðslur/jafnar afborganir
+            # radio buttons fyrir jafnar greiï¿½slur/jafnar afborganir
             jafnar = 'jafnar' + str(i)
             setattr(self, jafnar, wx.RadioBox(self, choices=self.radioListJafnar))
             self.grid.Add(object.__getattribute__(self, jafnar), pos=(i,7), flag=wx.FIXED_MINSIZE | wx.ALIGN_TOP)
             self.Bind(wx.EVT_RADIOBOX, self.jafnar_lana, object.__getattribute__(self, jafnar))
 
-        # sparnaðar input
+        # sparnaï¿½ar input
         self.umframgr_ = wx.TextCtrl(self, size = (270,20))
         self.grid2.Add(self.umframgr_, pos=(0,1))
         self.Bind(wx.EVT_TEXT, self._umframgreidsla, self.umframgr_)
@@ -256,71 +263,105 @@ class MainPage(wx.Panel):
 
     def syna_svar_glugga(self):
         self.svar_gluggi = SvarGluggi(parent=None, id=-1)
+        #self.svar_gluggi.nidurstodur(self.umframgr, 12, self.verdbolga, self.verdSparn, self.ein_man_greidsla, self.innist_bundin)
         self.svar_gluggi.Show()
 
 class SvarGluggi(wx.Frame):
 
     def __init__(self,parent,id):
-        wx.Frame.__init__(self, parent, id, 'Svör', size=(500,400))
+        wx.Frame.__init__(self, parent, id, 'Svor', size=(800,650))
         wx.Frame.CenterOnScreen(self)
+        
+        fig, ax = plt.subplots()
 
         panel_svar = wx.Panel(self)
         sizer = wx.BoxSizer(wx.VERTICAL)
+        canvas = FigCanvas(panel_svar, -1, fig)
         
-        #besti_kostur = hvad_er_best_ad_gera(self.innist_bundin);  -- úr hvaða file er þetta? lan_v eða sparnadur1b?
+        #besti_kostur = hvad_er_best_ad_gera(self.innist_bundin);  -- ï¿½r hvaï¿½a file er ï¿½etta? lan_v eï¿½a sparnadur1b?
         besti_kostur = '<temp besti kostur>'
 
-        bestAdGera = wx.StaticText(panel_svar, -1, "Það væri best fyrir þig að " + besti_kostur )
+        bestAdGera = wx.StaticText(panel_svar, -1, "ï¿½aï¿½ vï¿½ri best fyrir ï¿½ig aï¿½ " + besti_kostur )
         bestAdGera_font = wx.Font(16, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
         bestAdGera.SetFont(bestAdGera_font)
         sizer.Add(bestAdGera, 0, wx.ALL, 10)
 
 
 
-        ## ------        setja hér gröf        ------------##
+        ## ------        setja hï¿½r grï¿½f        ------------##
+        
+        x = linspace(0, 12)
+        
+        nidurstodur = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], [1000000, 998348, 997238, 990826, 872039, 863039, 834738, 800647, 798372, 782933, 700634, 699362, 600827]]
+        nidurstodur2 = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], [1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000]]
+        
+        ax.set_ylim([0, 1500000])
+        ax.set_xlim([0, 12])
+        
+        #data_x = self.nidurstodur[0]
+        #data_y = self.nidurstodur[1]
+        
+        data_x = nidurstodur[0]
+        data_y = nidurstodur[1]
+        data_x2 = nidurstodur2[0]
+        data_y2 = nidurstodur2[1]
+        
+        ax.plot(data_x, data_y, label="Lan ef borgad er inna thad")
+        ax.plot(data_x2, data_y2, label="Obreytt lan")
+        
+        ax.set_xlabel('Timi (manudir)')
+        ax.set_ylabel('Upphaed')
+        ax.set_title('Reyndu nu ad spara')
+        ax.legend(loc=2); # upper left corner
+        
+        canvas.draw()
+        sizer.Add(canvas, 1, wx.GROW)
         
 
         besta_sparnadarleid = str(sparnadur1b.fa_bestu_sparnadarleid())
-        #besta_sparnadarleid = '<temp sparðanarleið>'
+        #besta_sparnadarleid = '<temp sparï¿½anarleiï¿½>'
 
         uppl_um_sparnadarleid = str(sparnadur1b.fa_uppl_um_sparnadarleid())
         #uppl_um_sparnadarleid  = '<temp uppl>'
 
-        sparnadarleid = wx.StaticText(panel_svar, -1, "Besta sparnaðarleiðin fyrir þig er " + besta_sparnadarleid)
+        sparnadarleid = wx.StaticText(panel_svar, -1, "Besta sparnaï¿½arleiï¿½in fyrir ï¿½ig er " + besta_sparnadarleid)
         sizer.Add(sparnadarleid, 0, wx.ALL, 10)
 
-        sparnadar_box = wx.StaticBox(panel_svar, wx.ID_ANY, "Upplýsingar um sparnaðarleið")
+        sparnadar_box = wx.StaticBox(panel_svar, wx.ID_ANY, "Upplï¿½singar um sparnaï¿½arleiï¿½")
         sparnadar_box_sizer = wx.StaticBoxSizer(sparnadar_box, wx.VERTICAL)
         sparnadar_uppl = wx.StaticText(panel_svar, -1, uppl_um_sparnadarleid)    
         sparnadar_box_sizer.Add(sparnadar_uppl, 0, wx.ALL, 10)
         sizer.Add(sparnadar_box_sizer, 0, wx.ALL, 10)
 
         arsvextir = str(sparnadur1b.fa_arsvexti())
-        #arsvextir = '<temp ársvextir>'
+        #arsvextir = '<temp ï¿½rsvextir>'
 
-        ars_vextir = wx.StaticText(panel_svar, -1, "Vextir yfir 12 mánuði: " + arsvextir)
+        ars_vextir = wx.StaticText(panel_svar, -1, "Vextir yfir 12 mï¿½nuï¿½i: " + arsvextir)
         sizer.Add(ars_vextir, 0, wx.ALL, 10)
 
         fjarmagnstekjuskattur = str(sparnadur1b.fa_fjarmagnstekjuskatt())
-        #fjarmagnstekjuskattur = '<temp fjármagnstekjuskattur>'
+        #fjarmagnstekjuskattur = '<temp fjï¿½rmagnstekjuskattur>'
 
-        ars_fjarmagnstekjuskattur = wx.StaticText(panel_svar, -1, "Fjármagnstekjuskattur yfir 12 mánuði: " + fjarmagnstekjuskattur)
+        ars_fjarmagnstekjuskattur = wx.StaticText(panel_svar, -1, "Fjï¿½rmagnstekjuskattur yfir 12 mï¿½nuï¿½i: " + fjarmagnstekjuskattur)
         sizer.Add(ars_fjarmagnstekjuskattur, 0, wx.ALL, 10)
 
         #lana_kostnadur = str(lan_v.fa_lanakostnad())
-        lana_kostnadur = '<temp lánakostnaður>'
+        lana_kostnadur = '<temp lï¿½nakostnaï¿½ur>'
 
-        lanakostnadur = wx.StaticText(panel_svar, -1, "Auka kostnaður við lán (vextir, uppgreiðslugjald): " + lana_kostnadur)
+        lanakostnadur = wx.StaticText(panel_svar, -1, "Auka kostnaï¿½ur viï¿½ lï¿½n (vextir, uppgreiï¿½slugjald): " + lana_kostnadur)
         sizer.Add(lanakostnadur, 0, wx.ALL, 10)
 
         
         panel_svar.SetSizerAndFit(sizer)
         panel_svar.Layout()
+    
+    def nidurstodur(L, nt, verdb, verdtrygg, manadagr, bundid):
+    	self.nidurstodur = sparnadur1b.spar(L, nt, verdb, verdtrygg, manadagr, bundid)
  
 
         
 app = wx.App(False)
-frame = wx.Frame(None, title="Önnur útgáfa")
+frame = wx.Frame(None, title="ï¿½nnur ï¿½tgï¿½fa")
 frame.SetSize((850,500))
 panel = MainPage(frame)
 frame.Show()
