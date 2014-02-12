@@ -22,8 +22,12 @@ def raunvLan():
 	return max
 
 	
-def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):
+def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan, hreinsa):
 	global lan_uppl
+	global kostnadur
+	
+	if(hreinsa == 1):
+		kostnadur = []
 	
 	#setja inn rétta verðbólgu
 	if(verdbolga == 0): 		#verðbólga núna
