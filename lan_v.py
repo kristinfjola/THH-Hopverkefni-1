@@ -16,9 +16,10 @@ def fa_lanakostnad():
 
 #skilar fylki með tveimur stökum, nafn lánsins með hæstu raunvexti og raunvexturinn sjálfur
 def raunvLan():
-	max = []
+	global lan_uppl
+	max = ['', 0]
 	for i in range(0, len(lan_uppl)):
-		if(lan_uppl[i][1] > max):
+		if(lan_uppl[i][1] > max[1]):
 			max[0] = lan_uppl[i][0]
 			max[1] = lan_uppl[i][1]
 	return max
@@ -38,7 +39,7 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):
 	else:
 		vb = 0.0
 	
-	lan_uppl.append([nafnLan, (v+vb)/100])
+	lan_uppl.append([nafnLan, (v+vb)/100.0])
 	
 	if(einman == 0):									#umframgreiðslan er eingreiðsla
 		if(jafnar == 1):
