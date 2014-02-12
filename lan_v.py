@@ -105,7 +105,7 @@ def overdAfborganirEin(H, n, v, umfram, nafn):
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
 		
-		auka = [nafn, summa - H]
+		auka = [nafn, round(summa - H)]
 		kostnadur.append(auka)
 		
 		x = []
@@ -164,7 +164,7 @@ def verdAfborganirEin(H, n, v, vb, umfram, nafn):
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
 		
-		auka = [nafn, summa - H]
+		auka = [nafn, round(summa - H)]
 		kostnadur.append(auka)
 		
 		x = []
@@ -219,7 +219,7 @@ def overdGreidslurEin(H, n, v, umfram, nafn):
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
 		
-		auka = [nafn, summa - H]
+		auka = [nafn, round(summa - H)]
 		kostnadur.append(auka)
 		
 		x = []
@@ -282,7 +282,7 @@ def verdGreidslurEin(H, n, v, vb, umfram, nafn):
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
 		
-		auka = [nafn, summa - H]
+		auka = [nafn, round(summa - H)]
 		kostnadur.append(auka)
 		
 		x = []
@@ -347,7 +347,7 @@ def overdAfborganirMan(H, n, v, umfram, nafn):
 			summa = summa + greidsla
 			stodur.append(round(eftirs))
 		
-		auka = [nafn, summa - H]
+		auka = [nafn, round(summa - H)]
 		kostnadur.append(auka)
 		
 		x = []
@@ -402,7 +402,7 @@ def verdAfborganirMan(H, n, v, vb, umfram, nafn):
 			summa = summa + greidsla
 			stodur.append(round(eftirs))
 		
-		auka = [nafn, summa - H]
+		auka = [nafn, round(summa - H)]
 		kostnadur.append(auka)
 		
 		x = []
@@ -449,7 +449,7 @@ def overdGreidslurMan(H, n, v, umfram, nafn):
 			summa = summa + greidsla + umfram
 			stodur.append(round(eftirs))
 		
-		auka = [nafn, summa - H]
+		auka = [nafn, round(summa - H)]
 		kostnadur.append(auka)
 		
 		x = []
@@ -517,7 +517,7 @@ def verdGreidslurMan(H, n, v, vb, umfram, nafn):
 			summa = summa + greidsla + umfram
 			stodur.append(round(eftirs))
 		
-		auka = [nafn, summa - H]
+		auka = [nafn, round(summa - H)]
 		kostnadur.append(auka)
 		
 		x = []
