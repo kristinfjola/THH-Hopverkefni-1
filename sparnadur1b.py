@@ -11,7 +11,7 @@
 ##vextir = fylki, stak fyrir hvern mÃ¡nuÃ°, vextir sem maÃ°ur fÃ¦r Ã­ hverjum mÃ¡nuÃ°i, lagt viÃ° Ã­ lok 
 ##summa = heildarupphÃ¦Ã° Ã¡ tÃ­mapunkti Ã¡ reikningi
 import math
-besta_leid = 0
+besta_leid = ['şú ert ekki búin/n ağ slá neitt inn kjáni', '', '', '', 'şú ert ekki búin/n ağ slá neitt inn kjáni']
 fjarmagns = 0.8
 globvextir = 0
 globfjarmagns = 0

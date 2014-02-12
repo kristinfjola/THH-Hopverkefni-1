@@ -255,7 +255,7 @@ class MainPage(wx.Panel):
         self.ein_man_greidsla = event.GetInt()
 
     def reikna(self, event):
-    	sparnadur1b.spar(self.umframgr, self.verdbolga, self.verdSparn, self.ein_man_greidsla, self.innist_bundin)
+    	self.nidurstodur = sparnadur1b.spar(self.umframgr, self.verdbolga, self.verdSparn, self.ein_man_greidsla, self.innist_bundin)
     	lan_v.lan(self.lan1_upph, self.lan1_vextir, self.lan1_greidslubyrgdi, self.lan1_timabil, self.lan1_verdtrygging, self.lan1_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla)
     	lan_v.lan(self.lan2_upph, self.lan2_vextir, self.lan2_greidslubyrgdi, self.lan2_timabil, self.lan2_verdtrygging, self.lan2_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla)
     	lan_v.lan(self.lan3_upph, self.lan3_vextir, self.lan3_greidslubyrgdi, self.lan3_timabil, self.lan3_verdtrygging, self.lan3_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla)
@@ -263,7 +263,11 @@ class MainPage(wx.Panel):
 
     def syna_svar_glugga(self):
         self.svar_gluggi = SvarGluggi(parent=None, id=-1)
+        #self.svar_gluggi.nidurstodur(self.umframgr, self.verdbolga, self.verdSparn, self.ein_man_greidsla, self.innist_bundin)
         self.svar_gluggi.Show()
+
+    def fa_nidurstodur():
+        return self.nidurstodur
 
 class SvarGluggi(wx.Frame):
 
@@ -350,7 +354,6 @@ class SvarGluggi(wx.Frame):
 
         lanakostnadur = wx.StaticText(panel_svar, -1, "Auka kostnaður við lán (vextir, uppgreiðslugjald): " + lana_kostnadur)
         sizer.Add(lanakostnadur, 0, wx.ALL, 10)
-
         
         panel_svar.SetSizerAndFit(sizer)
         panel_svar.Layout()

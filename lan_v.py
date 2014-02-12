@@ -51,13 +51,13 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman):
 # Fyrir: 	Notandi hefur slegið inn upplýsingar um lánin sín og þær 
 # 		upplýsingar eru að finna í <fylki>
 # Eftir:	bestu_lanavextir er hæstu vextir lńa sem notandi er með.
-def bestu_lanavextir():
+#def bestu_lanavextir():
 """	Hvar geymir Jóhanna töfraupplýsingar um lánin?? :D
 	Væri gott að vera með svipað upplýsingaform og fyrir sparnaðinn... (gogn.py)
 """
 
 
-# Óverðtryggt, jafnar afborganir, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
+# Óverðtryggt, jafnar afborganir, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), me� einni umframgrei�slu
 # Notkun: overdAfborganirEin(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
 def overdAfborganirEin(H, n, v, umfram):
 	def TEMP(H, n, v, umfram):
