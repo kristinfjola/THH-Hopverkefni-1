@@ -61,7 +61,7 @@ class MainPage(wx.Panel):
         self.radioListVerdtrygging = ['Óverðtryggt', 'Verðtryggt']
         self.radioListJafnar = ['Greiðslur', 'Afborganir']
         self.radioListGreidsla = ['Eingreiðsla', 'Mánaðarlega']
-        self.timabil_overd = ['ekki bundin', '3 mánuðir', '6 mánuðir', '9 mánuðir', '12 mánuðir']
+        self.timabil_overd = ['ekki bundin', '12 mánuðir', '18 mánuðir', '24 mánuðir']
         self.timabil_verd = ['36 mánuðir', '48 mánuðir', '60 mánuðir']
         self.verdbolga_ = ['seinustu 15 ár', 'seinustu 10 ár', 'seinustu 5 ár', 'nuna']
         self.radioList2 = ['Óverðtryggðan', 'Verðtryggðan']
@@ -69,7 +69,7 @@ class MainPage(wx.Panel):
         # upphafsstilla allar breytur sem 0
         self.lan1_upph = self.lan2_upph = self.lan3_upph = self.lan1_vextir = self.lan2_vextir = self.lan3_vextir = self.lan1_greidslubyrgdi = self.lan2_greidslubyrgdi = self.lan3_greidslubyrgdi = self.lan1_timabil = self.lan2_timabil = self.lan3_timabil =  self.lan1_verdtrygging =  self.lan2_verdtrygging =  self.lan3_verdtrygging = self.lan1_jafnar = self.lan2_jafnar = self.lan3_jafnar = self.umframgr = 0      
         self.verdbolga = 15
-        self.verdSparn = self.ein_man_greidsla = 0
+        self.verdSparn = self.ein_man_greidsla = self.innist_bundin = 0
         
         # lána input
         for i in range(1, 4):
@@ -210,7 +210,7 @@ class MainPage(wx.Panel):
         	self.innist_bundin = "12"
         if(self.innist_bundin == "ek"):
         	self.innist_bundin = 0
-        self.innist_bundin = int(self.innist_bundin)        
+        self.innist_bundin = int(self.innist_bundin)
         
     def _umframgreidsla(self, event):
         self.umframgr = int(event.GetString())
@@ -243,7 +243,7 @@ class MainPage(wx.Panel):
         self.ein_man_greidsla = event.GetInt()
 
     def reikna(self, event):
-    	sparnadur1b.spar(self.umframgr, 12, self.verdbolga, self.verdSparn, self.ein_man_greidsla)
+    	sparnadur1b.spar(self.umframgr, self.verdbolga, self.verdSparn, self.ein_man_greidsla, self.innist_bundin)
     	lan_v.lan(self.lan1_upph, self.lan1_vextir, self.lan1_greidslubyrgdi, self.lan1_timabil, self.lan1_verdtrygging, self.lan1_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla)
     	lan_v.lan(self.lan2_upph, self.lan2_vextir, self.lan2_greidslubyrgdi, self.lan2_timabil, self.lan2_verdtrygging, self.lan2_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla)
     	lan_v.lan(self.lan3_upph, self.lan3_vextir, self.lan3_greidslubyrgdi, self.lan3_timabil, self.lan3_verdtrygging, self.lan3_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla)
