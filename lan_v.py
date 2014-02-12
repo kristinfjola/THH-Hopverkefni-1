@@ -62,18 +62,9 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman. nafnLan):
 				overdGreidslurMan(H, n, v, umfram)			#greiðslur, óverðtryggt
 			else:
 				verdGreidslurMan(H, n, v, vb, umfram)		#greiðslur, verðtryggt
-				
-# Notkun: 	bestu_lanavextir():
-# Fyrir: 	Notandi hefur slegið inn upplýsingar um lánin sín og þær 
-# 		upplýsingar eru að finna í <fylki>
-# Eftir:	bestu_lanavextir er hæstu vextir lńa sem notandi er með.
-#def bestu_lanavextir():
-"""	Hvar geymir Jóhanna töfraupplýsingar um lánin?? :D
-	Væri gott að vera með svipað upplýsingaform og fyrir sparnaðinn... (gogn.py)
-"""
 
 
-# Óverðtryggt, jafnar afborganir, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), me� einni umframgrei�slu
+# Óverðtryggt, jafnar afborganir, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
 # Notkun: overdAfborganirEin(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
 def overdAfborganirEin(H, n, v, umfram):
 	global kostnadur
@@ -114,8 +105,8 @@ def overdAfborganirEin(H, n, v, umfram):
 		print skil
 		return skil
 	if(n == 0):
-		print [[][]]
-		return [[][]]
+		print [[],[]]
+		return [[],[]]
 	else:
 		if(H > 0.99*umfram+H/(n*12)):
 			temp(H, n, v, umfram)
@@ -166,8 +157,8 @@ def verdAfborganirEin(H, n, v, vb, umfram):
 		print skil
 		return skil
 	if(n == 0):
-		print [[][]]
-		return [[][]]
+		print [[],[]]
+		return [[],[]]
 	else:
 		if(H > 0.99*umfram+H/(n*12)):
 			temp(H, n, v, vb, umfram)
@@ -215,8 +206,8 @@ def overdGreidslurEin(H, n, v, umfram):
 		print skil
 		return skil
 	if(n == 0):
-		print [[][]]
-		return [[][]]
+		print [[],[]]
+		return [[],[]]
 	elif(vt == 0):
 		overdAfborganirEin(H, nt, 0, umfram)
 	else:
@@ -272,8 +263,8 @@ def verdGreidslurEin(H, n, v, vb, umfram):
 		print skil
 		return skil
 	if(n == 0):
-		print [[][]]
-		return [[][]]
+		print [[],[]]
+		return [[],[]]
 	elif(vbt == 0):
 		overdGreidslurEin(H, nt, vt, umfram)
 	elif(v == 0):
@@ -294,8 +285,8 @@ def overdAfborganirMan(H, n, v, umfram):
 	nt = n*12
 	vt = float(v)/12
 	if(nt == 0):
-		print [[][]]
-		return [[][]]
+		print [[],[]]
+		return [[],[]]
 	else:
 		afb = float(H)/nt
 		eftirs = H
@@ -393,8 +384,8 @@ def overdGreidslurMan(H, n, v, umfram):
 		eftirs = H
 		summa = 0
 		stodur = [eftirs]
-		x = [[][]]
-		skil = [[][]]
+		x = [[],[]]
+		skil = [[],[]]
 		#keyrum þetta á meðan afborgunin = greidsla-v*eftirs+0.99*umfram er minni en eftirstaðan
 		while(round(eftirs) > greidsla-v*eftirs+0.99*umfram):
 			afb = greidsla - v*eftirs + 0.99*umfram		#þar sem v*eftirs = vextir #0.99 útaf 1% fer í uppgreiðslukosntaður
@@ -424,8 +415,8 @@ def overdGreidslurMan(H, n, v, umfram):
 		return skil
 	#áður en við förum í temp þarf að ath hvort n=0 eða v=0 svo við séum ekki að deila með 0 og fá keyrsluvillu
 	if(n == 0):
-		print [[][]]
-		return [[][]]
+		print [[],[]]
+		return [[],[]]
 	elif(v == 0):
 			overdAfborganirMan(H, n, 0, umfram)
 	else:
@@ -451,8 +442,8 @@ def verdGreidslurMan(H, n, v, vb, umfram):
 		greidsla = A
 		summa = 0
 		stodur = [eftirs]
-		x = [[][]]
-		skil = [[][]]
+		x = [[],[]]
+		skil = [[],[]]
 		#keyrum þetta á meðan afborgunin = greidsla-v*eftirs+0.99*umfram er minni en eftirstaðan(með viðbættri verðbólgu)
 		while(round((1+vb)*eftirs) > (1+vb)*greidsla-v*eftirs+0.99*umfram): 	
 			eftirs = (1+vb)*eftirs
@@ -487,8 +478,8 @@ def verdGreidslurMan(H, n, v, vb, umfram):
 		return skil
 	#áður en við förum í temp þarf að ath hvort n=0 eða v=0 svo við séum ekki að deila með 0 og fá keyrsluvillu
 	if(n == 0):
-		print [[][]]
-		return [[][]]
+		print [[],[]]
+		return [[],[]]
 	elif(vb == 0):
 			overdGreidslurMan(H, n, v, umfram)
 	elif(v == 0): 
