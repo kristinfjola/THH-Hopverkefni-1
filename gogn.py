@@ -2,13 +2,13 @@
 
 
 # nafn, vextir, bindistï¿½mi, verï¿½trygging, lï¿½sing
-vaxtasproti = ['Vaxtasproti', 0.036, 0, 'ï¿½verï¿½tryggï¿½ur', 'Vaxtasproti er Ã³bundinn sparnaÃ°arreikningur sem hÃ¦gt er aÃ° leggja inn Ã¡ og taka Ãºt af hvenÃ¦r sem er. Hann er Ã³verÃ°tryggÃ°ur innlÃ¡nsreikningur meÃ° 3,60% vexti.']
-overd12 = ['Ã“verÃ°tryggÃ°ur 12', 0.046, 12, 'ï¿½verï¿½tryggï¿½ur', 'Bundinn Ã³verÃ°tryggÃ°ur innlÃ¡nsreikningur meÃ° 4,60% til 12 mÃ¡naÃ°a. Reikningurinn hentar vel fyrir reglulegan sparnaÃ°.']
-overd18 = ['Ã“verÃ°tryggÃ°ur 18', 0.048, 18, 'ï¿½verï¿½tryggï¿½ur', 'Bundinn Ã³verÃ°tryggÃ°ur innlÃ¡nsreikningur meÃ° 4,80% vexti til 18 mÃ¡naÃ°a. Reikningurinn hentar vel fyrir reglulegan sparnaÃ°.					']
-overd24 = ['Ã“verÃ°tryggÃ°ur 24', 0.053, 24, 'ï¿½verï¿½tryggï¿½ur', 'Bundinn Ã³verÃ°tryggÃ°ur innlÃ¡nsreikningur meÃ° 5,30% vexti til 24 mÃ¡naÃ°a. Reikningurinn hentar vel fyrir reglulegan sparnaÃ°.			']
+vaxtasproti = ['Vaxtasproti', 0.036, 0, 'óverğtryggğur', 'Vaxtasproti er óbundinn sparnağarreikningur sem hægt er ağ leggja inn á og taka út af hvenær sem er. Hann er óverğtryggğur innlánsreikningur meğ 3,60% vexti.']
+overd12 = ['Óverğtryggğur 12', 0.046, 12, 'óverğtryggğur', 'Bundinn óverğtryggğur innlánsreikningur meğ 4,60% til 12 mánağa. Reikningurinn hentar vel fyrir reglulegan sparnağ.']
+overd18 = ['Óverğtryggğur 18', 0.048, 18, 'óverğtryggğur', 'Bundinn óverğtryggğur innlánsreikningur meğ 4,80% vexti til 18 mánağa. Reikningurinn hentar vel fyrir reglulegan sparnağ.']
+overd24 = ['Óverğtryggğur 24', 0.053, 24, 'óverğtryggğur', 'Bundinn óverğtryggğur innlánsreikningur meğ 5,30% vexti til 24 mánağa. Reikningurinn hentar vel fyrir reglulegan sparnağ.']
 
-verd36 = ['VerÃ°tryggÃ°ur 36', 0.0175, 36, 'verï¿½tryggï¿½ur', 'VerÃ°tryggÃ°ur sparireikningur er gÃ³Ã° lausn fyrir reglulegan sparnaÃ° og gefur gÃ³Ã°a Ã¡vÃ¶xtun. Hver innborgun er bundin Ã­ 36 mÃ¡nuÃ°i. Eftir Ã¾aÃ° er innborgunin laus til Ãºtborgunar Ã­ einn mÃ¡nuÃ° Ã­ senn Ã¡ sex mÃ¡naÃ°a fresti. Vextirnir 1,75%, eru bÃ³kfÃ¦rÃ°ir Ã­ Ã¡rslok og Ã¾eir eru lausir til Ãºtborgunar eftir hverja vaxtafÃ¦rslu.					']
-verd48 = ['VerÃ°tryggÃ°ur 48', 0.0185, 48, 'verï¿½tryggï¿½ur', 'VerÃ°tryggÃ°ur sparireikningur er gÃ³Ã° lausn fyrir reglulegan sparnaÃ° og gefur gÃ³Ã°a Ã¡vÃ¶xtun. Hver innborgun er bundin Ã­ 48 mÃ¡nuÃ°i. Eftir Ã¾aÃ° er innborgunin laus til Ãºtborgunar Ã­ einn mÃ¡nuÃ° Ã­ senn Ã¡ sex mÃ¡naÃ°a fresti. Vextirnir, 1,85%, eru bÃ³kfÃ¦rÃ°ir Ã­ Ã¡rslok og Ã¾eir eru lausir til Ãºtborgunar eftir hverja vaxtafÃ¦rslu.					']
-verd60 = ['VerÃ°tryggÃ°ur 60', 0.0195, 60, 'verï¿½tryggï¿½ur', 'VerÃ°tryggÃ°ur sparireikningur er gÃ³Ã° lausn fyrir reglulegan sparnaÃ° og gefur gÃ³Ã°a Ã¡vÃ¶xtun. Hver innborgun er bundin Ã­ 60 mÃ¡nuÃ°i. Eftir Ã¾aÃ° er innborgunin laus til Ãºtborgunar Ã­ einn mÃ¡nuÃ° Ã­ senn Ã¡ sex mÃ¡naÃ°a fresti. Vextirnir, 1,95%, eru bÃ³kfÃ¦rÃ°ir Ã­ Ã¡rslok og Ã¾eir eru lausir til Ãºtborgunar eftir hverja vaxtafÃ¦rslu.					']
+verd36 = ['Verğtryggğur 36', 0.0175, 36, 'verğtryggğur', 'Verğtryggğur sparireikningur er góğ lausn fyrir reglulegan sparnağ og gefur góğa ávöxtun. Hver innborgun er bundin í 36 mánuği. Eftir şağ er innborgunin laus til útborgunar í einn mánuğ í senn á sex mánağa fresti. Vextirnir 1,75%, eru bókfærğir í árslok og şeir eru lausir til útborgunar eftir hverja vaxtafærslu.']
+verd48 = ['Verğtryggğur 48', 0.0185, 48, 'verğtryggğur', 'Verğtryggğur sparireikningur er góğ lausn fyrir reglulegan sparnağ og gefur góğa ávöxtun. Hver innborgun er bundin í 48 mánuği. Eftir şağ er innborgunin laus til útborgunar í einn mánuğ í senn á sex mánağa fresti. Vextirnir, 1,85%, eru bókfærğir í árslok og şeir eru lausir til útborgunar eftir hverja vaxtafærslu.']
+verd60 = ['Verğtryggğur 60', 0.0195, 60, 'verğtryggğur', 'Verğtryggğur sparireikningur er góğ lausn fyrir reglulegan sparnağ og gefur góğa ávöxtun. Hver innborgun er bundin í 60 mánuği. Eftir şağ er innborgunin laus til útborgunar í einn mánuğ í senn á sex mánağa fresti. Vextirnir, 1,95%, eru bókfærğir í árslok og şeir eru lausir til útborgunar eftir hverja vaxtafærslu.']
 
 sparnadarleidir = [vaxtasproti, overd12, overd18, overd24, verd36, verd48, verd60]

@@ -134,7 +134,7 @@ class MainPage(wx.Panel):
         self.grid2.Add(self.einradgreidsla, pos=(1,1))
         self.Bind(wx.EVT_RADIOBOX, self.hvernig_greidsla, self.einradgreidsla)
 
-        self.verdb = wx.ComboBox(self, choices=self.verdbolga_, style=wx.CB_READONLY)
+        self.verdb = wx.ComboBox(self, value=self.verdbolga_[0], choices=self.verdbolga_, style=wx.CB_READONLY)
         self.grid2.Add(self.verdb, pos=(2,1), flag=wx.TOP, border=17)
         self.Bind(wx.EVT_COMBOBOX, self._verdbolga, self.verdb)
 
