@@ -267,7 +267,7 @@ class SvarGluggi(wx.Frame):
         panel_svar = wx.Panel(self)
         sizer = wx.BoxSizer(wx.VERTICAL)
         
-        #besti_kostur = hvad_er_best_ad_gera();  -- úr hvaða file er þetta? lan_v eða sparnadur1b?
+        #besti_kostur = hvad_er_best_ad_gera(self.innist_bundin);  -- úr hvaða file er þetta? lan_v eða sparnadur1b?
         besti_kostur = '<temp besti kostur>'
 
         bestAdGera = wx.StaticText(panel_svar, -1, "Það væri best fyrir þig að " + besti_kostur )
