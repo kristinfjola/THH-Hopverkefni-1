@@ -18,7 +18,7 @@ def fa_lanakostnad():
 def raunvLan():
 	max = []
 	for i in range(0, len(lan)):
-		if(lan[i][1] > max)
+		if(lan[i][1] > max):
 			max[0] = lan[i][0]
 			max[1] = lan [i][1]
 	return max
@@ -50,7 +50,7 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman. nafnLan):
 			if(verdtrygging == 0):
 				overdGreidslurEin(H, n, v, umfram)			#greiðslur, óverðtryggt
 			else:
-				verdGreidslurEin(H, n, v, vb, umfram)		#greiðslur, verðtryggt
+				verdGreidslurEin(H, n, v, vb, umfram)		#gremaiðslur, verðtryggt
 	else:												#umframgreiðslan er mánaðarlega
 		if(jafnar == 1):	#jafnar afborganir
 			if(verdtrygging == 0):
