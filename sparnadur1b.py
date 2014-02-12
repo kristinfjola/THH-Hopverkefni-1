@@ -25,12 +25,11 @@ Fyrir: 	b er binditíminn sem notandi valdi
 Eftir:	besta_leid er fylki með nafni og vaxtauppl um valda bestu leið
 	best_ad_gera skilar streng um hvort sé betra að leggja inn á sparnað eða borga lán
 """
-def hvad_er_best_ad_gera(b, vt):
+def hvad_er_best_ad_gera(b):
 	global vb
 	global besta_leid
 	global verstu_lan
 	global besta_spar
-	vb = vt
 	#finnum bestu sparnaðarleið miðað við binditíma
 	for i in range(len(gogn.sparnadarleidir)):
 		for j in range(len(gogn.sparnadarleidir[0])):
@@ -78,7 +77,7 @@ Fyrir: 	vt er 1 ef verðtryggður reikningur, 0 annars.
 		vb er verðbólga sem reiknað er með (ef 3 prósent verðbólga er vb = 0.03)
 Eftir: 	vextir eru vextirnir á viðeigandi reikningi m.t.t. verðbólgu 
 """
-def raunvx(vt,b,vb):
+def raunvx(vt,b):
 	#óverðtryggt - breytist ekki með verðbólgu
 	#raunvextir = nafnvextir - verðbólga
 	if vt==0:
