@@ -11,6 +11,7 @@
 ##vextir = fylki, stak fyrir hvern mánuð, vextir sem maður fær í hverjum mánuði, lagt við í lok 
 ##summa = heildarupphæð á tímapunkti á reikningi
 import math
+import gogn
 besta_leid = ['�� ert ekki b�in/n a� sl� neitt inn kj�ni', '', '', '', '�� ert ekki b�in/n a� sl� neitt inn kj�ni']
 fjarmagns = 0.8
 globvextir = 0
@@ -23,10 +24,12 @@ Eftir:	besta_leid er fylki með öllum upplýsingum um valda sparnaðarleið
 	best_ad_gera skilar streng um hvort sé betra að leggja inn á sparnað eða borga lán
 """
 def hvad_er_best_ad_gera(b):
+        global besta_leid
 	for i in range(len(gogn.sparnadarleidir)):
 		for j in range(len(gogn.sparnadarleidir[0])):
 			if gogn.sparnadarleidir[i][2] == b:
 				besta_leid = gogn.sparnadarleidir[i]
+				break
 	# fá hæstu lánavexti
 	# bera saman lána og sparnaðarvexti
 	# segja hvað er best að gera í streng t.d. return 'að leggja inná ' + besta_leid 
