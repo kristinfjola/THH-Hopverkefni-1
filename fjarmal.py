@@ -261,15 +261,14 @@ class MainPage(wx.Panel):
 
     def syna_svar_glugga(self):
         self.svar_gluggi = SvarGluggi(parent=None, id=-1)
-        #self.svar_gluggi.nidurstodur(self.umframgr, self.verdbolga, self.verdSparn, self.ein_man_greidsla, self.innist_bundin)
         self.svar_gluggi.Show()
-
-    def fa_nidurstodur():
-        return self.nidurstodur
 
     # get föll
     def fa_innist_bundin(self):
         return self.innist_bundin
+    
+    def fa_nidurstodur(self):
+        return self.nidurstodur
 
 class SvarGluggi(wx.Frame):
 
@@ -283,7 +282,6 @@ class SvarGluggi(wx.Frame):
         sizer = wx.BoxSizer(wx.VERTICAL)
         canvas = FigCanvas(panel_svar, -1, fig)
 
-        # EDDA þetta er hvernig ég næ í breytu, undir # get föll neðst í MainPage
         innistaeda_bundin = MainPage.fa_innist_bundin(panel)
         
         besti_kostur = str(sparnadur1b.hvad_er_best_ad_gera(innistaeda_bundin))
@@ -297,24 +295,15 @@ class SvarGluggi(wx.Frame):
 
         ## --------------   gröf byrja        ------------##
 
-        x = linspace(0, 12)
-	
-        nidurstodur = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], [1000000, 998348, 997238, 990826, 872039, 863039, 834738, 800647, 798372, 782933, 700634, 699362, 600827]]
-        nidurstodur2 = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], [1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000]]
-        
-        ax.set_ylim([0, 1500000])
+        nidurstodur = MainPage.fa_nidurstodur(panel)
+    
+        ax.set_ylim([nidurstodur[1][0], nidurstodur[1][12]])
         ax.set_xlim([0, 12])
-        
-        #data_x = self.nidurstodur[0]
-        #data_y = self.nidurstodur[1]
         
         data_x = nidurstodur[0]
         data_y = nidurstodur[1]
-        data_x2 = nidurstodur2[0]
-        data_y2 = nidurstodur2[1]
         
-        ax.plot(data_x, data_y, label="Lan ef borgad er inna thad")
-        ax.plot(data_x2, data_y2, label="Obreytt lan")
+        ax.plot(data_x, data_y, label="Reikningur ef lagt er fyrir")
         
         ax.set_xlabel('Timi (manudir)')
         ax.set_ylabel('Upphaed')
@@ -350,8 +339,7 @@ class SvarGluggi(wx.Frame):
         ars_fjarmagnstekjuskattur = wx.StaticText(panel_svar, -1, "Fjármagnstekjuskattur yfir 12 mánuði: " + fjarmagnstekjuskattur)
         sizer.Add(ars_fjarmagnstekjuskattur, 0, wx.ALL, 10)
 
-        #lana_kostnadur = str(lan_v.fa_lanakostnad())
-        lana_kostnadur = '<temp lánakostnaður>'
+        lana_kostnadur = str(lan_v.fa_lanakostnad())
 
         lanakostnadur = wx.StaticText(panel_svar, -1, "Auka kostnaður við lán (vextir, uppgreiðslugjald): " + lana_kostnadur)
         sizer.Add(lanakostnadur, 0, wx.ALL, 10)
@@ -359,9 +347,6 @@ class SvarGluggi(wx.Frame):
         panel_svar.SetSizerAndFit(sizer)
         panel_svar.Layout()
 
-        def nidurstodur(L, nt, verdb, verdtrygg, manadagr, bundid):
-            self.nidurstodur = sparnadur1b.spar(L, nt, verdb, verdtrygg, manadagr, bundid)
- 
 
         
 app = wx.App(False)
