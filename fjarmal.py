@@ -304,9 +304,9 @@ class SvarGluggi(wx.Frame):
         
         ax.plot(data_x, data_y, label="Reikningur ef lagt er fyrir")
         
-        ax.set_xlabel('Timi (manudir)')
-        ax.set_ylabel('Upphaed')
-        ax.set_title('Reyndu nu ad spara')
+        ax.set_xlabel('Tími [mánuðir]')
+        ax.set_ylabel('Upphæð [kr]')
+        ax.set_title('Reyndu nú að spara!')
         ax.legend(loc=2); # upper left corner
         
         canvas.draw()

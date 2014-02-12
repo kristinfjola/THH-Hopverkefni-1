@@ -34,7 +34,7 @@ class MainPage(wx.Panel):
 class SvarGluggi(wx.Frame):
 
     def __init__(self,parent,id):
-        wx.Frame.__init__(self, parent, id, 'Svor', size=(800,650))
+        wx.Frame.__init__(self, parent, id, 'Svör', size=(800,650))
         wx.Frame.CenterOnScreen(self)
         
         fig, ax = plt.subplots()
@@ -55,9 +55,9 @@ class SvarGluggi(wx.Frame):
         
         ax.plot(data_x, data_y, label="Reikningur ef lagt er fyrir")
         
-        ax.set_xlabel('Timi (manudir)')
-        ax.set_ylabel('Upphaed')
-        ax.set_title('Reyndu nu ad spara')
+        ax.set_xlabel('Tími [mánuðir]')
+        ax.set_ylabel('Upphæð [kr]')
+        ax.set_title('Reyndu nú að spara!')
         ax.legend(loc=2); # upper left corner
         
         canvas.draw()
@@ -70,7 +70,7 @@ class SvarGluggi(wx.Frame):
         panel_svar.Layout()
         
 app = wx.App(False)
-frame = wx.Frame(None, title="Onnur utgafa")
+frame = wx.Frame(None, title="Önnur útgáfa")
 frame.SetSize((850,500))
 panel = MainPage(frame)
 frame.Show()
