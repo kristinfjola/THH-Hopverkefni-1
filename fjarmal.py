@@ -218,7 +218,6 @@ class MainPage(wx.Panel):
         if(self.innist_bundin == "ek"):
         	self.innist_bundin = 0
         self.innist_bundin = int(self.innist_bundin)
-        print(self.innist_bundin)
         
     def _umframgreidsla(self, event):
         self.umframgr = int(event.GetString())
@@ -233,7 +232,6 @@ class MainPage(wx.Panel):
     def _verdtrSparn(self, event):
         self.verdSparn = event.GetInt()
         self.breyta_timabil()
-        print(self.innist_bundin)
 
     def breyta_timabil(self):
         if (self.verdSparn == 0):
@@ -256,9 +254,9 @@ class MainPage(wx.Panel):
 
     def reikna(self, event):
     	self.nidurstodur = sparnadur1b.spar(self.umframgr, self.verdbolga, self.verdSparn, self.ein_man_greidsla, self.innist_bundin)
-    	lan_v.lan(self.lan1_upph, self.lan1_vextir, self.lan1_greidslubyrgdi, self.lan1_timabil, self.lan1_verdtrygging, self.lan1_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla)
-    	lan_v.lan(self.lan2_upph, self.lan2_vextir, self.lan2_greidslubyrgdi, self.lan2_timabil, self.lan2_verdtrygging, self.lan2_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla)
-    	lan_v.lan(self.lan3_upph, self.lan3_vextir, self.lan3_greidslubyrgdi, self.lan3_timabil, self.lan3_verdtrygging, self.lan3_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla)
+    	lan_v.lan(self.lan1_upph, self.lan1_vextir, self.lan1_greidslubyrgdi, self.lan1_timabil, self.lan1_verdtrygging, self.lan1_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, 'Lán 1')
+    	lan_v.lan(self.lan2_upph, self.lan2_vextir, self.lan2_greidslubyrgdi, self.lan2_timabil, self.lan2_verdtrygging, self.lan2_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, 'Lán 2')
+    	lan_v.lan(self.lan3_upph, self.lan3_vextir, self.lan3_greidslubyrgdi, self.lan3_timabil, self.lan3_verdtrygging, self.lan3_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, 'Lán 3')
     	self.syna_svar_glugga()
 
     def syna_svar_glugga(self):
@@ -268,6 +266,10 @@ class MainPage(wx.Panel):
 
     def fa_nidurstodur():
         return self.nidurstodur
+
+    # get föll
+    def fa_innist_bundin(self):
+        return self.innist_bundin
 
 class SvarGluggi(wx.Frame):
 
@@ -281,9 +283,10 @@ class SvarGluggi(wx.Frame):
         sizer = wx.BoxSizer(wx.VERTICAL)
         canvas = FigCanvas(panel_svar, -1, fig)
 
+        # EDDA þetta er hvernig ég næ í breytu, undir # get föll neðst í MainPage
+        innistaeda_bundin = MainPage.fa_innist_bundin(panel)
         
-        #besti_kostur = hvad_er_best_ad_gera(self.innist_bundin)  -- úr hvaða file er þetta? lan_v eða sparnadur1b?
-        besti_kostur = '<temp besti kostur>'
+        besti_kostur = str(sparnadur1b.hvad_er_best_ad_gera(innistaeda_bundin))
 
         bestAdGera = wx.StaticText(panel_svar, -1, "Það væri best fyrir þig að " + besti_kostur )
         bestAdGera_font = wx.Font(16, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
@@ -292,7 +295,7 @@ class SvarGluggi(wx.Frame):
 
 
 
-        ## ------        setja hér gröf        ------------##
+        ## --------------   gröf byrja        ------------##
 
         x = linspace(0, 12)
 	
@@ -320,13 +323,13 @@ class SvarGluggi(wx.Frame):
         
         canvas.draw()
         sizer.Add(canvas, 1, wx.GROW)
+
+        ## ------------        gröf búin        ------------##
         
 
         besta_sparnadarleid = str(sparnadur1b.fa_bestu_sparnadarleid())
-        #besta_sparnadarleid = '<temp sparðanarleið>'
 
         uppl_um_sparnadarleid = str(sparnadur1b.fa_uppl_um_sparnadarleid())
-        #uppl_um_sparnadarleid  = '<temp uppl>'
 
         sparnadarleid = wx.StaticText(panel_svar, -1, "Besta sparnaðarleiðin fyrir þig er " + besta_sparnadarleid)
         sizer.Add(sparnadarleid, 0, wx.ALL, 10)
@@ -338,13 +341,11 @@ class SvarGluggi(wx.Frame):
         sizer.Add(sparnadar_box_sizer, 0, wx.ALL, 10)
 
         arsvextir = str(sparnadur1b.fa_arsvexti())
-        #arsvextir = '<temp ársvextir>'
 
         ars_vextir = wx.StaticText(panel_svar, -1, "Vextir yfir 12 mánuði: " + arsvextir)
         sizer.Add(ars_vextir, 0, wx.ALL, 10)
 
         fjarmagnstekjuskattur = str(sparnadur1b.fa_fjarmagnstekjuskatt())
-        #fjarmagnstekjuskattur = '<temp fjármagnstekjuskattur>'
 
         ars_fjarmagnstekjuskattur = wx.StaticText(panel_svar, -1, "Fjármagnstekjuskattur yfir 12 mánuði: " + fjarmagnstekjuskattur)
         sizer.Add(ars_fjarmagnstekjuskattur, 0, wx.ALL, 10)
