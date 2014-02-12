@@ -25,12 +25,13 @@ Fyrir: 	b er binditíminn sem notandi valdi
 Eftir:	besta_leid er fylki með nafni og vaxtauppl um valda bestu leið
 	best_ad_gera skilar streng um hvort sé betra að leggja inn á sparnað eða borga lán
 """
-def hvad_er_best_ad_gera(b, vb):
+def hvad_er_best_ad_gera(b, vt):
 	global vb
-        global besta_leid
-        global verstu_lan
-        global besta_spar
-    #finnum bestu sparnaðarleið miðað við binditíma
+	global besta_leid
+	global verstu_lan
+	global besta_spar
+	vb = vt
+	#finnum bestu sparnaðarleið miðað við binditíma
 	for i in range(len(gogn.sparnadarleidir)):
 		for j in range(len(gogn.sparnadarleidir[0])):
 			if gogn.sparnadarleidir[i][2] == b:
@@ -51,7 +52,7 @@ def hvad_er_best_ad_gera(b, vb):
 		if (verstu_lan >= bestu_spar_vx):
 			besta_leid = lan_v.raunvLan() #besta_leid er fylki með nafni og vöxtum láns
 	# segja hvað er best að gera í streng t.d. return 'að leggja inná ' + besta_leid 
-	return 'Að borga inn á ' + str(besta_leid[0])
+	return 'Ad borga inn a ' + str(besta_leid[0])
 
 """
 Notkun: fa_bestu_sparnadarleid()
@@ -171,25 +172,27 @@ def spar(L, verdb, verdtrygg, manadagr, bundid): ##Núna er ekki hægt að velja
 
 #Verðtryggt, vextir og verðbætur borgað 31.des (verðbólga sú sama út allt árið)
 #Notkun: verdtryggtArs(Lagt fyrir á mán, fjöldi mánaða, vextir, verðbólga/bætur)
-def manadalega(L, nt, v, vb):
+def manadalega(L, nt, v, vt):
 	global globvextir
 	global globfjarmagns
 	summa = 0
 	stodur = [L]
 	vextir = []
+	verdbaetur = []
 	x = []
 	skil = []
 	for i in range(0,nt):
 		x.append(i)
-		summa = (summa + L)*(1+(vb/12))
+		summa = (summa + L)*(1+(vt/12))
+		verdbaetur.append(summa*(vt/12))
 		vextir.append(summa * v/12)
 		if (i+1)%12 == 0 and i != 0:		
 			stodur.append(math.ceil(summa + sum(vextir)*fjarmagns))
-			summa = summa + sum(vextir)*fjarmagns
+			summa = summa + sum(vextir)*fjarmagns - (sum(verdbaetur)*(1-fjarmagns))
 		else:
 			stodur.append(math.ceil(summa))
-	globvextir = sum(vextir)*fjarmagns
-	globfjarmagns = sum(vextir)*(1-fjarmagns)
+	globvextir = sum(vextir)*fjarmagns + sum(verdbaetur)*fjarmagns
+	globfjarmagns = sum(vextir)*(1-fjarmagns) + sum(verdbaetur)*(1-fjarmagns)
 	x.append(nt)
 	skil.append(x)
 	skil.append(stodur)
@@ -198,25 +201,27 @@ def manadalega(L, nt, v, vb):
 
 ##Eingreiðsla, verðtryggð, vextir og verðbætur greiddar 31. des
 #Notkun: eingreidslaArs(Lagt fyrir í upphafi, fjöldi mánaða, vextir, verðbólga)
-def eingreidsla(L, nt, v, vb):
+def eingreidsla(L, nt, v, vt):
 	global globvextir
 	global globfjarmagns
 	summa = L
 	stodur = [L]
 	vextir = []
+	verdbaetur = []
 	x = []
 	skil = []
 	for i in range(0, nt):
 		x.append(i)
-		summa = summa * (1+(vb/12))
+		summa = summa * (1+(vt/12))
+		verdbaetur.append(summa*(vt/12))
 		vextir.append(summa * (v/12))
 		if (i+1)%12 == 0 and i != 0:
 			stodur.append(math.ceil(summa + sum(vextir)*fjarmagns))
-			summa = summa + sum(vextir)*fjarmagns
+			summa = summa + sum(vextir)*fjarmagns - (sum(verdbaetur)*(1-fjarmagns))
 		else:
 			stodur.append(math.ceil(summa))
-	globvextir = sum(vextir)*fjarmagns
-	globfjarmagns = sum(vextir)*(1-fjarmagns)
+	globvextir = sum(vextir)*fjarmagns + sum(verdbaetur)*fjarmagns
+	globfjarmagns = sum(vextir)*(1-fjarmagns) + sum(verdbaetur)*(1-fjarmagns)
 	x.append(nt)
 	skil.append(x)
 	skil.append(stodur)
