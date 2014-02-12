@@ -46,6 +46,15 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman):
 				overdGreidslurMan(H, n, v, umfram)			#greiðslur, óverðtryggt
 			else:
 				verdGreidslurMan(H, n, v, vb, umfram)		#greiðslur, verðtryggt
+				
+# Notkun: 	bestu_lanavextir():
+# Fyrir: 	Notandi hefur slegið inn upplýsingar um lánin sín og þær 
+# 		upplýsingar eru að finna í <fylki>
+# Eftir:	bestu_lanavextir er hæstu vextir lńa sem notandi er með.
+def bestu_lanavextir():
+"""	Hvar geymir Jóhanna töfraupplýsingar um lánin?? :D
+	Væri gott að vera með svipað upplýsingaform og fyrir sparnaðinn... (gogn.py)
+"""
 
 
 # Óverðtryggt, jafnar afborganir, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
