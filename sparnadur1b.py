@@ -35,13 +35,13 @@ def hvad_er_best_ad_gera(b):
 				break
 	# fá hæstu lánavexti
 	verstu_lan = lan_v.raunvLan()[1] # hæstu vextir láns
-	bestu_leid = besta_spar[1] #hæstu vextir sparnaðar
+	besta_leid = besta_spar[1] #hæstu vextir sparnaðar
 
 	# bera saman lána og sparnaðarvexti
-	if (verstu_lan < bestu_leid):
+	if (verstu_lan < besta_leid):
 		besta_leid = besta_spar
 	else:
-		if (verstu_lan >= bestu_leid):
+		if (verstu_lan >= besta_leid):
 			besta_leid = lan_v.raunvLan()
 	# segja hvað er best að gera í streng t.d. return 'að leggja inná ' + besta_leid 
 	return 'Að borga inn á ' + str(besta_leid[0])
