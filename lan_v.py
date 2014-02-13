@@ -1,17 +1,17 @@
 # -*- coding: cp1252 -*-
 # -*- coding: utf-8 -*-
 
-#global breyta sem heldur utan um nöfn lána og lántökukostnaðinn (verðbólga, vextir, uppgreiðslugjald)
+# Gildi: fylki sem heldur utan um nöfn lána 3 og lántökukostnaðinn (verðbólga, vextir, uppgreiðslugjald)
 kostnadur = []
-#global breyta sem heldur utan um nöfn lána og raunvexti þeirra
+# Gildi: fylki sem heldur utan um nöfn lánanna 3 og raunvexti þeirra
 lan_uppl = []
 
-#skilar double tölu sem er heildarlántökukostnaður, þ.e. summa - H (heildarkostnaður - höfuðstóll)
+# Gildi: double tala sem er heildarlántökukostnaður, þ.e. summa - H (heildarkostnaður - höfuðstóll)
 def fa_lanakostnad():
 	global kostnadur
 	return kostnadur
 
-#skilar fylki með tveimur stökum, nafn lánsins með hæstu raunvexti og raunvexturinn sjálfur
+#Gildi: fylki með tveimur stökum, nafn lánsins með hæstu raunvexti og raunvexturinn sjálfur
 def raunvLan():
 	global lan_uppl
 	max = ['', 0]
@@ -21,11 +21,12 @@ def raunvLan():
 			max[1] = lan_uppl[i][1]
 	return max
 
-	
-def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):		#bæta svo við hreinsa í næstu ítrun
+# Notkun: lan(höfuðstóll, vextir(%), greiðslubyrgði(óþarfi), lengd láns(ár), ó/verðtryggt, jafnar afborganir/greiðslur, verðbólga(0,5,10,15), umframgreiðsla, umfram borguð 1x/mánaðarlega, nafn lánsins)
+# Gildi: fylki með tveimur stökum, fyrra stakið er númer mánaðarin (0 - n*12) og staða lánsins á þeim tíma
+def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):		#bæta svo við 'hreinsa' í næstu ítrun
 	global lan_uppl
 	
-	#þetta er fyrir næstu ítrun
+	#þetta er fyrir næstu ítrun:
 	#global kostnadur
 	#if(hreinsa == 1):
 	#	kostnadur = []
@@ -49,31 +50,30 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):	
 		lan_uppl.append([nafnLan, (v+vb)/100.0])
 	
 	#athuga hvaða fall á að kalla á
-	if(einman == 0):	#umframgreiðslan er eingreiðsla
-		if(jafnar == 1):
-			if(verdtrygging == 0):
-				return overdAfborganirEin(H, n, v, umfram, nafnLan)		#afborganir, óverðtryggt
-			else:
-				return verdAfborganirEin(H, n, v, vb, umfram, nafnLan)		#afborganir, verðtryggt
-		else:
-			if(verdtrygging == 0):
-				return overdGreidslurEin(H, n, v, umfram, nafnLan)			#greiðslur, óverðtryggt
-			else:
-				return verdGreidslurEin(H, n, v, vb, umfram, nafnLan)		#gremaiðslur, verðtryggt
-	else:				#umframgreiðslan er mánaðarlega
-		if(jafnar == 1):	#jafnar afborganir
-			if(verdtrygging == 0):
-				return overdAfborganirMan(H, n, v, umfram, nafnLan)		#afborganir, óverðtryggt
-			else:
-				return verdAfborganirMan(H, n, v, vb, umfram, nafnLan)		#afborganir, verðtryggt
-		else:		#jafnar greiðslur
-			if(verdtrygging == 0):
-				return overdGreidslurMan(H, n, v, umfram, nafnLan)			#greiðslur, óverðtryggt
-			else:
-				return verdGreidslurMan(H, n, v, vb, umfram, nafnLan)		#greiðslur, verðtryggt
+	if(einman == 0): #umframgreiðslan er eingreiðsla
+		if(jafnar == 1): #jafnar afborganir
+			if(verdtrygging == 0): #óverðtryggt
+				return overdAfborganirEin(H, n, v, umfram, nafnLan)
+			else: #verðtryggt
+				return verdAfborganirEin(H, n, v, vb, umfram, nafnLan)
+		else: #jafnar greiðslur
+			if(verdtrygging == 0): #óverðtryggt
+				return overdGreidslurEin(H, n, v, umfram, nafnLan)
+			else: #verðtryggt
+				return verdGreidslurEin(H, n, v, vb, umfram, nafnLan)
+	else: #umframgreiðslan er mánaðarlega
+		if(jafnar == 1): #jafnar afborganir
+			if(verdtrygging == 0): #óverðtryggt
+				return overdAfborganirMan(H, n, v, umfram, nafnLan)
+			else: #verðtryggt
+				return verdAfborganirMan(H, n, v, vb, umfram, nafnLan)
+		else: #jafnar greiðslur
+			if(verdtrygging == 0): #óverðtryggt
+				return overdGreidslurMan(H, n, v, umfram, nafnLan)
+			else: #verðtryggt
+				return verdGreidslurMan(H, n, v, vb, umfram, nafnLan)
 
-
-# Óverðtryggt, jafnar afborganir, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
+# Óverðtryggt, jafnar afborganir, umframgreiðsla borguð 1x
 # Notkun: overdAfborganirEin(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
 def overdAfborganirEin(H, n, v, umfram, nafn):
 	global kostnadur
@@ -81,12 +81,7 @@ def overdAfborganirEin(H, n, v, umfram, nafn):
 		v = float(v)/100
 		nt = n*12
 		vt = float(v)/12
-		
-		if(nt == 0):
-			afb = 0
-		else:
-			afb = float(H)/nt
-		
+		afb = float(H)/nt
 		eftirs = H
 		summa = 0
 		stodur = [eftirs]
@@ -129,7 +124,7 @@ def overdAfborganirEin(H, n, v, umfram, nafn):
 		else:
 			temp(H, n, v, 0)
 
-# Verðtryggt, jafnar afborganir, verðbólga alltaf sú sama, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
+# Verðtryggt, jafnar afborganir, umframgreiðsla borguð 1x
 # Noktun: verdAfborganirEin(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umframgreiðsla)
 def verdAfborganirEin(H, n, v, vb, umfram, nafn):
 	global kostnadur
@@ -140,12 +135,7 @@ def verdAfborganirEin(H, n, v, vb, umfram, nafn):
 		nt = n*12
 		vt = float(v)/12
 		vbt = float(vb)/12
-		
-		if(n == 0):
-			afb = 0
-		else:
-			afb = float(H)/nt
-		
+		afb = float(H)/nt
 		eftirs = H
 		summa = 0
 		stodur = [eftirs]
@@ -189,7 +179,7 @@ def verdAfborganirEin(H, n, v, vb, umfram, nafn):
 			temp(H, n, v, vb, 0)
 
 
-# Óverðtryggt, jafnar greiðslur, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
+# Óverðtryggt, jafnar greiðslur, umframgreiðsla borguð 1x
 # Notkun: overdGreidslurEin(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
 def overdGreidslurEin(H, n, v, umfram, nafn):
 	global kostnadur
@@ -247,7 +237,7 @@ def overdGreidslurEin(H, n, v, umfram, nafn):
 			temp(H, nt, vt, 0)
 
 
-# Verðtryggt, jafnar greiðslur, verðbólga alltaf sú sama, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
+# Verðtryggt, jafnar greiðslur, umframgreiðsla borguð 1x
 # Notkun: verdGreidslurEin(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umfram)	
 def verdGreidslurEin(H, n, v, vb, umfram, nafn):
 	global kostnadur
@@ -312,7 +302,7 @@ def verdGreidslurEin(H, n, v, vb, umfram, nafn):
 			temp(H, nt, vt, vbt, 0)
 
 
-# Óverðtryggt, jafnar afborganir, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með mánaðarlegri umframgreiðslu
+# Óverðtryggt, jafnar afborganir, umframgreiðsla borguð mánaðarlega
 # Notkun: overdAfborganirMan(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
 def overdAfborganirMan(H, n, v, umfram, nafn):
 	global kostnadur
@@ -364,7 +354,7 @@ def overdAfborganirMan(H, n, v, umfram, nafn):
 		return skil
 
 
-# Verðtryggt, jafnar afborganir, verðbólga alltaf sú sama, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með mánaðarlegri umframgreiðslu
+# Verðtryggt, jafnar afborganir, umframgreiðsla borguð mánaðarlega
 # Noktun: verdAfborganirMan(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umframgreiðsla)
 def verdAfborganirMan(H, n, v, vb, umfram, nafn):
 	global kostnadur
@@ -419,7 +409,7 @@ def verdAfborganirMan(H, n, v, vb, umfram, nafn):
 		return skil
 
 
-# Óverðtryggt, jafnar greiðslur, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með mánaðarlegri umframgreiðslu
+# Óverðtryggt, jafnar greiðslur, umframgreiðsla borguð mánaðarlega
 # Notkun: overdGreidslurMan(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
 def overdGreidslurMan(H, n, v, umfram, nafn):
 	global kostnadur
@@ -478,7 +468,7 @@ def overdGreidslurMan(H, n, v, umfram, nafn):
 			temp(H, nt, vt, 0)
 
 
-# Verðtryggt, jafnar greiðslur, verðbólga alltaf sú sama, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með mánaðarlegri umframgreiðslu
+# Verðtryggt, jafnar greiðslur, umframgreiðsla borguð mánaðarlega
 # Notkun: verdGreidslurMan(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umfram)	
 def verdGreidslurMan(H, n, v, vb, umfram, nafn):
 	global kostnadur
