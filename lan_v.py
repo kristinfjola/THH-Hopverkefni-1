@@ -52,25 +52,25 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):	
 	if(einman == 0):	#umframgreiðslan er eingreiðsla
 		if(jafnar == 1):
 			if(verdtrygging == 0):
-				overdAfborganirEin(H, n, v, umfram, nafnLan)		#afborganir, óverðtryggt
+				return overdAfborganirEin(H, n, v, umfram, nafnLan)		#afborganir, óverðtryggt
 			else:
-				verdAfborganirEin(H, n, v, vb, umfram, nafnLan)		#afborganir, verðtryggt
+				return verdAfborganirEin(H, n, v, vb, umfram, nafnLan)		#afborganir, verðtryggt
 		else:
 			if(verdtrygging == 0):
-				overdGreidslurEin(H, n, v, umfram, nafnLan)			#greiðslur, óverðtryggt
+				return overdGreidslurEin(H, n, v, umfram, nafnLan)			#greiðslur, óverðtryggt
 			else:
-				verdGreidslurEin(H, n, v, vb, umfram, nafnLan)		#gremaiðslur, verðtryggt
+				return verdGreidslurEin(H, n, v, vb, umfram, nafnLan)		#gremaiðslur, verðtryggt
 	else:				#umframgreiðslan er mánaðarlega
 		if(jafnar == 1):	#jafnar afborganir
 			if(verdtrygging == 0):
-				overdAfborganirMan(H, n, v, umfram, nafnLan)		#afborganir, óverðtryggt
+				return overdAfborganirMan(H, n, v, umfram, nafnLan)		#afborganir, óverðtryggt
 			else:
-				verdAfborganirMan(H, n, v, vb, umfram, nafnLan)		#afborganir, verðtryggt
+				return verdAfborganirMan(H, n, v, vb, umfram, nafnLan)		#afborganir, verðtryggt
 		else:		#jafnar greiðslur
 			if(verdtrygging == 0):
-				overdGreidslurMan(H, n, v, umfram, nafnLan)			#greiðslur, óverðtryggt
+				return overdGreidslurMan(H, n, v, umfram, nafnLan)			#greiðslur, óverðtryggt
 			else:
-				verdGreidslurMan(H, n, v, vb, umfram, nafnLan)		#greiðslur, verðtryggt
+				return verdGreidslurMan(H, n, v, vb, umfram, nafnLan)		#greiðslur, verðtryggt
 
 
 # Óverðtryggt, jafnar afborganir, reiknað mánaðarlega, með möguleika á umframgreiðslur (uppgreiðslugjald er 1%), með einni umframgreiðslu
