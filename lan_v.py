@@ -120,9 +120,9 @@ def overdAfborganirEin(H, n, v, umfram, nafn):
 		return [[],[]]
 	else:
 		if(H > 0.99*umfram+H/(n*12)):
-			temp(H, n, v, umfram)
+			return temp(H, n, v, umfram)
 		else:
-			temp(H, n, v, 0)
+			return temp(H, n, v, 0)
 
 # Verðtryggt, jafnar afborganir, umframgreiðsla borguð 1x
 # Noktun: verdAfborganirEin(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umframgreiðsla)
@@ -174,9 +174,9 @@ def verdAfborganirEin(H, n, v, vb, umfram, nafn):
 		return [[],[]]
 	else:
 		if(H > 0.99*umfram+H/(n*12)):
-			temp(H, n, v, vb, umfram)
+			return temp(H, n, v, vb, umfram)
 		else:
-			temp(H, n, v, vb, 0)
+			return temp(H, n, v, vb, 0)
 
 
 # Óverðtryggt, jafnar greiðslur, umframgreiðsla borguð 1x
@@ -228,13 +228,13 @@ def overdGreidslurEin(H, n, v, umfram, nafn):
 	if(n == 0):
 		return [[],[]]
 	elif(vt == 0):
-		overdAfborganirEin(H, nt, 0, umfram, nafn)
+		return overdAfborganirEin(H, nt, 0, umfram, nafn)
 	else:
 		A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 		if(H > A-v*H+0.99*umfram):
-			temp(H, nt, vt, umfram)
+			return temp(H, nt, vt, umfram)
 		else:
-			temp(H, nt, vt, 0)
+			return temp(H, nt, vt, 0)
 
 
 # Verðtryggt, jafnar greiðslur, umframgreiðsla borguð 1x
@@ -291,15 +291,15 @@ def verdGreidslurEin(H, n, v, vb, umfram, nafn):
 	if(n == 0):
 		return [[],[]]
 	elif(vbt == 0):
-		overdGreidslurEin(H, nt, vt, umfram, nafn)
+		return overdGreidslurEin(H, nt, vt, umfram, nafn)
 	elif(v == 0):
-		verdAfborganirEin(H, nt, 0, vbt, umfram, nafn)
+		return verdAfborganirEin(H, nt, 0, vbt, umfram, nafn)
 	else:
 		A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 		if((1+vb)*H > (1+vb)*A-v*H+0.99*umfram):
-			temp(H, nt, vt, vbt, umfram)
+			return temp(H, nt, vt, vbt, umfram)
 		else:
-			temp(H, nt, vt, vbt, 0)
+			return temp(H, nt, vt, vbt, 0)
 
 
 # Óverðtryggt, jafnar afborganir, umframgreiðsla borguð mánaðarlega
@@ -459,13 +459,13 @@ def overdGreidslurMan(H, n, v, umfram, nafn):
 	if(n == 0):
 		return [[],[]]
 	elif(v == 0):
-			overdAfborganirMan(H, n, 0, umfram, nafn)
+			return overdAfborganirMan(H, n, 0, umfram, nafn)
 	else:
 		A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 		if(H > A-v*H+0.99*umfram):
-			temp(H, nt, vt, umfram)
+			return temp(H, nt, vt, umfram)
 		else:
-			temp(H, nt, vt, 0)
+			return temp(H, nt, vt, 0)
 
 
 # Verðtryggt, jafnar greiðslur, umframgreiðsla borguð mánaðarlega
@@ -527,12 +527,12 @@ def verdGreidslurMan(H, n, v, vb, umfram, nafn):
 	if(n == 0):
 		return [[],[]]
 	elif(vb == 0):
-			overdGreidslurMan(H, n, v, umfram, nafn)
+		return overdGreidslurMan(H, n, v, umfram, nafn)
 	elif(v == 0): 
-		verdAfborganirMan(H, n, 0, vb, umfram, nafn)
+		return verdAfborganirMan(H, n, 0, vb, umfram, nafn)
 	else:
 		A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 		if((1+vb)*H > (1+vb)*A-v*H+0.99*umfram):
-			temp(H, nt, vt, vbt, umfram)
+			return temp(H, nt, vt, vbt, umfram)
 		else:
-			temp(H, nt, vt, vbt, 0)
+			return temp(H, nt, vt, vbt, 0)
