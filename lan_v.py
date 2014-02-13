@@ -92,7 +92,7 @@ def overdAfborganirEin(H, n, v, umfram, nafn):
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
 		
-		while(round(eftirs) > afb):
+		while(round(eftirs) >= afb):
 			greidsla = afb + vt*eftirs
 			eftirs = eftirs - afb
 			summa = summa + greidsla
@@ -116,7 +116,7 @@ def overdAfborganirEin(H, n, v, umfram, nafn):
 		skil.append(stodur)
 		return skil
 		
-	if(n == 0):
+	if(n == 0) or (H == 0):
 		return [[],[]]
 	else:
 		if(H > 0.99*umfram+H/(n*12)):
@@ -146,7 +146,7 @@ def verdAfborganirEin(H, n, v, vb, umfram, nafn):
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
 		
-		while(round(eftirs) > afb):
+		while(round(eftirs) >= afb):
 			greidsla = afb + (vt+vbt)*eftirs
 			eftirs = eftirs - afb
 			summa = summa + greidsla
@@ -170,7 +170,7 @@ def verdAfborganirEin(H, n, v, vb, umfram, nafn):
 		skil.append(stodur)
 		return skil
 		
-	if(n == 0):
+	if(n == 0) or (H == 0):
 		return [[],[]]
 	else:
 		if(H > 0.99*umfram+H/(n*12)):
@@ -200,7 +200,7 @@ def overdGreidslurEin(H, n, v, umfram, nafn):
 		summa = summa + greidsla + umfram
 		stodur.append(round(eftirs))
 		
-		while(round(eftirs) > greidsla - vextir):
+		while(round(eftirs) >= greidsla - vextir):
 			vextir = v*eftirs
 			afb = greidsla - vextir
 			eftirs = eftirs - afb
@@ -225,7 +225,7 @@ def overdGreidslurEin(H, n, v, umfram, nafn):
 		skil.append(stodur)
 		return skil
 		
-	if(n == 0):
+	if(n == 0) or (H == 0):
 		return [[],[]]
 	elif(vt == 0):
 		return overdAfborganirEin(H, nt, 0, umfram, nafn)
@@ -262,7 +262,7 @@ def verdGreidslurEin(H, n, v, vb, umfram, nafn):
 		summa = summa + greidsla + umfram
 		stodur.append(round(eftirs))
 		
-		while(round(eftirs) > greidsla - v*eftirs):
+		while(round(eftirs) >= greidsla - v*eftirs):
 			eftirs = eftirs + vb*eftirs
 			greidsla = (1+vb)*greidsla
 			afb = greidsla - v*eftirs
@@ -288,7 +288,7 @@ def verdGreidslurEin(H, n, v, vb, umfram, nafn):
 		skil.append(stodur)
 		return skil
 		
-	if(n == 0):
+	if(n == 0) or (H == 0):
 		return [[],[]]
 	elif(vbt == 0):
 		return overdGreidslurEin(H, nt, vt, umfram, nafn)
@@ -310,7 +310,7 @@ def overdAfborganirMan(H, n, v, umfram, nafn):
 	nt = n*12
 	vt = float(v)/12
 	
-	if(nt == 0):
+	if(nt == 0) or (H == 0):
 		return [[],[]]
 	
 	else:
@@ -320,7 +320,7 @@ def overdAfborganirMan(H, n, v, umfram, nafn):
 		stodur = [eftirs]
 		
 		#keyrum þetta á meðan summa afborgunar og umframgreiðslu er minni en eftirstaðan (svo eftirstaðan fer ekki í mínustölu)
-		while(round(eftirs) > afb+0.99*umfram):
+		while(round(eftirs) >= afb+0.99*umfram):
 			greidsla = afb + vt*eftirs + umfram
 			eftirs = eftirs - afb - 0.99*umfram		#0.99 útaf 1% fer í uppgreiðslukosntaður
 			summa = summa + greidsla
@@ -365,7 +365,7 @@ def verdAfborganirMan(H, n, v, vb, umfram, nafn):
 	vt = float(v)/12
 	vbt = float(vb)/12
 	
-	if(n == 0):
+	if(n == 0) or (H == 0):
 		return [[],[]]
 	
 	else:
@@ -375,7 +375,7 @@ def verdAfborganirMan(H, n, v, vb, umfram, nafn):
 		stodur = [eftirs]
 		
 		#keyrum þetta á meðan summa afborgunar og umframgreiðslu er minni en eftirstaðan (svo eftirstaðan fer ekki í mínustölu)
-		while(round(eftirs) > afb+0.99*umfram):
+		while(round(eftirs) >= afb+0.99*umfram):
 			greidsla = afb + (vt+vbt)*eftirs + umfram
 			eftirs = eftirs - afb - 0.99*umfram		#0.99 útaf 1% fer í uppgreiðslukosntaður
 			summa = summa + greidsla
@@ -424,7 +424,7 @@ def overdGreidslurMan(H, n, v, umfram, nafn):
 		stodur = [eftirs]
 
 		#keyrum þetta á meðan afborgunin = greidsla-v*eftirs+0.99*umfram er minni en eftirstaðan
-		while(round(eftirs) > greidsla-v*eftirs+0.99*umfram):
+		while(round(eftirs) >= greidsla-v*eftirs+0.99*umfram):
 			afb = greidsla - v*eftirs + 0.99*umfram		#þar sem v*eftirs = vextir #0.99 útaf 1% fer í uppgreiðslukosntaður
 			eftirs = eftirs - afb
 			summa = summa + greidsla + umfram
@@ -456,7 +456,7 @@ def overdGreidslurMan(H, n, v, umfram, nafn):
 		return skil
 		
 	#áður en við förum í temp þarf að ath hvort n=0 eða v=0 svo við séum ekki að deila með 0 og fá keyrsluvillu
-	if(n == 0):
+	if(n == 0) or (H == 0):
 		return [[],[]]
 	elif(v == 0):
 			return overdAfborganirMan(H, n, 0, umfram, nafn)
@@ -486,7 +486,7 @@ def verdGreidslurMan(H, n, v, vb, umfram, nafn):
 		stodur = [eftirs]
 		
 		#keyrum þetta á meðan afborgunin = greidsla-v*eftirs+0.99*umfram er minni en eftirstaðan(með viðbættri verðbólgu)
-		while(round((1+vb)*eftirs) > (1+vb)*greidsla-v*eftirs+0.99*umfram): 	
+		while(round((1+vb)*eftirs) >= (1+vb)*greidsla-v*eftirs+0.99*umfram): 	
 			eftirs = (1+vb)*eftirs
 			greidsla = (1+vb)*greidsla
 			afb = greidsla - v*eftirs + 0.99*umfram		#þar sem v*eftirs = vextir #0.99 útaf 1% fer í uppgreiðslukosntaður
@@ -524,7 +524,7 @@ def verdGreidslurMan(H, n, v, vb, umfram, nafn):
 		return skil
 		
 	#áður en við förum í temp þarf að ath hvort n=0 eða v=0 svo við séum ekki að deila með 0 og fá keyrsluvillu
-	if(n == 0):
+	if(n == 0) or (H == 0):
 		return [[],[]]
 	elif(vb == 0):
 		return overdGreidslurMan(H, n, v, umfram, nafn)
