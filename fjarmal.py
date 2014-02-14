@@ -254,9 +254,9 @@ class MainPage(wx.Panel):
 
     def reikna(self, event):
     	self.nidurstodur = sparnadur1b.spar(self.umframgr, self.verdbolga, self.verdSparn, self.ein_man_greidsla, self.innist_bundin)
-    	lan_v.lan(self.lan1_upph, self.lan1_vextir, self.lan1_greidslubyrgdi, self.lan1_timabil, self.lan1_verdtrygging, self.lan1_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, 'Lán 1')
-    	lan_v.lan(self.lan2_upph, self.lan2_vextir, self.lan2_greidslubyrgdi, self.lan2_timabil, self.lan2_verdtrygging, self.lan2_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, 'Lán 2')
-    	lan_v.lan(self.lan3_upph, self.lan3_vextir, self.lan3_greidslubyrgdi, self.lan3_timabil, self.lan3_verdtrygging, self.lan3_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, 'Lán 3')
+    	lan_v.lan(self.lan1_upph, self.lan1_vextir, self.lan1_greidslubyrgdi, self.lan1_timabil, self.lan1_verdtrygging, self.lan1_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, 'lan1')
+    	lan_v.lan(self.lan2_upph, self.lan2_vextir, self.lan2_greidslubyrgdi, self.lan2_timabil, self.lan2_verdtrygging, self.lan2_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, 'lan2')
+    	lan_v.lan(self.lan3_upph, self.lan3_vextir, self.lan3_greidslubyrgdi, self.lan3_timabil, self.lan3_verdtrygging, self.lan3_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, 'lan3')
     	self.syna_svar_glugga()
 
     def syna_svar_glugga(self):
@@ -304,9 +304,9 @@ class SvarGluggi(wx.Frame):
         
         ax.plot(data_x, data_y, label="Reikningur ef lagt er fyrir")
         
-        ax.set_xlabel('Tími [mánuðir]')
-        ax.set_ylabel('Upphæð [kr]')
-        ax.set_title('Reyndu nú að spara!')
+        ax.set_xlabel(u'Tími [mánuðir]')
+        ax.set_ylabel(u'Upphæð [kr]')
+        ax.set_title(u'Reyndu nu að spara!')
         ax.legend(loc=2); # upper left corner
         
         canvas.draw()
