@@ -1,16 +1,27 @@
 # -*- coding: cp1252 -*-
 # -*- coding: utf-8 -*-
 
-# Gildi: fylki sem heldur utan um nöfn lána 3 og lántökukostnaðinn (verðbólga, vextir, uppgreiðslugjald)
-kostnadur = []
+# TODO (auka):
+## hafa n*12 og v/12 í lan
+## hafa if n==0 or H==0 í lan
+## bæta við append ef h=0, n=0
+
+# # Gildi: fylki með 6 stökum þar sem fyrsta stakið er kostnaður við lán1 með umfram, stak tvö er kostnaður við lán1 án umfram, osfrv..
+tempfylki = [0, 0, 0, 0, 0, 0]
 # Gildi: fylki sem heldur utan um nöfn lánanna 3 og raunvexti þeirra
 lan_uppl = []
 
-# Gildi: double tala sem er heildarlántökukostnaður, þ.e. summa - H (heildarkostnaður - höfuðstóll)
+# Gildi: fylki með 3 stökum þar sem fyrsta stakið er kostnaðurinn fyrir lán 1, annað stakið fyrir lán 2 osfrv.
 def fa_lanakostnad():
-	global kostnadur
-	return kostnadur
+	global tempfylki
+	return [tempfylki[0], tempfylki[2], tempfylki[4]]
 
+# Gildi: fylki með 3 stökum þar sem fyrsta stakið er hagnaður við að borga umfram í lán1, osfrv
+def fa_hagnad():
+	global tempfylki
+	return [tempfylki[1]-tempfylki[0], tempfylki[3]-tempfylki[2], tempfylki[5]-tempfylki[4]]
+	
+	
 #Gildi: fylki með tveimur stökum, nafn lánsins með hæstu raunvexti og raunvexturinn sjálfur
 def raunvLan():
 	global lan_uppl
@@ -22,14 +33,10 @@ def raunvLan():
 	return max
 
 # Notkun: lan(höfuðstóll, vextir(%), greiðslubyrgði(óþarfi), lengd láns(ár), ó/verðtryggt, jafnar afborganir/greiðslur, verðbólga(0,5,10,15), umframgreiðsla, umfram borguð 1x/mánaðarlega, nafn lánsins)
-# Gildi: fylki með tveimur stökum, fyrra stakið er númer mánaðarin (0 - n*12) og staða lánsins á þeim tíma
-def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):		#bæta svo við 'hreinsa' í næstu ítrun
+# Gildi: FYLKI sem skilar tveimur Fylkjum, fyrra Fylkið er ef þú borgar umframgreiðslu og seinna er fyrir umfram=0, í hverju Fylki eru tvö önnur fylki, fyrra fylkið hefur númer mánaðar (0 - n*12) og það seinna hefur stöðu lánsins á þeim tíma
+# dæmi: [ [[0,1,2,3],[1000, 600, 200, 0]] , [0,1,2,3,4,5],[1000, 800, 600, 400, 200, 0] ]
+def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):
 	global lan_uppl
-	
-	#þetta er fyrir næstu ítrun:
-	#global kostnadur
-	#if(hreinsa == 1):
-	#	kostnadur = []
 	
 	#setja inn rétta verðbólgu
 	if(verdbolga == 0): 		#verðbólga núna
@@ -53,30 +60,30 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):	
 	if(einman == 0): #umframgreiðslan er eingreiðsla
 		if(jafnar == 1): #jafnar afborganir
 			if(verdtrygging == 0): #óverðtryggt
-				return overdAfborganirEin(H, n, v, umfram, nafnLan)
+				return [overdAfborganirEin(H, n, v, umfram, nafnLan, 0), overdAfborganirEin(H, n, v, 0, nafnLan, 1)]
 			else: #verðtryggt
-				return verdAfborganirEin(H, n, v, vb, umfram, nafnLan)
+				return [verdAfborganirEin(H, n, v, vb, umfram, nafnLan, 0), verdAfborganirEin(H, n, v, vb, 0, nafnLan, 1)]
 		else: #jafnar greiðslur
 			if(verdtrygging == 0): #óverðtryggt
-				return overdGreidslurEin(H, n, v, umfram, nafnLan)
+				return [overdGreidslurEin(H, n, v, umfram, nafnLan, 0), overdGreidslurEin(H, n, v, 0, nafnLan, 1)]
 			else: #verðtryggt
-				return verdGreidslurEin(H, n, v, vb, umfram, nafnLan)
+				return [verdGreidslurEin(H, n, v, vb, umfram, nafnLan, 0), verdGreidslurEin(H, n, v, vb, 0, nafnLan, 1)]
 	else: #umframgreiðslan er mánaðarlega
 		if(jafnar == 1): #jafnar afborganir
 			if(verdtrygging == 0): #óverðtryggt
-				return overdAfborganirMan(H, n, v, umfram, nafnLan)
+				return [overdAfborganirMan(H, n, v, umfram, nafnLan, 0), overdAfborganirMan(H, n, v, 0, nafnLan, 1)]
 			else: #verðtryggt
-				return verdAfborganirMan(H, n, v, vb, umfram, nafnLan)
+				return [verdAfborganirMan(H, n, v, vb, umfram, nafnLan, 0), verdAfborganirMan(H, n, v, vb, 0, nafnLan, 1)]
 		else: #jafnar greiðslur
 			if(verdtrygging == 0): #óverðtryggt
-				return overdGreidslurMan(H, n, v, umfram, nafnLan)
+				return [overdGreidslurMan(H, n, v, umfram, nafnLan, 0), overdGreidslurMan(H, n, v, 0, nafnLan, 1)]
 			else: #verðtryggt
-				return verdGreidslurMan(H, n, v, vb, umfram, nafnLan)
+				return [verdGreidslurMan(H, n, v, vb, umfram, nafnLan, 0), verdGreidslurMan(H, n, v, vb, 0, nafnLan, 1)]
 
 # Óverðtryggt, jafnar afborganir, umframgreiðsla borguð 1x
-# Notkun: overdAfborganirEin(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
-def overdAfborganirEin(H, n, v, umfram, nafn):
-	global kostnadur
+# Notkun: overdAfborganirEin(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla, auka (0 er með umfram og 1 er óbreytt lán))
+def overdAfborganirEin(H, n, v, umfram, nafn, auka):
+	global tempfylki
 	def temp(H, n, v, umfram):
 		v = float(v)/100
 		nt = n*12
@@ -105,8 +112,21 @@ def overdAfborganirEin(H, n, v, umfram, nafn):
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
 		
-		auka = [nafn, round(summa - H)]
-		kostnadur.append(auka)
+		if(nafn == 'lan1'):
+			if(auka == 0):
+				tempfylki[0] = round(summa - H)
+			else:
+				tempfylki[1] = round(summa - H)
+		elif(nafn == 'lan2'):
+			if(auka == 0):
+				tempfylki[2] = round(summa - H)
+			else:
+				tempfylki[3] = round(summa - H)
+		elif(nafn == 'lan3'):
+			if(auka == 0):
+				tempfylki[4] = round(summa - H)
+			else:
+				tempfylki[5] = round(summa - H)
 		
 		x = []
 		skil = []
@@ -117,7 +137,17 @@ def overdAfborganirEin(H, n, v, umfram, nafn):
 		return skil
 		
 	if(n == 0) or (H == 0):
+		if(nafn == 'lan1'):
+			tempfylki[0] = 0.0
+			tempfylki[1] = 0.0
+		elif(nafn == 'lan2'):
+			tempfylki[2] = 0.0
+			tempfylki[3] = 0.0
+		elif(nafn == 'lan3'):
+			tempfylki[4] = 0.0
+			tempfylki[5] = 0.0
 		return [[],[]]
+
 	else:
 		if(H > 0.99*umfram+H/(n*12)):
 			return temp(H, n, v, umfram)
@@ -125,9 +155,9 @@ def overdAfborganirEin(H, n, v, umfram, nafn):
 			return temp(H, n, v, 0)
 
 # Verðtryggt, jafnar afborganir, umframgreiðsla borguð 1x
-# Noktun: verdAfborganirEin(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umframgreiðsla)
-def verdAfborganirEin(H, n, v, vb, umfram, nafn):
-	global kostnadur
+# Noktun: verdAfborganirEin(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umframgreiðsla, auka (0 er með umfram og 1 er óbreytt lán))
+def verdAfborganirEin(H, n, v, vb, umfram, nafn, auka):
+	global tempfylki
 	def temp(H, n, v, vb, umfram):
 		import math
 		v = float(v)/100
@@ -159,8 +189,21 @@ def verdAfborganirEin(H, n, v, vb, umfram, nafn):
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
 		
-		auka = [nafn, round(summa - H)]
-		kostnadur.append(auka)
+		if(nafn == 'lan1'):
+			if(auka == 0):
+				tempfylki[0] = round(summa - H)
+			else:
+				tempfylki[1] = round(summa - H)
+		elif(nafn == 'lan2'):
+			if(auka == 0):
+				tempfylki[2] = round(summa - H)
+			else:
+				tempfylki[3] = round(summa - H)
+		elif(nafn == 'lan3'):
+			if(auka == 0):
+				tempfylki[4] = round(summa - H)
+			else:
+				tempfylki[5] = round(summa - H)
 		
 		x = []
 		skil = []
@@ -171,7 +214,17 @@ def verdAfborganirEin(H, n, v, vb, umfram, nafn):
 		return skil
 		
 	if(n == 0) or (H == 0):
+		if(nafn == 'lan1'):
+			tempfylki[0] = 0.0
+			tempfylki[1] = 0.0
+		elif(nafn == 'lan2'):
+			tempfylki[2] = 0.0
+			tempfylki[3] = 0.0
+		elif(nafn == 'lan3'):
+			tempfylki[4] = 0.0
+			tempfylki[5] = 0.0
 		return [[],[]]
+
 	else:
 		if(H > 0.99*umfram+H/(n*12)):
 			return temp(H, n, v, vb, umfram)
@@ -180,9 +233,9 @@ def verdAfborganirEin(H, n, v, vb, umfram, nafn):
 
 
 # Óverðtryggt, jafnar greiðslur, umframgreiðsla borguð 1x
-# Notkun: overdGreidslurEin(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
-def overdGreidslurEin(H, n, v, umfram, nafn):
-	global kostnadur
+# Notkun: overdGreidslurEin(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla, auka (0 er með umfram og 1 er óbreytt lán))
+def overdGreidslurEin(H, n, v, umfram, nafn, auka):
+	global tempfylki
 	v = float(v)/100
 	nt = n*12
 	vt = float(v)/12
@@ -214,8 +267,21 @@ def overdGreidslurEin(H, n, v, umfram, nafn):
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
 		
-		auka = [nafn, round(summa - H)]
-		kostnadur.append(auka)
+		if(nafn == 'lan1'):
+			if(auka == 0):
+				tempfylki[0] = round(summa - H)
+			else:
+				tempfylki[1] = round(summa - H)
+		elif(nafn == 'lan2'):
+			if(auka == 0):
+				tempfylki[2] = round(summa - H)
+			else:
+				tempfylki[3] = round(summa - H)
+		elif(nafn == 'lan3'):
+			if(auka == 0):
+				tempfylki[4] = round(summa - H)
+			else:
+				tempfylki[5] = round(summa - H)
 		
 		x = []
 		skil = []
@@ -226,9 +292,19 @@ def overdGreidslurEin(H, n, v, umfram, nafn):
 		return skil
 		
 	if(n == 0) or (H == 0):
+		if(nafn == 'lan1'):
+			tempfylki[0] = 0.0
+			tempfylki[1] = 0.0
+		elif(nafn == 'lan2'):
+			tempfylki[2] = 0.0
+			tempfylki[3] = 0.0
+		elif(nafn == 'lan3'):
+			tempfylki[4] = 0.0
+			tempfylki[5] = 0.0
 		return [[],[]]
+
 	elif(vt == 0):
-		return overdAfborganirEin(H, nt, 0, umfram, nafn)
+		return overdAfborganirEin(H, nt, 0, umfram, nafn, auka)
 	else:
 		A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 		if(H > A-v*H+0.99*umfram):
@@ -238,9 +314,9 @@ def overdGreidslurEin(H, n, v, umfram, nafn):
 
 
 # Verðtryggt, jafnar greiðslur, umframgreiðsla borguð 1x
-# Notkun: verdGreidslurEin(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umfram)	
-def verdGreidslurEin(H, n, v, vb, umfram, nafn):
-	global kostnadur
+# Notkun: verdGreidslurEin(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umfram, auka (0 er með umfram og 1 er óbreytt lán))	
+def verdGreidslurEin(H, n, v, vb, umfram, nafn, auka):
+	global tempfylki
 	import math
 	v = float(v)/100
 	vb = float(vb)/100
@@ -277,8 +353,21 @@ def verdGreidslurEin(H, n, v, vb, umfram, nafn):
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
 		
-		auka = [nafn, round(summa - H)]
-		kostnadur.append(auka)
+		if(nafn == 'lan1'):
+			if(auka == 0):
+				tempfylki[0] = round(summa - H)
+			else:
+				tempfylki[1] = round(summa - H)
+		elif(nafn == 'lan2'):
+			if(auka == 0):
+				tempfylki[2] = round(summa - H)
+			else:
+				tempfylki[3] = round(summa - H)
+		elif(nafn == 'lan3'):
+			if(auka == 0):
+				tempfylki[4] = round(summa - H)
+			else:
+				tempfylki[5] = round(summa - H)
 		
 		x = []
 		skil = []
@@ -289,11 +378,21 @@ def verdGreidslurEin(H, n, v, vb, umfram, nafn):
 		return skil
 		
 	if(n == 0) or (H == 0):
+		if(nafn == 'lan1'):
+			tempfylki[0] = 0.0
+			tempfylki[1] = 0.0
+		elif(nafn == 'lan2'):
+			tempfylki[2] = 0.0
+			tempfylki[3] = 0.0
+		elif(nafn == 'lan3'):
+			tempfylki[4] = 0.0
+			tempfylki[5] = 0.0
 		return [[],[]]
+	
 	elif(vbt == 0):
-		return overdGreidslurEin(H, nt, vt, umfram, nafn)
+		return overdGreidslurEin(H, nt, vt, umfram, nafn, auka)
 	elif(v == 0):
-		return verdAfborganirEin(H, nt, 0, vbt, umfram, nafn)
+		return verdAfborganirEin(H, nt, 0, vbt, umfram, nafn, auka)
 	else:
 		A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 		if((1+vb)*H > (1+vb)*A-v*H+0.99*umfram):
@@ -303,15 +402,25 @@ def verdGreidslurEin(H, n, v, vb, umfram, nafn):
 
 
 # Óverðtryggt, jafnar afborganir, umframgreiðsla borguð mánaðarlega
-# Notkun: overdAfborganirMan(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
-def overdAfborganirMan(H, n, v, umfram, nafn):
-	global kostnadur
+# Notkun: overdAfborganirMan(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla, auka (0 er með umfram og 1 er óbreytt lán))
+def overdAfborganirMan(H, n, v, umfram, nafn, auka):
+	global tempfylki
 	v = float(v)/100
 	nt = n*12
 	vt = float(v)/12
 	
 	if(nt == 0) or (H == 0):
+		if(nafn == 'lan1'):
+			tempfylki[0] = 0.0
+			tempfylki[1] = 0.0
+		elif(nafn == 'lan2'):
+			tempfylki[2] = 0.0
+			tempfylki[3] = 0.0
+		elif(nafn == 'lan3'):
+			tempfylki[4] = 0.0
+			tempfylki[5] = 0.0
 		return [[],[]]
+
 	
 	else:
 		afb = float(H)/nt
@@ -342,8 +451,21 @@ def overdAfborganirMan(H, n, v, umfram, nafn):
 			summa = summa + greidsla
 			stodur.append(round(eftirs))
 		
-		auka = [nafn, round(summa - H)]
-		kostnadur.append(auka)
+		if(nafn == 'lan1'):
+			if(auka == 0):
+				tempfylki[0] = round(summa - H)
+			else:
+				tempfylki[1] = round(summa - H)
+		elif(nafn == 'lan2'):
+			if(auka == 0):
+				tempfylki[2] = round(summa - H)
+			else:
+				tempfylki[3] = round(summa - H)
+		elif(nafn == 'lan3'):
+			if(auka == 0):
+				tempfylki[4] = round(summa - H)
+			else:
+				tempfylki[5] = round(summa - H)
 		
 		x = []
 		skil = []
@@ -355,9 +477,9 @@ def overdAfborganirMan(H, n, v, umfram, nafn):
 
 
 # Verðtryggt, jafnar afborganir, umframgreiðsla borguð mánaðarlega
-# Noktun: verdAfborganirMan(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umframgreiðsla)
-def verdAfborganirMan(H, n, v, vb, umfram, nafn):
-	global kostnadur
+# Noktun: verdAfborganirMan(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umframgreiðsla, auka (0 er með umfram og 1 er óbreytt lán))
+def verdAfborganirMan(H, n, v, vb, umfram, nafn, auka):
+	global tempfylki
 	import math
 	v = float(v)/100
 	vb = float(vb)/100
@@ -366,7 +488,17 @@ def verdAfborganirMan(H, n, v, vb, umfram, nafn):
 	vbt = float(vb)/12
 	
 	if(n == 0) or (H == 0):
+		if(nafn == 'lan1'):
+			tempfylki[0] = 0.0
+			tempfylki[1] = 0.0
+		elif(nafn == 'lan2'):
+			tempfylki[2] = 0.0
+			tempfylki[3] = 0.0
+		elif(nafn == 'lan3'):
+			tempfylki[4] = 0.0
+			tempfylki[5] = 0.0
 		return [[],[]]
+
 	
 	else:
 		afb = float(H)/nt
@@ -397,8 +529,21 @@ def verdAfborganirMan(H, n, v, vb, umfram, nafn):
 			summa = summa + greidsla
 			stodur.append(round(eftirs))
 		
-		auka = [nafn, round(summa - H)]
-		kostnadur.append(auka)
+		if(nafn == 'lan1'):
+			if(auka == 0):
+				tempfylki[0] = round(summa - H)
+			else:
+				tempfylki[1] = round(summa - H)
+		elif(nafn == 'lan2'):
+			if(auka == 0):
+				tempfylki[2] = round(summa - H)
+			else:
+				tempfylki[3] = round(summa - H)
+		elif(nafn == 'lan3'):
+			if(auka == 0):
+				tempfylki[4] = round(summa - H)
+			else:
+				tempfylki[5] = round(summa - H)
 		
 		x = []
 		skil = []
@@ -410,9 +555,9 @@ def verdAfborganirMan(H, n, v, vb, umfram, nafn):
 
 
 # Óverðtryggt, jafnar greiðslur, umframgreiðsla borguð mánaðarlega
-# Notkun: overdGreidslurMan(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla)
-def overdGreidslurMan(H, n, v, umfram, nafn):
-	global kostnadur
+# Notkun: overdGreidslurMan(höfuðstóll, fjöldi ára, vextir(%), umframgreiðsla, auka (0 er með umfram og 1 er óbreytt lán))
+def overdGreidslurMan(H, n, v, umfram, nafn, auka):
+	global tempfylki
 	v = float(v)/100
 	nt = n*12
 	vt = float(v)/12
@@ -444,8 +589,21 @@ def overdGreidslurMan(H, n, v, umfram, nafn):
 			summa = summa + greidsla + umfram
 			stodur.append(round(eftirs))
 		
-		auka = [nafn, round(summa - H)]
-		kostnadur.append(auka)
+		if(nafn == 'lan1'):
+			if(auka == 0):
+				tempfylki[0] = round(summa - H)
+			else:
+				tempfylki[1] = round(summa - H)
+		elif(nafn == 'lan2'):
+			if(auka == 0):
+				tempfylki[2] = round(summa - H)
+			else:
+				tempfylki[3] = round(summa - H)
+		elif(nafn == 'lan3'):
+			if(auka == 0):
+				tempfylki[4] = round(summa - H)
+			else:
+				tempfylki[5] = round(summa - H)
 		
 		x = []
 		skil = []
@@ -457,9 +615,19 @@ def overdGreidslurMan(H, n, v, umfram, nafn):
 		
 	#áður en við förum í temp þarf að ath hvort n=0 eða v=0 svo við séum ekki að deila með 0 og fá keyrsluvillu
 	if(n == 0) or (H == 0):
+		if(nafn == 'lan1'):
+			tempfylki[0] = 0.0
+			tempfylki[1] = 0.0
+		elif(nafn == 'lan2'):
+			tempfylki[2] = 0.0
+			tempfylki[3] = 0.0
+		elif(nafn == 'lan3'):
+			tempfylki[4] = 0.0
+			tempfylki[5] = 0.0
 		return [[],[]]
+	
 	elif(v == 0):
-			return overdAfborganirMan(H, n, 0, umfram, nafn)
+			return overdAfborganirMan(H, n, 0, umfram, nafn, auka)
 	else:
 		A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 		if(H > A-v*H+0.99*umfram):
@@ -469,9 +637,9 @@ def overdGreidslurMan(H, n, v, umfram, nafn):
 
 
 # Verðtryggt, jafnar greiðslur, umframgreiðsla borguð mánaðarlega
-# Notkun: verdGreidslurMan(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umfram)	
-def verdGreidslurMan(H, n, v, vb, umfram, nafn):
-	global kostnadur
+# Notkun: verdGreidslurMan(höfuðstóll, fjöldi ára, vextir(%), verðbólga(%), umfram, auka (0 er með umfram og 1 er óbreytt lán))	
+def verdGreidslurMan(H, n, v, vb, umfram, nafn, auka):
+	global tempfylki
 	import math
 	v = float(v)/100
 	vb = float(vb)/100
@@ -512,8 +680,21 @@ def verdGreidslurMan(H, n, v, vb, umfram, nafn):
 			summa = summa + greidsla + umfram
 			stodur.append(round(eftirs))
 		
-		auka = [nafn, round(summa - H)]
-		kostnadur.append(auka)
+		if(nafn == 'lan1'):
+			if(auka == 0):
+				tempfylki[0] = round(summa - H)
+			else:
+				tempfylki[1] = round(summa - H)
+		elif(nafn == 'lan2'):
+			if(auka == 0):
+				tempfylki[2] = round(summa - H)
+			else:
+				tempfylki[3] = round(summa - H)
+		elif(nafn == 'lan3'):
+			if(auka == 0):
+				tempfylki[4] = round(summa - H)
+			else:
+				tempfylki[5] = round(summa - H)
 		
 		x = []
 		skil = []
@@ -525,11 +706,21 @@ def verdGreidslurMan(H, n, v, vb, umfram, nafn):
 		
 	#áður en við förum í temp þarf að ath hvort n=0 eða v=0 svo við séum ekki að deila með 0 og fá keyrsluvillu
 	if(n == 0) or (H == 0):
+		if(nafn == 'lan1'):
+			tempfylki[0] = 0.0
+			tempfylki[1] = 0.0
+		elif(nafn == 'lan2'):
+			tempfylki[2] = 0.0
+			tempfylki[3] = 0.0
+		elif(nafn == 'lan3'):
+			tempfylki[4] = 0.0
+			tempfylki[5] = 0.0
 		return [[],[]]
+	
 	elif(vb == 0):
-		return overdGreidslurMan(H, n, v, umfram, nafn)
+		return overdGreidslurMan(H, n, v, umfram, nafn, auka)
 	elif(v == 0): 
-		return verdAfborganirMan(H, n, 0, vb, umfram, nafn)
+		return verdAfborganirMan(H, n, 0, vb, umfram, nafn, auka)
 	else:
 		A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 		if((1+vb)*H > (1+vb)*A-v*H+0.99*umfram):
