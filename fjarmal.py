@@ -367,13 +367,14 @@ class SvarGluggi(wx.Frame):
         ars_fjarmagnstekjuskattur = wx.StaticText(panel_svar, -1, "Fjármagnstekjuskattur yfir 12 mánuði: " + fjarmagnstekjuskattur)
         sizer.Add(ars_fjarmagnstekjuskattur, 0, wx.ALL, 10)
 
-        lana_kostnadur = str(lan_v.fa_lanakostnad())
+        lana_kostnadur = lan_v.fa_lanakostnad()
 
-        lanakostnadur = wx.StaticText(panel_svar, -1, "Auka kostnaður við lán (vextir, uppgreiðslugjald): " + lana_kostnadur)
+        lanakostnadur = wx.StaticText(panel_svar, -1, "Auka kostnaður við lán (vextir, uppgreiðslugjald): ")
         sizer.Add(lanakostnadur, 0, wx.ALL, 10)
+        print(lana_kostnadur)
 
         # gröf
-        sizer.Add(canvas, 0, wx.ALL, 10) #NÝTT -> nýr staður
+        sizer.Add(canvas, 0, wx.ALL, 10)
         if(size(nidurstodur2) != 0):
         	sizer.Add(canvas2, 0, wx.ALL, 10)
         
