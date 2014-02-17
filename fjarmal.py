@@ -414,12 +414,76 @@ class Safna(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
 
-        sizer = wx.BoxSizer(wx.VERTICAL)
+        self.sizer = wx.BoxSizer(wx.VERTICAL)
 
-        hallo = wx.StaticText(self, label="Halló Kalli ég vil safna pening ") 
-        sizer.Add(hallo, 0, wx.ALL, 10)
+        self.hversu_lengi = wx.StaticText(self, label="Halló Kalli hvað þarf ég að safna lengi fyrir nýjum iPad") 
+        self.sizer.Add(self.hversu_lengi, 0, wx.ALL, 10)
+        
+        self.reikna_timabil = wx.Button(self, label="Reikna tímabil")
+        self.Bind(wx.EVT_BUTTON, self.reikna_timab, self.reikna_timabil)
+        self.sizer.Add(self.reikna_timabil, 0, wx.ALL, 10)
+
+        self.hversu_mikid = wx.StaticText(self, label="Halló Kalli hvað þarf ég að leggja mikið inná reikning til að fá nýjan iPad") 
+        self.sizer.Add(self.hversu_mikid, 0, wx.ALL, 10)
+
+        self.reikna_upphaed = wx.Button(self, label="Reikna upphæð")
+        self.Bind(wx.EVT_BUTTON, self.reikna_upph, self.reikna_upphaed)
+        self.sizer.Add(self.reikna_upphaed, 0, wx.ALL, 10)
         
 
+        self.SetSizerAndFit(self.sizer)
+    
+    def reikna_timab(self, event):
+        # EDDA setja inn breytur
+        #self.timabil = sparnadur1b.fa_timabil("upphæð", "eingreiðsla/mánaðarleg", "markmiðs upphæð")
+        self.timabil = "<temp timabil>"
+        self.syna_timabil_glugga()
+
+    def syna_timabil_glugga(self):
+        self.timabil_gluggi = TimabilGluggi(parent=None, id=-1)
+        self.timabil_gluggi.Show()
+
+    def reikna_upph(self, event):
+        # EDDA setja inn breytur
+        #self.upphaed = sparnadur1b.fa_upphaed("markmiðs upphæð", "eingreiðsla/mánaðarleg", "tímabil")
+        self.upphaed = "<temp upphæð>"
+        self.syna_upphaed_glugga()
+
+    def syna_upphaed_glugga(self):
+        self.upphaed_gluggi = UpphaedGluggi(parent=None, id=-1)
+        self.upphaed_gluggi.Show()
+
+    # get föll
+    def fa_timabil(self):
+        return self.timabil
+
+    def fa_upphaed(self):
+        return self.upphaed
+
+class TimabilGluggi(wx.Frame):
+    def __init__(self,parent,id):
+        wx.Frame.__init__(self, parent, id, 'Svör', size=(400,200))
+        wx.Frame.CenterOnScreen(self)
+
+        self.sizer = wx.BoxSizer(wx.VERTICAL)
+
+        self.timabil = Safna.fa_timabil(tabTwo)
+
+        self.hvada_timabil = wx.StaticText(self, label=self.timabil) 
+        self.sizer.Add(self.hvada_timabil, 0, wx.ALL, 10)
+
+class UpphaedGluggi(wx.Frame):
+    def __init__(self,parent,id):
+        wx.Frame.__init__(self, parent, id, 'Svör', size=(400,200))
+        wx.Frame.CenterOnScreen(self)
+
+        self.sizer = wx.BoxSizer(wx.VERTICAL)
+
+        self.upphaed = Safna.fa_upphaed(tabTwo)
+
+        self.hvada_upphaed = wx.StaticText(self, label=self.upphaed) 
+        self.sizer.Add(self.hvada_upphaed, 0, wx.ALL, 10)
+        
 class Notebook(wx.Notebook):
     def __init__(self, parent):
         wx.Notebook.__init__(self, parent, id=wx.ID_ANY, style=wx.BK_DEFAULT)
@@ -428,6 +492,7 @@ class Notebook(wx.Notebook):
         tabOne = MainPage(self)
         self.AddPage(tabOne, "Hvað skal gera við peninginn?")
 
+        global tabTwo
         tabTwo = Safna(self)
         self.AddPage(tabTwo, "Hvernig safna ég?")
 
@@ -444,7 +509,9 @@ class MainWindow(wx.Frame):
         self.Layout()
         self.Show()
 
-tabOne = 0
+# set global variables
+tabOne = tabTwo = 0
+
 if __name__ == "__main__":
     app = wx.App(False)
     frame = MainWindow()
