@@ -1,12 +1,29 @@
-
+# -*- coding: cp1252 -*-
+# -*- coding: utf-8 -*-
 import math
 globfjarmagns = 0
 globvextir = 0
 
+## Fall sem skilar hversu mikið þú þarft að leggja inn á mánuði til þess að eiga ákveðna upphæð eftir eitthvað marga mánuði
+"""
+Notkun: 
+Fyrir:
+Eftir:
+"""
+def manadalegurSparInnlogn(upphaed, nt, v):
+	temp = 0.0
+	i = 0
+	for i in range(1, nt+1):
+		temp = temp + (1+(v/12)*0.9)**i
+	return 1.0*upphaed/temp
 
-#innlogn = upphaed/(1+vextir)^nt
 
-
+## Fall sem skilar hversu mikið þú þarft að leggja inn í upphafi tiþess að eiga ákveðna upphæð eftir eitthvað marga mánuði
+"""
+Notkun:
+Fyrir:
+Eftir:
+"""
 def eingreidslaSparInnlogn(nt, v, heild):
 	innlogn = heild/(pow((1+v),(nt/12.0)))
 	return math.ceil(innlogn)
@@ -54,7 +71,7 @@ def manadalegurSparTimi(L, v, vt, heild):
 	return "Virkaði ekki"
 
 
-
+## Fall sem skilar tíma sem það tekur að safna uppí ákveðna upphæð með .....................
 """
 Notkun: tala = eingreidsla(L, nt, v, vt)
 Fyrir:  
@@ -63,7 +80,7 @@ Eftir:
 def eingreidslaSparTimi(L, v, vt, heild):
 	global globvextir
 	global globfjarmagns
-	fjarmagn = 0.8
+	fjarmagns = 0.8
 	summa = L
 	stodur = [L]
 	vextir = []
