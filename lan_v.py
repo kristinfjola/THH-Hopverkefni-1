@@ -9,7 +9,7 @@
 # # Gildi: fylki með 6 stökum þar sem fyrsta stakið er kostnaður við lán1 með umfram, stak tvö er kostnaður við lán1 án umfram, osfrv..
 tempfylki = [0, 0, 0, 0, 0, 0]
 # Gildi: fylki sem heldur utan um nöfn lánanna 3 og raunvexti þeirra
-lan_uppl = []
+lan_uppl = [['',0],['',0],['',0]]
 
 # Gildi: fylki með 3 stökum þar sem fyrsta stakið er kostnaðurinn fyrir lán 1, annað stakið fyrir lán 2 osfrv.
 def fa_lanakostnad():
@@ -26,7 +26,7 @@ def fa_hagnad():
 def raunvLan():
 	global lan_uppl
 	max = ['', 0]
-	for i in range(0, len(lan_uppl)):
+	for i in range(0, 3):
 		if(lan_uppl[i][1] > max[1]):
 			max[0] = lan_uppl[i][0]
 			max[1] = lan_uppl[i][1]
@@ -50,11 +50,21 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):
 	else:
 		vb = 0.0
 	
-	#setja inn nafn lána og raunvexti
+	#setja inn nöfn lána og raunvexti þeirra jæja
 	if(verdtrygging == 0):
-		lan_uppl.append([nafnLan, v/100.0])
+		if(nafnLan == 'lan1'):
+			lan_uppl[0] = [nafnLan, v/100.0]
+		elif(nafnLan == 'lan2'):
+			lan_uppl[1] = [nafnLan, v/100.0]
+		elif(nafnLan == 'lan3'):
+			lan_uppl[2] = [nafnLan, v/100.0]
 	else:
-		lan_uppl.append([nafnLan, (v+vb)/100.0])
+		if(nafnLan == 'lan1'):
+			lan_uppl[0] = [nafnLan, (v+vb)/100.0]
+		elif(nafnLan == 'lan2'):
+			lan_uppl[1] = [nafnLan, (v+vb)/100.0]
+		elif(nafnLan == 'lan3'):
+			lan_uppl[2] = [nafnLan, (v+vb)/100.0]
 	
 	#athuga hvaða fall á að kalla á
 	if(einman == 0): #umframgreiðslan er eingreiðsla
