@@ -17,6 +17,8 @@ def fa_lanakostnad():
 	return [tempfylki[0], tempfylki[2], tempfylki[4]]
 
 # Gildi: fylki með 3 stökum þar sem fyrsta stakið er hagnaður við að borga umfram í lán1, osfrv
+# Hagnaðurinn við að borga umframgreiðslu á lán
+# Mismunur þess á að borga niður lán með umframgreiðslu og að borga niður lán með neinni umframgreiðslu.
 def fa_hagnad():
 	global tempfylki
 	return [tempfylki[1]-tempfylki[0], tempfylki[3]-tempfylki[2], tempfylki[5]-tempfylki[4]]
@@ -53,18 +55,18 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):
 	#setja inn nöfn lána og raunvexti þeirra jæja
 	if(verdtrygging == 0):
 		if(nafnLan == 'lan1'):
-			lan_uppl[0] = ['Lán 1', v/100.0]
+			lan_uppl[0] = [nafnLan, v/100.0]
 		elif(nafnLan == 'lan2'):
-			lan_uppl[1] = ['Lán 2', v/100.0]
+			lan_uppl[1] = [nafnLan, v/100.0]
 		elif(nafnLan == 'lan3'):
-			lan_uppl[2] = ['Lán 3', v/100.0]
+			lan_uppl[2] = [nafnLan, v/100.0]
 	else:
 		if(nafnLan == 'lan1'):
-			lan_uppl[0] = ['Lán 1', (v+vb)/100.0]
+			lan_uppl[0] = [nafnLan, (v+vb)/100.0]
 		elif(nafnLan == 'lan2'):
-			lan_uppl[1] = ['Lán 2', (v+vb)/100.0]
+			lan_uppl[1] = [nafnLan, (v+vb)/100.0]
 		elif(nafnLan == 'lan3'):
-			lan_uppl[2] = ['Lán 3', (v+vb)/100.0]
+			lan_uppl[2] = [nafnLan, (v+vb)/100.0]
 	
 	#athuga hvaða fall á að kalla á
 	if(einman == 0): #umframgreiðslan er eingreiðsla
