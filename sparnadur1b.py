@@ -183,13 +183,7 @@ def spar(L, verdb, verdtrygg, manadagr, bundid): ##Núna er ekki hægt að velja
 #Verðtryggt, vextir og verðbætur borgað 31.des (verðbólga sú sama út allt árið)
 #Notkun: verdtryggtArs(Lagt fyrir á mán, fjöldi mánaða, vextir, verðbólga/bætur)
 ## Steinunn
-"""
-Notkun: fylki = manadalega(L, nt, v, vt)
-Fyrir: L er umframgreiðsla (gildi int tala), nt er fjöldi mánaða sem spara á í, 
-	   v er vextir á sparnaði, vt er verðbólga sem reikna á með ef sparnaður er verðtryggður
-Eftir: fylki er fylki með 2 sætum og í hvoru sæti er fylki. Í fyrra fylkinu er það sem plota á á x ás 
-	   í seinna fylkinu eru stöður á sparnaðarreikning í hverjum mánuði fyrir sig.
-"""
+
 def manadalega(L, nt, v, vt):
 	global globvextir
 	global globfjarmagns
@@ -226,13 +220,7 @@ def manadalega(L, nt, v, vt):
 ##Eingreiðsla, verðtryggð, vextir og verðbætur greiddar 31. des
 #Notkun: eingreidslaArs(Lagt fyrir í upphafi, fjöldi mánaða, vextir, verðbólga)
 ## Steinunn
-"""
-Notkun: fylki = eingreidsla(L, nt, v, vt)
-Fyrir: L er umframgreiðsla (gildi int tala), nt er fjöldi mánaða sem spara á í, 
-	   v er vextir á sparnaði, vt er verðbólga sem reikna á með ef sparnaður er verðtryggður
-Eftir: fylki er fylki með 2 sætum og í hvoru sæti er fylki. Í fyrra fylkinu er það sem plota á á x ás 
-	   í seinna fylkinu eru stöður á sparnaðarreikning í hverjum mánuði fyrir sig.
-"""
+
 def eingreidsla(L, nt, v, vt):
 	global globvextir
 	global globfjarmagns
@@ -344,34 +332,3 @@ def fa_fjarmagnstekjuskatt():
 		summa = math.ceil(stada)
 		stodur.append(summa)
 	return stodur"""
-
-
-
-	"""def manadalega(L, nt, v, vt):
-	global globvextir
-	global globfjarmagns
-	summa = 0
-	stodur = [L]
-	vextir = []
-	verdbaetur = []
-	x = []
-	skil = []
-	for i in range(0,nt):
-		x.append(i)
-		summa = (summa + L)*(1+(vt/12))
-		verdbaetur.append(summa*(vt/12))
-		vextir.append(summa * v/12)
-		if (i+1)%12 == 0 and i != 0:		
-			stodur.append(math.ceil(summa + sum(vextir)*fjarmagns))
-			summa = summa + sum(vextir)*fjarmagns - (sum(verdbaetur)*(1-fjarmagns))
-			vextir = []
-			verdbaetur = []
-		else:
-			stodur.append(math.ceil(summa))
-	globvextir = sum(vextir)*fjarmagns + sum(verdbaetur)*fjarmagns
-	globfjarmagns = sum(vextir)*(1-fjarmagns) + sum(verdbaetur)*(1-fjarmagns)
-	x.append(nt)
-	skil.append(x)
-	skil.append(stodur)
-	return skil
-"""
