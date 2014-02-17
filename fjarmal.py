@@ -254,7 +254,7 @@ class MainPage(wx.Panel):
 
     def reikna(self, event):
     	self.nidurstodur = sparnadur1b.spar(self.umframgr, self.verdbolga, self.verdSparn, self.ein_man_greidsla, self.innist_bundin)
-    	self.lanNidurst = lan_v.lan(self.lan1_upph, self.lan1_vextir, self.lan1_greidslubyrgdi, self.lan1_timabil, self.lan1_verdtrygging, self.lan1_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, "Lan 1")
+    	self.lanNidurst = lan_v.lan(self.lan1_upph, self.lan1_vextir, self.lan1_greidslubyrgdi, self.lan1_timabil, self.lan1_verdtrygging, self.lan1_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, "lan1")
 
     	lan_v.lan(self.lan2_upph, self.lan2_vextir, self.lan2_greidslubyrgdi, self.lan2_timabil, self.lan2_verdtrygging, self.lan2_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, 'lan2')
     	lan_v.lan(self.lan3_upph, self.lan3_vextir, self.lan3_greidslubyrgdi, self.lan3_timabil, self.lan3_verdtrygging, self.lan3_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, 'lan3')
@@ -289,7 +289,7 @@ class SvarGluggi(wx.Frame):
         sizer = wx.BoxSizer(wx.VERTICAL)
         canvas = FigCanvas(panel_svar, -1, fig)
 
-        innistaeda_bundin = MainPage.fa_innist_bundin(panel)
+        innistaeda_bundin = MainPage.fa_innist_bundin(tabOne)
         
         besti_kostur = str(sparnadur1b.hvad_er_best_ad_gera(innistaeda_bundin))
 
@@ -298,12 +298,12 @@ class SvarGluggi(wx.Frame):
         bestAdGera.SetFont(bestAdGera_font)
         sizer.Add(bestAdGera, 0, wx.ALL, 10)
 
-
+        
         ## --------------   gröf byrja        ------------##
 
-        nidurstodur = MainPage.fa_nidurstodur(panel)
+        nidurstodur = MainPage.fa_nidurstodur(tabOne)
     
-        ax.set_ylim([nidurstodur[1][0], nidurstodur[1][12]])
+        ax.set_ylim([nidurstodur[1][0]-(nidurstodur[1][0]*0.02), nidurstodur[1][12]])
         ax.set_xlim([0, 12])
         
         data_x = nidurstodur[0]
@@ -318,20 +318,23 @@ class SvarGluggi(wx.Frame):
         
         canvas.draw()
         
-        nidurstodur2 = MainPage.fa_nidurstodur_ur_lani(panel)
+        nidurstodur2 = MainPage.fa_nidurstodur_ur_lani(tabOne)
 
         if(size(nidurstodur2) != 0):
         	fig2, ax2 = plt.subplots()
         	canvas2 = FigCanvas(panel_svar, -1, fig2)
-        	xmax = size(nidurstodur2[0])-1
-        	ymin = size(nidurstodur2[1])-1
-        	ax2.set_ylim([nidurstodur2[1][ymin], nidurstodur2[1][0]])
-        	ax2.set_xlim([0, nidurstodur2[0][xmax]])
+        	xmax = size(nidurstodur2[0][0])-1
+        	ymin = size(nidurstodur2[0][1])-1
+        	ax2.set_ylim([nidurstodur2[0][1][ymin], nidurstodur2[0][1][0]])
+        	ax2.set_xlim([0, nidurstodur2[0][0][xmax]])
         
-        	data_x2 = nidurstodur2[0]
-        	data_y2 = nidurstodur2[1]
+        	data_x2 = nidurstodur2[0][0]
+        	data_y2 = nidurstodur2[0][1]
+        	data_xobr = nidurstodur2[1][0]
+        	data_yobr = nidurstodur2[1][1]
         
         	ax2.plot(data_x2, data_y2, label="Lan ef borgad er inna thad")
+        	ax2.plot(data_xobr, data_yobr, label="Obreytt lan")
 
         	ax2.set_xlabel('Timi (manudir)')
         	ax2.set_ylabel('Upphaed')
@@ -368,11 +371,27 @@ class SvarGluggi(wx.Frame):
         sizer.Add(ars_fjarmagnstekjuskattur, 0, wx.ALL, 10)
 
         lana_kostnadur = lan_v.fa_lanakostnad()
+        lana_hagnadur = lan_v.fa_hagnad() 
 
         lanakostnadur = wx.StaticText(panel_svar, -1, "Auka kostnaður við lán (vextir, uppgreiðslugjald): ")
         sizer.Add(lanakostnadur, 0, wx.ALL, 10)
-        print(lana_kostnadur)
+        lanakostnadur1 = wx.StaticText(panel_svar, -1, "Lán 1: " + str(lana_kostnadur[0]))
+        sizer.Add(lanakostnadur1, 0, wx.ALL, 10)
+        lanakostnadur2 = wx.StaticText(panel_svar, -1, "Lán 2: " + str(lana_kostnadur[1]))
+        sizer.Add(lanakostnadur2, 0, wx.ALL, 10)
+        lanakostnadur3 = wx.StaticText(panel_svar, -1, "Lán 3: " + str(lana_kostnadur[2]))
+        sizer.Add(lanakostnadur3, 0, wx.ALL, 10)
 
+        lanahagnadur = wx.StaticText(panel_svar, -1, "Hagnaður við að borga umframgreiðslu á lán (mismunur á milli þess að nota umframgreiðslu í lán eða ekki): ")
+        sizer.Add(lanahagnadur, 0, wx.ALL, 10)
+        lanahagnadur1 = wx.StaticText(panel_svar, -1, "Lán 1: " + str(lana_hagnadur[0]))
+        sizer.Add(lanahagnadur1, 0, wx.ALL, 10)
+        lanahagnadur2 = wx.StaticText(panel_svar, -1, "Lán 2: " + str(lana_hagnadur[1]))
+        sizer.Add(lanahagnadur2, 0, wx.ALL, 10)
+        lanahagnadur3 = wx.StaticText(panel_svar, -1, "Lán 3: " + str(lana_hagnadur[2]))
+        sizer.Add(lanahagnadur3, 0, wx.ALL, 10)
+
+        
         # gröf
         sizer.Add(canvas, 0, wx.ALL, 10)
         if(size(nidurstodur2) != 0):
@@ -389,13 +408,44 @@ class SvarGluggi(wx.Frame):
         self.frmPanelWid, self.frmPanelHgt = panel_svar.GetSize()
         self.unit = 1
         self.scroll.SetScrollbars( self.unit, self.unit, self.frmPanelWid/self.unit, self.frmPanelHgt/self.unit )
-        
 
 
+class Safna(wx.Panel):
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent)
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+
+        hallo = wx.StaticText(self, label="Halló Kalli ég vil safna pening ") 
+        sizer.Add(hallo, 0, wx.ALL, 10)
         
-app = wx.App(False)
-frame = wx.Frame(None, title="Önnur útgáfa")
-frame.SetSize((850,500))
-panel = MainPage(frame)
-frame.Show()
-app.MainLoop()
+
+class Notebook(wx.Notebook):
+    def __init__(self, parent):
+        wx.Notebook.__init__(self, parent, id=wx.ID_ANY, style=wx.BK_DEFAULT)
+
+        global tabOne
+        tabOne = MainPage(self)
+        self.AddPage(tabOne, "Hvað skal gera við peninginn?")
+
+        tabTwo = Safna(self)
+        self.AddPage(tabTwo, "Hvernig safna ég?")
+
+        
+class MainWindow(wx.Frame):
+    def __init__(self):
+        wx.Frame.__init__(self, None, wx.ID_ANY, "Þriðja útgáfa", size=(850,600))
+
+        panel = wx.Panel(self)
+        notebook = Notebook(panel)
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(notebook, 1, wx.ALL|wx.EXPAND, 5)
+        panel.SetSizer(sizer)
+        self.Layout()
+        self.Show()
+
+tabOne = 0
+if __name__ == "__main__":
+    app = wx.App(False)
+    frame = MainWindow()
+    app.MainLoop()
