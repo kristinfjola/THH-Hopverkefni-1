@@ -73,13 +73,16 @@ class SvarGluggi(wx.Frame):
         if(size(nidurstodur2) != 0):
         	fig2, ax2 = plt.subplots()
         	canvas2 = FigCanvas(panel_svar, -1, fig2)
-        	xmax = size(nidurstodur2[0])-1
-        	ymin = size(nidurstodur2[1])-1
-        	ax2.set_ylim([nidurstodur2[1][ymin], nidurstodur2[1][0]])
-        	ax2.set_xlim([0, nidurstodur2[0][xmax]])
+        	# nýtt byrjar hér
+        	xmax = size(nidurstodur2[0][0])-1
+        	ymin = size(nidurstodur2[0][1])-1
+        	ax2.set_ylim([nidurstodur2[0][1][ymin], nidurstodur2[0][1][0]])
+        	ax2.set_xlim([0, nidurstodur2[0][0][xmax]])
         
-        	data_x2 = nidurstodur2[0]
-        	data_y2 = nidurstodur2[1]
+        	data_x2 = nidurstodur2[0][0]
+        	data_y2 = nidurstodur2[0][1]
+        	
+        	#nýtt endar hér
         
         	ax2.plot(data_x2, data_y2, label="Lan ef borgad er inna thad")
         
