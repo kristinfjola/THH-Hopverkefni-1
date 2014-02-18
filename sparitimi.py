@@ -3,6 +3,33 @@
 import math
 globfjarmagns = 0
 globvextir = 0
+vt = 0
+
+## Kall á fall til að reikna innlogn
+## sparitimi.innlogn(upphæð sem safna á uppí, vextir, mánuðir, eingreiðsla eða ekki (0 eða 1))
+
+
+def innlogn(heild, v, nt, eingr):
+	v = v/100.0
+	if eingr:
+		return eingreidslaSparInnlogn(nt, v, heild)
+	else:
+		return manadalegurSparInnlogn(nt, v, heild)
+
+## Kall á fall til að reikna timabil
+## sparitimi.timabil(Upphæð sem leggja á inn á mánuði, vextir, upphæð sem safna á uppí, eingreiðsla eða ekki (0 eða 1))
+
+def timabil(L, v, heild, eingr):
+	v = v/100.0
+	if eingr:
+		return eingreidslaSparTimi(L, v, vt, heild)
+	else:
+		return manadalegurSparTimi(L, v, vt, heild)
+
+
+
+
+
 
 ## Fall sem skilar hversu mikið þú þarft að leggja inn á mánuði til þess að eiga ákveðna upphæð eftir eitthvað marga mánuði
 """
@@ -10,12 +37,12 @@ Notkun:
 Fyrir:
 Eftir:
 """
-def manadalegurSparInnlogn(upphaed, nt, v):
+def manadalegurSparInnlogn(nt, v, heild):
 	temp = 0.0
 	i = 0
 	for i in range(1, nt+1):
 		temp = temp + (1+(v/12)*0.9)**i
-	return 1.0*upphaed/temp
+	return math.ceil(1.0*heild/temp)
 
 
 ## Fall sem skilar hversu mikið þú þarft að leggja inn í upphafi tiþess að eiga ákveðna upphæð eftir eitthvað marga mánuði
