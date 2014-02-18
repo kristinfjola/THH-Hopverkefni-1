@@ -20,6 +20,7 @@ def innlogn(heild, v, nt, manada):
 ## sparitimi.timabil(Upphæð sem leggja á inn á mánuði, vextir, upphæð sem safna á uppí, eingreiðsla eða ekki (0 eða 1))
 
 def timabil(L, v, heild, manada):
+	global vt
 	v = v/100.0
 	if manada:
 		return manadalegurSparTimi(L, v, vt, heild)
