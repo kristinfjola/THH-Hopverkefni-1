@@ -9,22 +9,22 @@ vt = 0
 ## sparitimi.innlogn(upphæð sem safna á uppí, vextir, mánuðir, eingreiðsla eða ekki (0 eða 1))
 
 
-def innlogn(heild, v, nt, eingr):
+def innlogn(heild, v, nt, manada):
 	v = v/100.0
-	if !eingr:
-		return eingreidslaSparInnlogn(nt, v, heild)
-	else:
+	if manada:
 		return manadalegurSparInnlogn(nt, v, heild)
+	else:
+		return eingreidslaSparInnlogn(nt, v, heild)
 
 ## Kall á fall til að reikna timabil
 ## sparitimi.timabil(Upphæð sem leggja á inn á mánuði, vextir, upphæð sem safna á uppí, eingreiðsla eða ekki (0 eða 1))
 
-def timabil(L, v, heild, eingr):
+def timabil(L, v, heild, manada):
 	v = v/100.0
-	if !eingr:
-		return eingreidslaSparTimi(L, v, vt, heild)
-	else:
+	if manada:
 		return manadalegurSparTimi(L, v, vt, heild)
+	else:
+		return eingreidslaSparTimi(L, v, vt, heild)
 
 
 
