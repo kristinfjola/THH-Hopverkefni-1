@@ -11,6 +11,7 @@ vt = 0
 
 def innlogn(heild, v, nt, manada):
 	v = v/100.0
+	nt = nt * 12
 	if manada:
 		return manadalegurSparInnlogn(nt, v, heild)
 	else:
@@ -22,6 +23,7 @@ def innlogn(heild, v, nt, manada):
 def timabil(L, v, heild, manada):
 	global vt
 	v = v/100.0
+	nt = nt * 12
 	if manada:
 		return manadalegurSparTimi(L, v, vt, heild)
 	else:
