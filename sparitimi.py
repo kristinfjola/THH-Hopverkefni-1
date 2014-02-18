@@ -11,7 +11,7 @@ vt = 0
 
 def innlogn(heild, v, nt, eingr):
 	v = v/100.0
-	if eingr:
+	if !eingr:
 		return eingreidslaSparInnlogn(nt, v, heild)
 	else:
 		return manadalegurSparInnlogn(nt, v, heild)
@@ -21,7 +21,7 @@ def innlogn(heild, v, nt, eingr):
 
 def timabil(L, v, heild, eingr):
 	v = v/100.0
-	if eingr:
+	if !eingr:
 		return eingreidslaSparTimi(L, v, vt, heild)
 	else:
 		return manadalegurSparTimi(L, v, vt, heild)
@@ -42,7 +42,7 @@ def manadalegurSparInnlogn(nt, v, heild):
 	i = 0
 	for i in range(1, nt+1):
 		temp = temp + (1+(v/12)*0.9)**i
-	return math.ceil(1.0*heild/temp)
+	return "Thu tharft ad spara " + str(math.ceil(1.0*heild/temp)) + " a manudi til thess ad komast uppi " + str(heild)
 
 
 ## Fall sem skilar hversu mikið þú þarft að leggja inn í upphafi tiþess að eiga ákveðna upphæð eftir eitthvað marga mánuði
@@ -53,7 +53,7 @@ Eftir:
 """
 def eingreidslaSparInnlogn(nt, v, heild):
 	innlogn = heild/(pow((1+v),(nt/12.0)))
-	return math.ceil(innlogn)
+	return "Thu tharft ad leggja inn "+str(math.ceil(innlogn)) + " i upphafi til thess ad na uppi " + str(heild)
 
 
 ##heild = innlogn * pow((1+v), nt/12))
@@ -78,9 +78,9 @@ def manadalegurSparTimi(L, v, vt, heild):
 	verdbaeturAr = []
 	for i in range(0,10000):
 		if summa >= heild:
-			return str(i)
+			return "Thu tarft ad spara i "+str(i)+ " manudi til thess ad na uppi "+ str(heild)
 		elif i == 9999:
-			return str(i) + " eda lengur"
+			return "Thu tharft ad spara i "+ str(i) + " manudi eda lengur"
 		summa = (summa + L)*(1+(vt/12))
 		verdbaetur.append(summa*(vt/12))
 		verdbaeturAr.append(summa*(vt/12))
@@ -118,9 +118,9 @@ def eingreidslaSparTimi(L, v, vt, heild):
 	skil = []
 	for i in range(0, 10000):
 		if summa >= heild:
-			return str(i)
+			return "Thu tharft ad spara i " + str(i) + " manudi til thess ad na uppi " + str(heild)
 		elif i == 9999:
-			return str(i) + " eda lengur"
+			return "Thu tharft ad spara i " + str(i) + " eda lengur"
 		summa = summa * (1+(vt/12))
 		verdbaetur.append(summa*(vt/12))
 		verdbaeturAr.append(summa*(vt/12))
