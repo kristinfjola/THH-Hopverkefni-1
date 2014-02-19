@@ -31,6 +31,14 @@ class MainPage(wx.Panel):
         self.mainSizer.Add(self.fyrirsogn, flag=wx.ALL|wx.EXPAND, border=10)
 
         self.mainSizer.Add(self.grid2, 0, wx.ALL, 5)
+        
+        # fyrirsögn fyrir lán
+        self.fyrirsogn_lan = wx.StaticText(self, label="Sláðu inn upplýsingar um lánin þín")
+        self.fyrirsogn_lan_font = wx.Font(14, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
+        self.fyrirsogn_lan.SetFont(self.fyrirsogn_lan_font)
+        self.mainSizer.Add(self.fyrirsogn_lan, flag=wx.ALL|wx.EXPAND, border=10)
+        
+        
         self.mainSizer.Add(self.grid, 0, wx.ALL, 5)
 
         # labels á lán
@@ -132,7 +140,7 @@ class MainPage(wx.Panel):
             self.Bind(wx.EVT_RADIOBOX, self.jafnar_lana, object.__getattribute__(self, jafnar))
 
         # sparnaðar input
-        self.umframgr_ = wx.TextCtrl(self, size = (270,20))
+        self.umframgr_ = wx.TextCtrl(self, size = (210,20))
         self.grid2.Add(self.umframgr_, pos=(0,1))
         self.Bind(wx.EVT_TEXT, self._umframgreidsla, self.umframgr_)
 
@@ -158,6 +166,7 @@ class MainPage(wx.Panel):
         self.reikna_allt = wx.Button(self, label="Reikna")
         self.Bind(wx.EVT_BUTTON, self.reikna, self.reikna_allt)
         self.mainSizer.Add(self.reikna_allt, 0, wx.ALL, 5)
+        
         
         
         self.SetSizerAndFit(self.mainSizer)
