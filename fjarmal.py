@@ -12,6 +12,8 @@ from matplotlib.backends.backend_wxagg import \
 	NavigationToolbar2WxAgg as NavigationToolbar
 
 class MainPage(wx.Panel):
+    # fyrsta viðmótið sem birtist
+    # hér slær maður inn upplýsingar um umframgreiðslu og lán og fær að vita hvað sé best að gera
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
 
@@ -84,40 +86,40 @@ class MainPage(wx.Panel):
         
         # lána input
         for i in range(1, 4):
-            # innsláttur fyrir lán - self.lani
+            # innsláttur fyrir lán
             lan = 'lan' + str(i)
             setattr(self, lan, wx.TextCtrl(self, size = (80,20)))  
             self.grid.Add(object.__getattribute__(self, lan), pos=(i,0), flag=wx.TOP, border=17)
             self.Bind(wx.EVT_TEXT, self.upphaed_lana, object.__getattribute__(self, lan))
             
-            # kr. merki fyrir lánsupphæð - self.kronai1
+            # kr. merki fyrir lánsupphæð
             krona1 = 'krona' + str(i) + '1'
             setattr(self, krona1, wx.StaticText(self, label='kr.'))
             self.grid.Add(object.__getattribute__(self, krona1), pos=(i,1), flag=wx.TOP, border=17)
             
-            # innsláttur fyrir vexti - self.vextiri
+            # innsláttur fyrir vexti
             vextir = 'vextir' + str(i)
             setattr(self, vextir, wx.TextCtrl(self, size = (50,20)))
             self.grid.Add(object.__getattribute__(self, vextir), pos=(i,2), flag=wx.TOP, border=17)
             self.Bind(wx.EVT_TEXT, self.vextir_lana, object.__getattribute__(self, vextir))
 
-            # prósentumerki - self.prosentai
+            # prósentumerki
             prosenta = 'prosenta' + str(i)
             setattr(self, prosenta, wx.StaticText(self, label='%'))
             self.grid.Add(object.__getattribute__(self, prosenta), pos=(i,3), flag=wx.TOP, border=17)
 
-            # tímabil láns - self.timabilLansi
+            # tímabil láns
             timabilLans = 'timabilLans' + str(i)
             setattr(self, timabilLans, wx.TextCtrl(self, size = (50,20)))
             self.grid.Add(object.__getattribute__(self, timabilLans), pos=(i,4), flag=wx.TOP, border=17)
             self.Bind(wx.EVT_TEXT, self.timabil_lana, object.__getattribute__(self, timabilLans))
 
-           # ar - self.ari
+            # ár
             ar = 'ar' + str(i)
             setattr(self, ar, wx.StaticText(self, label='ár'))
             self.grid.Add(object.__getattribute__(self, ar), pos=(i,5), flag=wx.TOP, border=17)
 			
-            # radio buttons fyrir verðtryggingu - self.verdtryggingi
+            # radio buttons fyrir verðtryggingu
             verdtrygging = 'verdtrygging' + str(i)
             setattr(self, verdtrygging, wx.RadioBox(self, choices=self.radioListVerdtrygging))
             self.grid.Add(object.__getattribute__(self, verdtrygging), pos=(i,6), flag=wx.FIXED_MINSIZE | wx.ALIGN_TOP)
@@ -284,7 +286,7 @@ class MainPage(wx.Panel):
     	return self.lanNidurst3
 
 class SvarGluggi(wx.Frame):
-
+    # gluggi sem birtist með upplýsingum um hvað sé best að gera við peninginn
     def __init__(self,parent,id):
         wx.Frame.__init__(self, parent, id, 'Svör', size=(800,650))
         wx.Frame.CenterOnScreen(self)
@@ -299,9 +301,9 @@ class SvarGluggi(wx.Frame):
         canvas = FigCanvas(panel_svar, -1, fig)
 
         innistaeda_bundin = MainPage.fa_innist_bundin(tabOne)
-        
-        besti_kostur = str(sparnadur1b.hvad_er_best_ad_gera(innistaeda_bundin))
 
+        # hvað er best að gera       
+        besti_kostur = str(sparnadur1b.hvad_er_best_ad_gera(innistaeda_bundin))
         bestAdGera = wx.StaticText(panel_svar, -1, "Það væri best fyrir þig að " + besti_kostur )
         bestAdGera_font = wx.Font(16, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
         bestAdGera.SetFont(bestAdGera_font)
@@ -346,16 +348,16 @@ class SvarGluggi(wx.Frame):
         		data_xobr = nidurst[1][0]
         		data_yobr = nidurst[1][1]
         		
-        		ax.plot(data_x2, data_y2, label="Lan ef borgad er inna thad")
-        		ax.plot(data_xobr, data_yobr, label="Obreytt lan")
-        		ax.set_xlabel('Timi (manudir)')
-        		ax.set_ylabel('Upphaed')
+        		ax.plot(data_x2, data_y2, label=u'Lán ef borgað er inná það')
+        		ax.plot(data_xobr, data_yobr, label=u'Óbreytt lán')
+        		ax.set_xlabel(u'Tími (mánuðir)')
+        		ax.set_ylabel(u'Upphæð')
         		if(nr == 2):
-        			ax.set_title('Lan 1')
+        			ax.set_title(u'Lán 1')
         		if(nr == 3):
-        			ax.set_title('Lan 2')
+        			ax.set_title(u'Lán 2')
         		if(nr == 4):
-        			ax.set_title('Lan 3')
+        			ax.set_title(u'Lán 3')
         		ax.legend(loc=1); # upper right corner
         
         		if(nr == 2):
@@ -377,14 +379,13 @@ class SvarGluggi(wx.Frame):
 
         ## ------------        gröf búin        ------------##
         
-
+        # besta sparnaðarleiðin
         besta_sparnadarleid = str(sparnadur1b.fa_bestu_sparnadarleid())
-
-        uppl_um_sparnadarleid = str(sparnadur1b.fa_uppl_um_sparnadarleid())
-
         sparnadarleid = wx.StaticText(panel_svar, -1, "Besta sparnaðarleiðin fyrir þig er " + besta_sparnadarleid)
         sizer.Add(sparnadarleid, 0, wx.ALL, 10)
 
+        # upplýsingar um bestu sparnaðarleið
+        uppl_um_sparnadarleid = str(sparnadur1b.fa_uppl_um_sparnadarleid())
         sparnadar_box = wx.StaticBox(panel_svar, wx.ID_ANY, "Upplýsingar um sparnaðarleið")
         sparnadar_box_sizer = wx.StaticBoxSizer(sparnadar_box, wx.VERTICAL)
         sparnadar_box_sizer.SetMinSize((700, 50))
@@ -392,35 +393,38 @@ class SvarGluggi(wx.Frame):
         sparnadar_box_sizer.Add(sparnadar_uppl, 0, wx.EXPAND, 10)
         sizer.Add(sparnadar_box_sizer, 0, wx.ALL, 10)
 
+        # heildar ársvextir
         arsvextir = str(sparnadur1b.fa_arsvexti())
-
-        ars_vextir = wx.StaticText(panel_svar, -1, "Vextir yfir 12 mánuði: " + arsvextir)
+        ars_vextir = wx.StaticText(panel_svar, -1, "Vextir yfir 12 mánuði: " + arsvextir + ' kr.')
         sizer.Add(ars_vextir, 0, wx.ALL, 10)
 
+        # heildar fjármagnstekjuskattur
         fjarmagnstekjuskattur = str(sparnadur1b.fa_fjarmagnstekjuskatt())
-
-        ars_fjarmagnstekjuskattur = wx.StaticText(panel_svar, -1, "Fjármagnstekjuskattur yfir 12 mánuði: " + fjarmagnstekjuskattur)
+        ars_fjarmagnstekjuskattur = wx.StaticText(panel_svar, -1, "Fjármagnstekjuskattur yfir 12 mánuði: " + fjarmagnstekjuskattur + ' kr.')
         sizer.Add(ars_fjarmagnstekjuskattur, 0, wx.ALL, 10)
 
+        # heildar kostnaður við lán
         lana_kostnadur = lan_v.fa_lanakostnad()
-        lana_hagnadur = lan_v.fa_hagnad() 
 
         lanakostnadur = wx.StaticText(panel_svar, -1, "Auka kostnaður við lán (vextir, uppgreiðslugjald): ")
         sizer.Add(lanakostnadur, 0, wx.ALL, 10)
-        lanakostnadur1 = wx.StaticText(panel_svar, -1, "Lán 1: " + str(lana_kostnadur[0]))
+        lanakostnadur1 = wx.StaticText(panel_svar, -1, "Lán 1: " + str(lana_kostnadur[0]) + ' kr.')
         sizer.Add(lanakostnadur1, 0, wx.ALL, 10)
-        lanakostnadur2 = wx.StaticText(panel_svar, -1, "Lán 2: " + str(lana_kostnadur[1]))
+        lanakostnadur2 = wx.StaticText(panel_svar, -1, "Lán 2: " + str(lana_kostnadur[1]) + ' kr.')
         sizer.Add(lanakostnadur2, 0, wx.ALL, 10)
-        lanakostnadur3 = wx.StaticText(panel_svar, -1, "Lán 3: " + str(lana_kostnadur[2]))
+        lanakostnadur3 = wx.StaticText(panel_svar, -1, "Lán 3: " + str(lana_kostnadur[2]) + ' kr.')
         sizer.Add(lanakostnadur3, 0, wx.ALL, 10)
 
+        # heildar hagnaður við lán
+        lana_hagnadur = lan_v.fa_hagnad()
+        
         lanahagnadur = wx.StaticText(panel_svar, -1, "Hagnaður við að borga umframgreiðslu á lán (mismunur á milli þess að nota umframgreiðslu í lán eða ekki): ")
         sizer.Add(lanahagnadur, 0, wx.ALL, 10)
-        lanahagnadur1 = wx.StaticText(panel_svar, -1, "Lán 1: " + str(lana_hagnadur[0]))
+        lanahagnadur1 = wx.StaticText(panel_svar, -1, "Lán 1: " + str(lana_hagnadur[0]) + ' kr.')
         sizer.Add(lanahagnadur1, 0, wx.ALL, 10)
-        lanahagnadur2 = wx.StaticText(panel_svar, -1, "Lán 2: " + str(lana_hagnadur[1]))
+        lanahagnadur2 = wx.StaticText(panel_svar, -1, "Lán 2: " + str(lana_hagnadur[1]) + ' kr.')
         sizer.Add(lanahagnadur2, 0, wx.ALL, 10)
-        lanahagnadur3 = wx.StaticText(panel_svar, -1, "Lán 3: " + str(lana_hagnadur[2]))
+        lanahagnadur3 = wx.StaticText(panel_svar, -1, "Lán 3: " + str(lana_hagnadur[2]) + ' kr.')
         sizer.Add(lanahagnadur3, 0, wx.ALL, 10)
 
         
@@ -447,12 +451,16 @@ class SvarGluggi(wx.Frame):
 
 
 class Safna(wx.Panel):
+    # seinni blaðsíðan í viðmóti
+    # notandi getur séð hvað hann er lengi að safna fyrir ákveðinni upphæð
+    # notandi getur séð hversu mikið hann þarf að leggja fyrir til að ná ákveðinni upphæð á ákveðnum tíma
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
 
         self.sizer = wx.BoxSizer(wx.VERTICAL)
         self.grid = wx.GridBagSizer(hgap=5, vgap=5)
-        
+
+        # tímabil
         self.hversu_lengi = wx.StaticText(self, label="Hvað er ég lengi að safna þessari upphæð?") 
         self.hversu_lengi_font = wx.Font(14, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
         self.hversu_lengi.SetFont(self.hversu_lengi_font)
@@ -460,7 +468,6 @@ class Safna(wx.Panel):
         
         self.sizer.Add(self.grid, 0, wx.ALL, 10)
         
-        #timabil
         self.markmidsUpph = wx.StaticText(self, label="Markmiðsupphæð")    
         self.grid.Add(self.markmidsUpph, pos=(0,0))
         
@@ -512,7 +519,7 @@ class Safna(wx.Panel):
         self.Bind(wx.EVT_BUTTON, self.reikna_timab, self.reikna_timabil)
         self.sizer.Add(self.reikna_timabil, 0, wx.ALL, 10)
 
-        #upphaed
+        # upphæð
         self.hversu_mikid = wx.StaticText(self, label="Hvað þarf ég að leggja mikið fyrir til að ná þessari upphæð eftir þetta langan tíma?") 
         self.hversu_mikid_font = wx.Font(14, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
         self.hversu_mikid.SetFont(self.hversu_mikid_font)
@@ -562,6 +569,7 @@ class Safna(wx.Panel):
         self.Bind(wx.EVT_BUTTON, self.reikna_upph, self.reikna_upphaed)
         self.sizer.Add(self.reikna_upphaed, 0, wx.ALL, 10)
 
+        # skrautmynd
         image = 'piggy-bank.jpg'
         jpg1 = wx.Image(image, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         wx.StaticBitmap(self, -1, jpg1, (10 + jpg1.GetWidth()*1.1, 340), (jpg1.GetWidth()*0.8, jpg1.GetHeight()*0.7))
@@ -574,7 +582,7 @@ class Safna(wx.Panel):
         self.markmidsUpphaed2 = self.bundidTimabil = self.hvernigGreidsla2 = 0
         self.vextirUpph = 0
     
-    #timabil
+    # tímabil - föll
     def markmidsUpp(self, event):
     	self.markmidsUpphaed = int(event.GetString())
         
@@ -590,7 +598,7 @@ class Safna(wx.Panel):
     def verdOverd(self, event):
     	self.verdtrOverdtr = event.GetInt()
     	
-    #upphaed
+    # upphæð - föll
     def markmidsUpp2(self, event):
     	self.markmidsUpphaed2 = int(event.GetString())
         
@@ -627,8 +635,9 @@ class Safna(wx.Panel):
         return self.upphaed
 
 class TimabilGluggi(wx.Frame):
+    # gluggi með upplýsingum um tímann sem þarf til að safna ákveðinni upphæð
     def __init__(self,parent,id):
-        wx.Frame.__init__(self, parent, id, 'Svör', size=(400,200))
+        wx.Frame.__init__(self, parent, id, 'Tímabil', size=(400,200))
         wx.Frame.CenterOnScreen(self)
 
         self.SetBackgroundColour('#c297b8')
@@ -641,8 +650,9 @@ class TimabilGluggi(wx.Frame):
         self.sizer.Add(self.hvada_timabil, 0, wx.ALL, 10)
 
 class UpphaedGluggi(wx.Frame):
+    # gluggi með upplýsingum um upphæð sem þarf að leggja fyrir
     def __init__(self,parent,id):
-        wx.Frame.__init__(self, parent, id, 'Svör', size=(400,200))
+        wx.Frame.__init__(self, parent, id, 'Upphæð', size=(400,200))
         wx.Frame.CenterOnScreen(self)
         
         self.SetBackgroundColour('#93b3c2')
@@ -655,6 +665,7 @@ class UpphaedGluggi(wx.Frame):
         self.sizer.Add(self.hvada_upphaed, 0, wx.ALL, 10)
         
 class Notebook(wx.Notebook):
+    # Notebook skiptir viðmótinu í tvær blaðsíður
     def __init__(self, parent):
         wx.Notebook.__init__(self, parent, id=wx.ID_ANY, style=wx.BK_DEFAULT)
 
@@ -664,10 +675,11 @@ class Notebook(wx.Notebook):
 
         global tabTwo
         tabTwo = Safna(self)
-        self.AddPage(tabTwo, "Hvernig safna ég?")
+        self.AddPage(tabTwo, "Safna í ákveðna upphæð")
 
         
 class MainWindow(wx.Frame):
+    # aðal glugginn sem geymir viðmót
     def __init__(self):
         wx.Frame.__init__(self, None, wx.ID_ANY, "Reiknivél", size=(850,600))
         wx.Frame.CenterOnScreen(self)
@@ -680,7 +692,7 @@ class MainWindow(wx.Frame):
         self.Layout()
         self.Show()
 
-# set global variables
+# stilla global breytur
 tabOne = tabTwo = 0
 
 if __name__ == "__main__":

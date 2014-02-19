@@ -42,8 +42,15 @@ def hvad_er_best_ad_gera(b):
 	else:
 		if (verstu_lan >= bestu_spar_vx):
 			besta_leid = lan_v.raunvLan() #besta_leid er fylki með nafni og vöxtum láns
-	# segja hvað er best að gera í streng t.d. return 'að leggja inná ' + besta_leid 
-	return 'Ad borga inn a ' + str(besta_leid[0])
+	# segja hvað er best að gera í streng t.d. return 'að leggja inná ' + besta_leid
+	besta_leidin = str(besta_leid[0])
+	if (besta_leidin=='lan1'):
+		besta_leidin = 'L�n 1'
+	if (besta_leidin=='lan2'):
+		besta_leidin = 'L�n 2'
+	if (besta_leidin=='lan3'):
+		besta_leidin = 'L�n 3'
+	return 'a� borga inn � ' + besta_leidin
 
 """
 Notkun: fa_bestu_sparnadarleid()
