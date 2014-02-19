@@ -1,14 +1,13 @@
 # -*- coding: cp1252 -*-
 # -*- coding: utf-8 -*-
-## Í þessu skjali er virknin fyrir tab 2. 
+## I thessu skjali er virknin fyrir tab 2. 
 
 import math
 globfjarmagns = 0
 globvextir = 0
-vt = 0
 
-## Fall sem kallað er á úr viðmóti til þess að fá upp hversu mikið þarf að leggja inn til þess að ná uppí tiltekna upphæð á tilteknum tíma.
-## sparitimi.innlogn(upphæð sem safna á uppí, vextir, ár, eingreiðsla eða ekki (0 eða 1))
+## Fall sem kallad er a ur vidmdti til thess að fa upp hversu mikid tharf ad leggja inn til thess ad ná uppi tiltekna upphaed á tilteknum tima.
+## sparitimi.innlogn(upphaed sem safna á uppi, vextir, ar, eingreidsla eda ekki (0 eða 1))
 def innlogn(heild, v, nt, manada):
 	v = v/100.0
 	nt = nt * 12
@@ -17,19 +16,25 @@ def innlogn(heild, v, nt, manada):
 	else:
 		return eingreidslaSparInnlogn(nt, v, heild)
 
-
-## Fall sem kallað er á úr viðmóti til þess að fá upp hversu lengi þarf að spara til þess að ná uppí tiltekna upphæð þegar tiltekin upphæð er lögð inn.
-## sparitimi.timabil(Upphæð sem leggja á inn á mánuði, vextir, upphæð sem safna á uppí, eingreiðsla eða ekki (0 eða 1))
-def timabil(L, v, heild, manada):
-	global vt
+## 0 = óverðtryggður
+## Fall sem kallad er a ur vidmoti til thess ad fa upp hversu lengi tharf að spara til þess að na uppi tiltekna upphaed thegar tiltekin upphaed er logd inn.
+## sparitimi.timabil(Upphaed sem leggja a inn a manudi, vextir, upphaed sem safna a uppa, eingreidsla eða ekki (0 eða 1))
+def timabil(L, v, heild, manada, vt):
 	v = v/100.0
-	if manada:
-		return manadalegurSparTimi(L, v, vt, heild)
+	verdb15 = 0.0560276243093922
+	if vt == 0:
+		if manada:
+			return manadalegurSparTimi(L, v, vt, heild)
+		else:
+			return eingreidslaSparTimi(L, v, vt, heild)
 	else:
-		return eingreidslaSparTimi(L, v, vt, heild)
+		if manada:
+			return manadalegurSparTimi(L, v, verdb15, heild)
+		else:
+			return eingreidslaSparTimi(L, v, verdb15, heild)
 
 
-## Fall sem skilar hversu mikið þú þarft að leggja inn á mánuði til þess að eiga ákveðna upphæð eftir eitthvað marga mánuði
+## Fall sem skilar hversu mikid thu tharft ad leggja inn a manudi til thess ad eiga akvedna upphaed eftir tiltekid marga manudi
 
 ##Notkun: innlogn = manadalegurSparInnlogn(nt, v, heild)
 ##Fyrir: nt er timabil i arum, v er vextir a float formi (0.0X fyrir X prosent vexti) og heild er upphaed sem safna a uppi
@@ -52,14 +57,14 @@ def eingreidslaSparInnlogn(nt, v, heild):
 	return "Thu tharft ad leggja inn "+ str(math.ceil(innlogn)) + " kr. i upphafi til thess ad na uppi " + str(heild) + " kr."
 
 
-##Fall sem skiar mánuðum í árum og mánuðum
+##Fall sem skiar manudum i manudum og arum
 
 ## Notkun: strengur = manudirIAr(tala)
 ## Fyrir: tala >= 0
-## Eftir: strengur er tala skippt niður í mánuði og ár
+## Eftir: strengur er tala skippt nidur í manudi og ar
 def manudirIAr(tala):
-	ar = tala / 12.0
-	man = tala % 12.0
+	ar = tala / 12
+	man = tala % 12
 	if ar == 0:
 		if man == 1:
 			return str(man) + " manud"
