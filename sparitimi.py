@@ -100,7 +100,7 @@ def manadalegurSparTimi(L, v, vt, heild):
 	for i in range(0,10000):
 		if summa >= heild:
 			manAr = manudirIAr(i)
-			if vt == 0
+			if vt == 0:
 				return "Þú þarft að spara í "+ str(manAr) + " til þess að ná uppí "+ str(heild) + " kr."
 			else:
 				return "Þú þarft að spara í "+ str(manAr) + " til þess að ná uppí "+ str(heild) + " kr. miðað við verðbólgu síðustu 15 ára"
