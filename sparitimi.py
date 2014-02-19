@@ -17,7 +17,7 @@ def innlogn(heild, v, nt, manada):
 		return eingreidslaSparInnlogn(nt, v, heild)
 
 ## 0 = óverðtryggður
-## 
+## 1 = verðtryggður
 ## Fall sem kallad er a ur vidmoti til thess ad fa upp hversu lengi tharf að spara til þess að na uppi tiltekna upphaed thegar tiltekin upphaed er logd inn.
 ## sparitimi.timabil(Upphaed sem leggja a inn a manudi, vextir, upphaed sem safna a uppa, eingreidsla eða ekki (0 eða 1))
 def timabil(L, v, heild, manada, vt):
@@ -45,7 +45,7 @@ def manadalegurSparInnlogn(nt, v, heild):
 	i = 0
 	for i in range(1, nt+1):
 		temp = temp + (1+(v/12))**i
-	return "Thu tharft ad spara " + str(int(1.0*heild/temp)) + " kr. a manudi til thess ad komast uppi " + str(heild) + " kr."
+	return "Þú þarft að leggja inn " + str(int(1.0*heild/temp)) + " kr. á mánuði til þess að komast uppí " + str(heild) + " kr."
 
 
 ## Fall sem skilar hversu mikið þú þarft að leggja inn í upphafi til þess að eiga ákveðna upphæð eftir eitthvað marga mánuði
@@ -55,7 +55,7 @@ def manadalegurSparInnlogn(nt, v, heild):
 ##Eftir: innlogn er strengur sem segir notanda hversu mikið hann tharf ad leggja inn i upphafi
 def eingreidslaSparInnlogn(nt, v, heild):
 	innlogn = heild/(pow((1+v),(nt/12.0)))
-	return "Thu tharft ad leggja inn "+ str(int(innlogn)) + " kr. i upphafi til thess ad na uppi " + str(heild) + " kr."
+	return "Þú þarft að leggja inn "+ str(int(innlogn)) + " kr. í upphafi til þess að ná uppí " + str(heild) + " kr."
 
 
 ##Fall sem skiar manudum i manudum og arum
@@ -68,16 +68,16 @@ def manudirIAr(tala):
 	man = tala % 12
 	if ar == 0:
 		if man == 1:
-			return str(man) + " manud"
+			return str(man) + " mánuð"
 		else:	
-			return str(man) + " manudi"
+			return str(man) + " mánuði"
 	elif man == 0:
-		return str(ar) + " ar"
+		return str(ar) + " ár"
 	else:
 		if man == 1:
-			return str(ar) + " ar og " + str(man) + " manud"
+			return str(ar) + " ár og " + str(man) + " mánuð"
 		else:	
-			return str(ar) + " ar og " + str(man) + " manudi"
+			return str(ar) + " ár og " + str(man) + " mánuði"
 
 
 ## Timinn sem tekur að spara uppí ákveðna upphæð
@@ -100,10 +100,10 @@ def manadalegurSparTimi(L, v, vt, heild):
 	for i in range(0,10000):
 		if summa >= heild:
 			manAr = manudirIAr(i)
-			return "Thu tarft ad spara i "+ str(manAr) + " til thess ad na uppi "+ str(heild) + " kr."
+			return "Þú þarft að spara í "+ str(manAr) + " til þess að ná uppí "+ str(heild) + " kr."
 		elif i == 12000:
 			manAr = manudirIAr(i)
-			return "Thu tharft ad spara i "+ str(manAr) + " eda lengur. Reyndu ad leggja meira fyrir."
+			return "Þú þarft að spara í "+ str(manAr) + " eða lengur. Reyndu að leggja meira fyrir."
 		summa = (summa + L)*(1+(vt/12))
 		verdbaetur.append(summa*(vt/12))
 		verdbaeturAr.append(summa*(vt/12))
@@ -140,10 +140,10 @@ def eingreidslaSparTimi(L, v, vt, heild):
 	for i in range(0, 10000):
 		if summa >= heild:
 			manAr = manudirIAr(i)
-			return "Thu tharft ad spara i " + str(manAr) + " til thess ad na uppi " + str(heild) + " kr."
+			return "Þú þarft að spara í " + str(manAr) + " til þess að ná uppí " + str(heild) + " kr."
 		elif i == 12000:
 			manAr = manudirIAr(i)
-			return "Thu tharft ad spara i " + str(manAr) + " eda lengur. Reyndu ad leggja meira fyrir."
+			return "Þú þarft að spara í " + str(manAr) + " eða lengur. Reyndu að leggja meira fyrir."
 		summa = summa * (1+(vt/12))
 		verdbaetur.append(summa*(vt/12))
 		verdbaeturAr.append(summa*(vt/12))

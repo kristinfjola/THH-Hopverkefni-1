@@ -1,15 +1,7 @@
 # -*- coding: cp1252 -*-
 # -*- coding: utf-8 -*-
+## I thessu skjali er virkni fyrir sparnad í tab 1.
 
-##Kerfið reiknar framvindu óbreyts reiknings
-
-##L = lagt fyrir á mánuði
-##nt = mánuðir í sparnað 
-##v = vextir í prósentum
-##vb = verðbólga í prósentum
-##stodur = fylki, stak fyrir hvern mánuð, staða á reikning á hverjum tímapunkti
-##vextir = fylki, stak fyrir hvern mánuð, vextir sem maður fær í hverjum mánuði, lagt við í lok 
-##summa = heildarupphæð á tímapunkti á reikningi
 import math
 import gogn
 import lan_v
@@ -133,9 +125,28 @@ def sparivx(vt,b):
 			elif b==60:
 				vextir = 0.0195
 			else:
-				vextir = 1000
+				vextir = 1000 
 	return vextir
 #===========================================================
+
+
+
+
+
+
+
+
+
+"""Föll sem snúa að sparnaði og gröfum"""
+
+
+##L = lagt fyrir á mánuði
+##nt = mánuðir í sparnað 
+##v = vextir í prósentum
+##vb = verðbólga í prósentum
+##stodur = fylki, stak fyrir hvern mánuð, staða á reikning á hverjum tímapunkti
+##vextir = fylki, stak fyrir hvern mánuð, vextir sem maður fær í hverjum mánuði, lagt við í lok 
+##summa = heildarupphæð á tímapunkti á reikningi
 
 #eingreiðsla = 0
 #Mánaðalega = 1
@@ -143,7 +154,6 @@ def sparivx(vt,b):
 ## Fall sem tekur inn breytur úr GUI og sendir á sparnaðarföll og vistar verðbólgu í global breytu.
 ## Notkun: spar(Umframgreiðsla, mánuðir sparað, verðbólga síðustu x mánaða(0, 5, 10, 15), verðtryggt eða ekki (0/1), 
 ##	eingreiðsla eða mánaðaleg greiðsla(0/1), bundið í x mánuði (12, 18, 24, 36...))
-## Steinunn
 """
 Notkun: fylki = spar(L, verdb, verdtrygg, manadagr, bundid)
 Fyrir: L er umframgreiðsla (gildi int tala), verdb er gildi sem kemur úr dropdown þegar notandi velur verðbólgu (gildi 0, 5, 10, 15), 
@@ -152,7 +162,7 @@ Fyrir: L er umframgreiðsla (gildi int tala), verdb er gildi sem kemur úr dropd
 		bundid er val notanda úr dropdown hversu lengi hann var tilbúinn að binda sparnað (gildi 12, 18, 24, 36, 48, 60)
 Eftir: fylki er fylki úr föllunum manadalega eda eingreidsla eftir innputi
 """
-def spar(L, verdb, verdtrygg, manadagr, bundid): ##Núna er ekki hægt að velja í GUI-inu mánaðalega eða árlega vexti, svo mánaðalegir eru default
+def spar(L, verdb, verdtrygg, manadagr, bundid):
 	global vb
 	if(verdb == 0): 		#verðbólga núna
 		vb = 0.031
@@ -182,8 +192,6 @@ def spar(L, verdb, verdtrygg, manadagr, bundid): ##Núna er ekki hægt að velja
 
 #Verðtryggt, vextir og verðbætur borgað 31.des (verðbólga sú sama út allt árið)
 #Notkun: verdtryggtArs(Lagt fyrir á mán, fjöldi mánaða, vextir, verðbólga/bætur)
-## Steinunn
-
 def manadalega(L, nt, v, vt):
 	global globvextir
 	global globfjarmagns
@@ -217,9 +225,8 @@ def manadalega(L, nt, v, vt):
 	return skil
 
 
-##Eingreiðsla, verðtryggð, vextir og verðbætur greiddar 31. des
-#Notkun: eingreidslaArs(Lagt fyrir í upphafi, fjöldi mánaða, vextir, verðbólga)
-## Steinunn
+##Fall sem reiknar upphæð eftir tiltekinn tíma þegar eingreiðsla er valin
+## Fallið tekur tilit til verðbólgu. Vextir, verðbætur og fjármagnstekjuskattur greitt 31. des
 
 def eingreidsla(L, nt, v, vt):
 	global globvextir
@@ -273,62 +280,3 @@ def fa_fjarmagnstekjuskatt():
 	global globfjarmagns
 	return int(math.ceil(globfjarmagns))
 
-
-"""Óþörf föll??"""
-"""Sem ég endaði samt á að nota í önnur föll svo þess vegna eru þau hér"""
-#Óverðtryggt, vextir greiddir mánaðalega
-#Notkun: overdtryggtMan(Lagt fyrir á mán, fjöldi mánaða, vextir)
-"""def overdtryggtMan(L, nt, v):
-	summa = 0
-	stodur = [L]
-	for i in range(0,nt):
-		summa = summa + L
-		stada = (summa * (1 + (v/12)))
-		summa = math.ceil(stada)
-		stodur.append(summa)
-	print "Óverðtryggt, vextir greiddir mánaðalega"
-	print str(stodur[0]) + " er innistæða í upphafi 1. mánaðar"
-	for i in range(1, len(stodur)):
-		print str(stodur[i]) + " er innistæða eftir " + str(i) + " mánuði"
-"""
-#Óverðtryggt, vextir borgaðir 31.des
-#Notkun: overdtryggtArs(Lagt fyrir á mán, fjöldi mánaða, vextir)
-"""def overdtryggtArs(L, nt, v):
-	print "Óverðtryggt, vextir greiddir árlega"
-	summa = 0
-	stodur = [L]
-	vextir = []
-	for i in range(0,nt):
-		summa = summa + L
-		vextir.append(summa * (v/12))
-		if i == 11:
-			stodur.append(summa+sum(vextir)) ##Ef það er 31.des, leggjum við vexti við summuna
-		else:
-			stodur.append(math.ceil(summa))
-	print str(stodur[0])+ " innistæða í upphafi 1. mánaðar"
-	for i in range(1, len(stodur)):
-		print str(stodur[i]) + " er innistæða eftir " + str(i) + " mánuði" 
-	print "Vextir á þessu tímabili eru " + sum(vextir) 			##Heildarvextir sem greiddir eru út í árslok
-"""
-##Eingreiðsla, verðtryggð, vextir og verðbætur greiddar mánaðalega
-#Notkun: eingreidslaArs(Lagt fyrir í upphafi, fjöldi mánaða, vextir, verðbólga)
-"""def eingreidslaMan(L, nt, v, vb):
-	summa = L
-	stodur = [L]
-	for i in range(0, nt):
-		stada = (summa * ((1+(v/12))*(1+(vb/12))))
-		summa = math.ceil(stada)
-		stodur.append(summa)
-	return stodur
-"""
-#Verðtryggt, vextir og verðbætur borgaðar mánaðalega (verðbólga sú sama allt árið)
-#Notkun: verdtryggtMan(Lagt fyrir á mán, fjöldi mánaða, vextir, verðbólga/bætur)
-"""def verdtryggtMan(L, nt, v, vb):
-	summa = 0
-	stodur = [L]
-	for i in range(0,nt):
-		summa = summa + L
-		stada = (summa * ((1+(v/12))*(1+(vb/12))))
-		summa = math.ceil(stada)
-		stodur.append(summa)
-	return stodur"""
