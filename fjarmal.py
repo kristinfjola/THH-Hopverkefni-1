@@ -2,6 +2,7 @@
 import wx
 import sparnadur1b
 import lan_v
+import sparitimi
 from pylab import *
 import matplotlib.pyplot as plt
 import matplotlib
@@ -49,6 +50,9 @@ class MainPage(wx.Panel):
         # labels á sparnað
         self.umframgreidsla = wx.StaticText(self, label="Umframgreiðsla")
         self.grid2.Add(self.umframgreidsla, pos=(0,0))
+
+        self.kronz = wx.StaticText(self, label="kr.")
+        self.grid2.Add(self.kronz, pos=(0,2))
 		
         self.greidsla = wx.StaticText(self, label="Eingreiðsla/mánaðarlega")
         self.grid2.Add(self.greidsla, pos=(1,0), flag=wx.TOP, border=17)
@@ -255,9 +259,8 @@ class MainPage(wx.Panel):
     def reikna(self, event):
     	self.nidurstodur = sparnadur1b.spar(self.umframgr, self.verdbolga, self.verdSparn, self.ein_man_greidsla, self.innist_bundin)
     	self.lanNidurst = lan_v.lan(self.lan1_upph, self.lan1_vextir, self.lan1_greidslubyrgdi, self.lan1_timabil, self.lan1_verdtrygging, self.lan1_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, "lan1")
-
-    	lan_v.lan(self.lan2_upph, self.lan2_vextir, self.lan2_greidslubyrgdi, self.lan2_timabil, self.lan2_verdtrygging, self.lan2_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, 'lan2')
-    	lan_v.lan(self.lan3_upph, self.lan3_vextir, self.lan3_greidslubyrgdi, self.lan3_timabil, self.lan3_verdtrygging, self.lan3_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, 'lan3')
+    	self.lanNidurst2 = lan_v.lan(self.lan2_upph, self.lan2_vextir, self.lan2_greidslubyrgdi, self.lan2_timabil, self.lan2_verdtrygging, self.lan2_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, "lan2")
+    	self.lanNidurst3 = lan_v.lan(self.lan3_upph, self.lan3_vextir, self.lan3_greidslubyrgdi, self.lan3_timabil, self.lan3_verdtrygging, self.lan3_jafnar, self.verdbolga, self.umframgr, self.ein_man_greidsla, "lan3")
     	self.syna_svar_glugga()
 
     def syna_svar_glugga(self):
@@ -273,6 +276,12 @@ class MainPage(wx.Panel):
 
     def fa_nidurstodur_ur_lani(self):
     	return self.lanNidurst
+    
+    def fa_nidurstodur_ur_lani2(self):
+    	return self.lanNidurst2
+    	
+    def fa_nidurstodur_ur_lani3(self):
+    	return self.lanNidurst3
 
 class SvarGluggi(wx.Frame):
 
@@ -313,35 +322,58 @@ class SvarGluggi(wx.Frame):
         
         ax.set_xlabel(u'Tími [mánuðir]')
         ax.set_ylabel(u'Upphæð [kr]')
-        ax.set_title(u'Reyndu nu að spara!')
+        ax.set_title(u'Reyndu nú að spara!')
         ax.legend(loc=2); # upper left corner
         
         canvas.draw()
         
-        nidurstodur2 = MainPage.fa_nidurstodur_ur_lani(tabOne)
-
-        if(size(nidurstodur2) != 0):
-        	fig2, ax2 = plt.subplots()
-        	canvas2 = FigCanvas(panel_svar, -1, fig2)
-        	xmax = size(nidurstodur2[0][0])-1
-        	ymin = size(nidurstodur2[0][1])-1
-        	ax2.set_ylim([nidurstodur2[0][1][ymin], nidurstodur2[0][1][0]])
-        	ax2.set_xlim([0, nidurstodur2[0][0][xmax]])
+        def teiknaCanvas(nr, nidurst):
+        	if(size(nidurst) != 0):
+        		fig, ax = plt.subplots()
+        		if(nr == 2):
+        			self.canvas2 = FigCanvas(panel_svar, -1, fig)
+        		if(nr == 3):
+        			self.canvas3 = FigCanvas(panel_svar,1 -1, fig)
+        		if(nr == 4):
+        			self.canvas4 = FigCanvas(panel_svar,1 -1, fig)
+        		xmax = size(nidurst[0][0])-1
+        		ymin = size(nidurst[0][1])-1
+        		ax.set_ylim([nidurst[0][1][ymin], nidurst[0][1][0]])
+        		ax.set_xlim([0, nidurst[0][0][xmax]])
+        		
+        		data_x2 = nidurst[0][0]
+        		data_y2 = nidurst[0][1]
+        		data_xobr = nidurst[1][0]
+        		data_yobr = nidurst[1][1]
+        		
+        		ax.plot(data_x2, data_y2, label="Lan ef borgad er inna thad")
+        		ax.plot(data_xobr, data_yobr, label="Obreytt lan")
+        		ax.set_xlabel('Timi (manudir)')
+        		ax.set_ylabel('Upphaed')
+        		if(nr == 2):
+        			ax.set_title('Lan 1')
+        		if(nr == 3):
+        			ax.set_title('Lan 2')
+        		if(nr == 4):
+        			ax.set_title('Lan 3')
+        		ax.legend(loc=1); # upper right corner
         
-        	data_x2 = nidurstodur2[0][0]
-        	data_y2 = nidurstodur2[0][1]
-        	data_xobr = nidurstodur2[1][0]
-        	data_yobr = nidurstodur2[1][1]
+        		if(nr == 2):
+        			self.canvas2.draw()
+        		if(nr == 3):
+        			self.canvas3.draw()
+        		if(nr == 4):
+        			self.canvas4.draw()
+        	
         
-        	ax2.plot(data_x2, data_y2, label="Lan ef borgad er inna thad")
-        	ax2.plot(data_xobr, data_yobr, label="Obreytt lan")
-
-        	ax2.set_xlabel('Timi (manudir)')
-        	ax2.set_ylabel('Upphaed')
-        	ax2.set_title('Reyndu nu ad spara')
-        	ax2.legend(loc=1); # upper right corner
+        nidurstodur2 = MainPage.fa_nidurstodur_ur_lani(panel)
+        teiknaCanvas(2, nidurstodur2)
         
-        	canvas2.draw()
+        nidurstodur3 = MainPage.fa_nidurstodur_ur_lani2(panel)
+        teiknaCanvas(3, nidurstodur3)
+        	
+        nidurstodur4 = MainPage.fa_nidurstodur_ur_lani3(panel)
+        teiknaCanvas(4, nidurstodur4)
 
         ## ------------        gröf búin        ------------##
         
@@ -395,7 +427,11 @@ class SvarGluggi(wx.Frame):
         # gröf
         sizer.Add(canvas, 0, wx.ALL, 10)
         if(size(nidurstodur2) != 0):
-        	sizer.Add(canvas2, 0, wx.ALL, 10)
+        	sizer.Add(self.canvas2, 0, wx.ALL, 10)
+        if(size(nidurstodur3) != 0):
+        	sizer.Add(self.canvas3, 0, wx.ALL, 10)
+        if(size(nidurstodur4) != 0):
+        	sizer.Add(self.canvas4, 0, wx.ALL, 10)
         
         panel_svar.SetSizer(sizer)
         panel_svar.SetAutoLayout(True)
@@ -415,28 +451,156 @@ class Safna(wx.Panel):
         wx.Panel.__init__(self, parent)
 
         self.sizer = wx.BoxSizer(wx.VERTICAL)
-
-        self.hversu_lengi = wx.StaticText(self, label="Halló Kalli hvað þarf ég að safna lengi fyrir nýjum iPad") 
+        self.grid = wx.GridBagSizer(hgap=5, vgap=5)
+        
+        self.hversu_lengi = wx.StaticText(self, label="Hvað er ég lengi að safna þessari upphæð?") 
         self.sizer.Add(self.hversu_lengi, 0, wx.ALL, 10)
+        
+        self.sizer.Add(self.grid, 0, wx.ALL, 10)
+        
+        #timabil
+        self.markmidsUpph = wx.StaticText(self, label="Markmiðsupphæð")    
+        self.grid.Add(self.markmidsUpph, pos=(0,0))
+        
+        self.markmUpph = wx.TextCtrl(self, size = (245,20))
+        self.grid.Add(self.markmUpph, pos=(0,1))
+        self.Bind(wx.EVT_TEXT, self.markmidsUpp, self.markmUpph)
+        
+        self.kronur = wx.StaticText(self, label="kr.")
+        self.grid.Add(self.kronur, pos=(0,2))
+
+        self.grUpph = wx.StaticText(self, label="Umframgreiðsla")
+        self.grid.Add(self.grUpph, pos=(0,3))
+        
+        self.spUpph = wx.TextCtrl(self, size = (150,20))
+        self.grid.Add(self.spUpph, pos=(0,4))
+        self.Bind(wx.EVT_TEXT, self.sparnUpph, self.spUpph)
+        
+        self.kronur2 = wx.StaticText(self, label="kr.")
+        self.grid.Add(self.kronur2, pos=(0,5))
+        
+        self.hvernigGr = wx.StaticText(self, label="Eingreiðsla/mánaðarleg")
+        self.grid.Add(self.hvernigGr, pos=(1,0), flag=wx.TOP, border=17)
+        
+        self.radio = ['Eingreiðsla', 'Mánaðarlega']
+        self.radio2 = ['Óverðtryggður', 'Verðtryggður']
+        
+        self.greidsla = wx.RadioBox(self, choices=self.radio)
+        self.grid.Add(self.greidsla, pos=(1,1))
+        self.Bind(wx.EVT_RADIOBOX, self.hvernig_greidsla, self.greidsla)
+
+        self.spVextir = wx.StaticText(self, label="Vextir")
+        self.grid.Add(self.spVextir, pos=(1,3))
+        
+        self.vextirTimabil = wx.TextCtrl(self, size = (150,20))
+        self.grid.Add(self.vextirTimabil, pos=(1,4))
+        self.Bind(wx.EVT_TEXT, self.vextirT, self.vextirTimabil)
+        
+        self.pros = wx.StaticText(self, label="%")
+        self.grid.Add(self.pros, pos=(1,5))
+
+        self.verdtr = wx.StaticText(self, label="Reikningurinn er:")
+        self.grid.Add(self.verdtr, pos=(2,0), flag=wx.TOP, border=17)
+        
+        self.verdtryggdur = wx.RadioBox(self, choices=self.radio2)
+        self.grid.Add(self.verdtryggdur, pos=(2,1))
+        self.Bind(wx.EVT_RADIOBOX, self.verdOverd, self.verdtryggdur)        
         
         self.reikna_timabil = wx.Button(self, label="Reikna tímabil")
         self.Bind(wx.EVT_BUTTON, self.reikna_timab, self.reikna_timabil)
         self.sizer.Add(self.reikna_timabil, 0, wx.ALL, 10)
 
-        self.hversu_mikid = wx.StaticText(self, label="Halló Kalli hvað þarf ég að leggja mikið inná reikning til að fá nýjan iPad") 
+        self.hversu_mikid = wx.StaticText(self, label="Hvað þarf ég að leggja mikið fyrir til að ná þessari upphæð eftir þetta langan tíma?") 
         self.sizer.Add(self.hversu_mikid, 0, wx.ALL, 10)
+        
+        self.grid2 = wx.GridBagSizer(hgap=5, vgap=5)
+        self.sizer.Add(self.grid2, 0, wx.ALL, 10)
+        
+        #upphaed
+        self.markmidsUpph2 = wx.StaticText(self, label="Markmiðsupphæð")    
+        self.grid2.Add(self.markmidsUpph2, pos=(0,0))
+        
+        self.markmUpph2 = wx.TextCtrl(self, size = (245,20))
+        self.grid2.Add(self.markmUpph2, pos=(0,1))
+        self.Bind(wx.EVT_TEXT, self.markmidsUpp2, self.markmUpph2)
+        
+        self.kronur3 = wx.StaticText(self, label="kr.")
+        self.grid2.Add(self.kronur3, pos=(0,2))
 
+        self.timabilLabel = wx.StaticText(self, label="Tímabil")
+        self.grid2.Add(self.timabilLabel, pos=(0,3))
+        
+        self.timab = wx.TextCtrl(self, size = (120,20))
+        self.grid2.Add(self.timab, pos=(0,4))
+        self.Bind(wx.EVT_TEXT, self.timabilBundid, self.timab)
+        
+        self.ar = wx.StaticText(self, label="ár")
+        self.grid2.Add(self.ar, pos=(0,5))
+        
+        self.hvernigGr2 = wx.StaticText(self, label="Eingreiðsla/mánaðarleg")
+        self.grid2.Add(self.hvernigGr2, pos=(1,0), flag=wx.TOP, border=17)
+        
+        self.greidsla2 = wx.RadioBox(self, choices=self.radio)
+        self.grid2.Add(self.greidsla2, pos=(1,1))
+        self.Bind(wx.EVT_RADIOBOX, self.hvernig_greidsla2, self.greidsla2)
+
+        self.spVextir2 = wx.StaticText(self, label="Vextir")
+        self.grid2.Add(self.spVextir2, pos=(1,3))
+        
+        self.vextir = wx.TextCtrl(self, size = (120,20))
+        self.grid2.Add(self.vextir, pos=(1,4))
+        self.Bind(wx.EVT_TEXT, self.vextirU, self.vextir)
+        
+        self.pros2 = wx.StaticText(self, label="%")
+        self.grid2.Add(self.pros2, pos=(1,5))
+		
         self.reikna_upphaed = wx.Button(self, label="Reikna upphæð")
         self.Bind(wx.EVT_BUTTON, self.reikna_upph, self.reikna_upphaed)
         self.sizer.Add(self.reikna_upphaed, 0, wx.ALL, 10)
-        
+
+        image = 'piggy-bank.jpg'
+        jpg1 = wx.Image(image, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        wx.StaticBitmap(self, -1, jpg1, (10 + jpg1.GetWidth()*1.1, 340), (jpg1.GetWidth()*0.8, jpg1.GetHeight()*0.7))
 
         self.SetSizerAndFit(self.sizer)
+
+        #upphafsstilla breytur
+        self.markmidsUpphaed = self.sparnadarUpphaed = self.hvernigGreidsla = 0
+        self.vextirTimab = self.verdtrOverdtr = 0
+        self.markmidsUpphaed2 = self.bundidTimabil = self.hvernigGreidsla2 = 0
+        self.vextirUpph = 0
+    
+    #timabil
+    def markmidsUpp(self, event):
+    	self.markmidsUpphaed = int(event.GetString())
+        
+    def sparnUpph(self, event):
+    	self.sparnadarUpphaed = int(event.GetString())
+    	
+    def hvernig_greidsla(self, event):
+    	self.hvernigGreidsla = event.GetInt()
+    	
+    def vextirT(self, event):
+    	self.vextirTimab = int(event.GetString())
+
+    def verdOverd(self, event):
+    	self.verdtrOverdtr = event.GetInt()
+    	
+    #upphaed
+    def markmidsUpp2(self, event):
+    	self.markmidsUpphaed2 = int(event.GetString())
+        
+    def timabilBundid(self, event):
+    	self.bundidTimabil = int(event.GetString())
+    	
+    def hvernig_greidsla2(self, event):
+    	self.hvernigGreidsla2 = event.GetInt()
+    	
+    def vextirU(self, event):
+    	self.vextirUpph = int(event.GetString())
     
     def reikna_timab(self, event):
-        # EDDA setja inn breytur
-        #self.timabil = sparnadur1b.fa_timabil("upphæð", "eingreiðsla/mánaðarleg", "markmiðs upphæð")
-        self.timabil = "<temp timabil>"
+        self.timabil = sparitimi.timabil(self.sparnadarUpphaed, self.vextirTimab, self.markmidsUpphaed, self.hvernigGreidsla, self.verdtrOverdtr)
         self.syna_timabil_glugga()
 
     def syna_timabil_glugga(self):
@@ -444,9 +608,7 @@ class Safna(wx.Panel):
         self.timabil_gluggi.Show()
 
     def reikna_upph(self, event):
-        # EDDA setja inn breytur
-        #self.upphaed = sparnadur1b.fa_upphaed("markmiðs upphæð", "eingreiðsla/mánaðarleg", "tímabil")
-        self.upphaed = "<temp upphæð>"
+        self.upphaed = sparitimi.innlogn(self.markmidsUpphaed2, self.vextirUpph, self.bundidTimabil, self.hvernigGreidsla2)
         self.syna_upphaed_glugga()
 
     def syna_upphaed_glugga(self):
@@ -465,6 +627,8 @@ class TimabilGluggi(wx.Frame):
         wx.Frame.__init__(self, parent, id, 'Svör', size=(400,200))
         wx.Frame.CenterOnScreen(self)
 
+        self.SetBackgroundColour('#c297b8')
+
         self.sizer = wx.BoxSizer(wx.VERTICAL)
 
         self.timabil = Safna.fa_timabil(tabTwo)
@@ -476,6 +640,8 @@ class UpphaedGluggi(wx.Frame):
     def __init__(self,parent,id):
         wx.Frame.__init__(self, parent, id, 'Svör', size=(400,200))
         wx.Frame.CenterOnScreen(self)
+        
+        self.SetBackgroundColour('#93b3c2')
 
         self.sizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -500,6 +666,7 @@ class Notebook(wx.Notebook):
 class MainWindow(wx.Frame):
     def __init__(self):
         wx.Frame.__init__(self, None, wx.ID_ANY, "Þriðja útgáfa", size=(850,600))
+        wx.Frame.CenterOnScreen(self)
 
         panel = wx.Panel(self)
         notebook = Notebook(panel)
