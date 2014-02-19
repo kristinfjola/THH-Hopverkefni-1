@@ -203,12 +203,12 @@ def manadalega(L, nt, v, vt):
 		vextir.append(summa * (v/12))
 		vextirAr.append(summa * (v/12))
 		if (i+1)%12 == 0 and i != 0:		
-			stodur.append(math.ceil(summa + sum(vextirAr)*fjarmagns))
+			stodur.append(int(math.ceil(summa + sum(vextirAr)*fjarmagns)))
 			summa = summa + sum(vextirAr)*fjarmagns - (sum(verdbaeturAr)*(1-fjarmagns))
 			vextirAr = []
 			verdbaeturAr = []
 		else:
-			stodur.append(math.ceil(summa))
+			stodur.append(int(math.ceil(summa)))
 	globvextir = sum(vextir)*fjarmagns + sum(verdbaetur)*fjarmagns
 	globfjarmagns = sum(vextir)*(1-fjarmagns) + sum(verdbaetur)*(1-fjarmagns)
 	x.append(nt)
@@ -240,12 +240,12 @@ def eingreidsla(L, nt, v, vt):
 		vextir.append(summa * (v/12))
 		vextirAr.append(summa * (v/12))
 		if (i+1)%12 == 0 and i != 0:
-			stodur.append(math.ceil(summa + sum(vextirAr)*fjarmagns))
+			stodur.append(int(math.ceil(summa + sum(vextirAr)*fjarmagns)))
 			summa = summa + sum(vextirAr)*fjarmagns - (sum(verdbaeturAr)*(1-fjarmagns))
 			vextirAr = []
 			verdbaeturAr = []
 		else:
-			stodur.append(math.ceil(summa))
+			stodur.append(int(math.ceil(summa)))
 	globvextir = sum(vextir)*fjarmagns + sum(verdbaetur)*fjarmagns
 	globfjarmagns = sum(vextir)*(1-fjarmagns) + sum(verdbaetur)*(1-fjarmagns)
 	x.append(nt)
@@ -262,7 +262,7 @@ Eftir: ars eru vextir sem notandi fékk á síðasta sparnað
 """
 def fa_arsvexti():
 	global globvextir
-	return math.ceil(globvextir)
+	return int(math.ceil(globvextir))
 
 """
 Notkun: fjarmagns = fa_fjarmagnstekjuskatt()
@@ -271,7 +271,7 @@ Eftir: fjarmagns er fjármagnstekjuskatturinn sem notandi þurfti að greiða af
 """
 def fa_fjarmagnstekjuskatt():
 	global globfjarmagns
-	return math.ceil(globfjarmagns)
+	return int(math.ceil(globfjarmagns))
 
 
 """Óþörf föll??"""
