@@ -366,13 +366,13 @@ class SvarGluggi(wx.Frame):
         			self.canvas4.draw()
         	
         
-        nidurstodur2 = MainPage.fa_nidurstodur_ur_lani(panel)
+        nidurstodur2 = MainPage.fa_nidurstodur_ur_lani(tabOne)
         teiknaCanvas(2, nidurstodur2)
         
-        nidurstodur3 = MainPage.fa_nidurstodur_ur_lani2(panel)
+        nidurstodur3 = MainPage.fa_nidurstodur_ur_lani2(tabOne)
         teiknaCanvas(3, nidurstodur3)
         	
-        nidurstodur4 = MainPage.fa_nidurstodur_ur_lani3(panel)
+        nidurstodur4 = MainPage.fa_nidurstodur_ur_lani3(tabOne)
         teiknaCanvas(4, nidurstodur4)
 
         ## ------------        gröf búin        ------------##
@@ -454,6 +454,8 @@ class Safna(wx.Panel):
         self.grid = wx.GridBagSizer(hgap=5, vgap=5)
         
         self.hversu_lengi = wx.StaticText(self, label="Hvað er ég lengi að safna þessari upphæð?") 
+        self.hversu_lengi_font = wx.Font(14, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
+        self.hversu_lengi.SetFont(self.hversu_lengi_font)
         self.sizer.Add(self.hversu_lengi, 0, wx.ALL, 10)
         
         self.sizer.Add(self.grid, 0, wx.ALL, 10)
@@ -510,13 +512,15 @@ class Safna(wx.Panel):
         self.Bind(wx.EVT_BUTTON, self.reikna_timab, self.reikna_timabil)
         self.sizer.Add(self.reikna_timabil, 0, wx.ALL, 10)
 
+        #upphaed
         self.hversu_mikid = wx.StaticText(self, label="Hvað þarf ég að leggja mikið fyrir til að ná þessari upphæð eftir þetta langan tíma?") 
+        self.hversu_mikid_font = wx.Font(14, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
+        self.hversu_mikid.SetFont(self.hversu_mikid_font)
         self.sizer.Add(self.hversu_mikid, 0, wx.ALL, 10)
         
         self.grid2 = wx.GridBagSizer(hgap=5, vgap=5)
         self.sizer.Add(self.grid2, 0, wx.ALL, 10)
         
-        #upphaed
         self.markmidsUpph2 = wx.StaticText(self, label="Markmiðsupphæð")    
         self.grid2.Add(self.markmidsUpph2, pos=(0,0))
         
@@ -665,7 +669,7 @@ class Notebook(wx.Notebook):
         
 class MainWindow(wx.Frame):
     def __init__(self):
-        wx.Frame.__init__(self, None, wx.ID_ANY, "Þriðja útgáfa", size=(850,600))
+        wx.Frame.__init__(self, None, wx.ID_ANY, "Reiknivél", size=(850,600))
         wx.Frame.CenterOnScreen(self)
 
         panel = wx.Panel(self)
