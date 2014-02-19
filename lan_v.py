@@ -52,7 +52,7 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):
 	else:
 		vb = 0.0
 	
-	#setja inn nöfn lána og raunvexti þeirra jæja
+	#setja inn nöfn lána og raunvexti þeirra
 	if(verdtrygging == 0):
 		if(nafnLan == 'lan1'):
 			lan_uppl[0] = [nafnLan, v/100.0]
