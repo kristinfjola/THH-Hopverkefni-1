@@ -55,18 +55,18 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):
 	#setja inn nöfn lána og raunvexti þeirra jæja
 	if(verdtrygging == 0):
 		if(nafnLan == 'lan1'):
-			lan_uppl[0] = ['Lán 1', v/100.0]
+			lan_uppl[0] = [nafnLan, v/100.0]
 		elif(nafnLan == 'lan2'):
-			lan_uppl[1] = ['Lán 2', v/100.0]
+			lan_uppl[1] = [nafnLan, v/100.0]
 		elif(nafnLan == 'lan3'):
-			lan_uppl[2] = ['Lán 3', v/100.0]
+			lan_uppl[2] = [nafnLan, v/100.0]
 	else:
 		if(nafnLan == 'lan1'):
-			lan_uppl[0] = ['Lán 1', (v+vb)/100.0]
+			lan_uppl[0] = [nafnLan, (v+vb)/100.0]
 		elif(nafnLan == 'lan2'):
-			lan_uppl[1] = ['Lán 2', (v+vb)/100.0]
+			lan_uppl[1] = [nafnLan, (v+vb)/100.0]
 		elif(nafnLan == 'lan3'):
-			lan_uppl[2] = ['Lán 3', (v+vb)/100.0]
+			lan_uppl[2] = [nafnLan, (v+vb)/100.0]
 	
 	#athuga hvaða fall á að kalla á
 	if(einman == 0): #umframgreiðslan er eingreiðsla
