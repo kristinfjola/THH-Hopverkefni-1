@@ -1,13 +1,9 @@
 # -*- coding: cp1252 -*-
 # -*- coding: utf-8 -*-
 
-# TODO (auka):
-## hafa n*12 og v/12 í lan
-## hafa if n==0 or H==0 í lan
-## bæta við append ef h=0, n=0
-
-# # Gildi: fylki með 6 stökum þar sem fyrsta stakið er kostnaður við lán1 með umfram, stak tvö er kostnaður við lán1 án umfram, osfrv..
+# Gildi: fylki með 6 stökum þ.s. 1.stakið er kostn. f. lán1 með umfram, stak 2 er kostn. f. lán1 án umfram, stak 3 kostn. f. lán2 með umfram, osfrv.
 tempfylki = [0, 0, 0, 0, 0, 0]
+
 # Gildi: fylki sem heldur utan um nöfn lánanna 3 og raunvexti þeirra
 lan_uppl = [['',0],['',0],['',0]]
 
@@ -16,9 +12,7 @@ def fa_lanakostnad():
 	global tempfylki
 	return [tempfylki[0], tempfylki[2], tempfylki[4]]
 
-# Gildi: fylki með 3 stökum þar sem fyrsta stakið er hagnaður við að borga umfram í lán1, osfrv
-# Hagnaðurinn við að borga umframgreiðslu á lán
-# Mismunur þess á að borga niður lán með umframgreiðslu og að borga niður lán með neinni umframgreiðslu.
+# Gildi: fylki með 3 stökum þar sem 1.stakið er hagnaður við að borga umfram í lán1, 2.stakið fyrir lán 2, osfrv.
 def fa_hagnad():
 	global tempfylki
 	return [tempfylki[1]-tempfylki[0], tempfylki[3]-tempfylki[2], tempfylki[5]-tempfylki[4]]
@@ -34,20 +28,20 @@ def raunvLan():
 			max[1] = lan_uppl[i][1]
 	return max
 
-# Notkun: lan(höfuðstóll, vextir(%), greiðslubyrgði(óþarfi), lengd láns(ár), ó/verðtryggt, jafnar afborganir/greiðslur, verðbólga(0,5,10,15), umframgreiðsla, umfram borguð 1x/mánaðarlega, nafn lánsins)
+# Notkun: lan(höfuðstóll(kr), vextir(%), lengd láns(ár), óverð/verðtryggt(0/1), jafnar greiðslur/afborganir(0/1), verðbólga(0,5,10,15), umframgreiðsla(kr), umfram er eingreiðsla/mánaðarleg(0/1), nafn lánsins('lan1'/'lan2'/'lan3')
 # Gildi: FYLKI sem skilar tveimur Fylkjum, fyrra Fylkið er ef þú borgar umframgreiðslu og seinna er fyrir umfram=0, í hverju Fylki eru tvö önnur fylki, fyrra fylkið hefur númer mánaðar (0 - n*12) og það seinna hefur stöðu lánsins á þeim tíma
 # dæmi: [ [[0,1,2,3],[1000, 600, 200, 0]] , [0,1,2,3,4,5],[1000, 800, 600, 400, 200, 0] ]
-def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):
+def lan(H, v, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):
 	global lan_uppl
 	
-	#setja inn rétta verðbólgu
-	if(verdbolga == 0): 		#verðbólga núna
+	#setja inn valda verðbólgu
+	if(verdbolga == 0): 		#verðbólgan núna
 		vb = 3.1
-	elif(verdbolga == 5): 		#verðbólga 5 ár
+	elif(verdbolga == 5): 		#meðaltal verðbólgu síðustu 5 ár
 		vb = 6.07868852459016
-	elif(verdbolga == 10): 		#verðbólga 10 ár
+	elif(verdbolga == 10): 		#meðaltal verðbólgu síðustu 10 ár
 		vb = 6.19421487603305
-	elif(verdbolga == 15):		#verðbólga 15 ár
+	elif(verdbolga == 15):		#meðaltal verðbólgu síðustu 15 ár
 		vb = 5.60276243093922
 	else:
 		vb = 0.0
@@ -68,7 +62,7 @@ def lan(H, v, gb, n, verdtrygging, jafnar, verdbolga, umfram, einman, nafnLan):
 		elif(nafnLan == 'lan3'):
 			lan_uppl[2] = [nafnLan, (v+vb)/100.0]
 	
-	#athuga hvaða fall á að kalla á
+	#athuga hvaða fall þarf að kalla á
 	if(einman == 0): #umframgreiðslan er eingreiðsla
 		if(jafnar == 1): #jafnar afborganir
 			if(verdtrygging == 0): #óverðtryggt
