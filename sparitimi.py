@@ -1,5 +1,4 @@
 # -*- coding: cp1252 -*-
-# -*- coding: utf-8 -*-
 ## I thessu skjali er virknin fyrir tab 2. 
 
 import math
@@ -55,7 +54,7 @@ def manadalegurSparInnlogn(nt, v, heild):
 ##Eftir: innlogn er strengur sem segir notanda hversu mikið hann tharf ad leggja inn i upphafi
 def eingreidslaSparInnlogn(nt, v, heild):
 	innlogn = heild/(pow((1+v),(nt/12.0)))
-	return "Þú þarft að leggja inn "+ str(int(innlogn)) + " kr. í upphafi til þess að ná uppí " + str(heild) + " kr."
+	return "Þú þarft að leggja inn " + str(int(innlogn)) + " kr. í upphafi til þess að ná uppí " + str(heild) + " kr."
 
 
 ##Fall sem skiar manudum i manudum og arum
