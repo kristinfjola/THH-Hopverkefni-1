@@ -101,10 +101,11 @@ def overdAfborganirEin(H, n, v, umfram, nafn, auka):
 		
 		#Fyrsti mánuðurinn:
 		greidsla = afb + vt*eftirs + umfram
-		eftirs = eftirs - afb - 0.99*umfram
+		eftirs = eftirs - afb - 0.99*umfram #0.99 útaf uppgreiðslugjald er 1%
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
 		
+		#Mánuðirnir á milli:
 		while(round(eftirs) >= afb):
 			greidsla = afb + vt*eftirs
 			eftirs = eftirs - afb
@@ -118,6 +119,7 @@ def overdAfborganirEin(H, n, v, umfram, nafn, auka):
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
 		
+		#Setja inn heildarlántökukostnað á réttan stað í tempfylki, auka=0 er með umfram og auka=1 er óbreytt lán
 		if(nafn == 'lan1'):
 			if(auka == 0):
 				tempfylki[0] = round(summa - H)
@@ -134,14 +136,17 @@ def overdAfborganirEin(H, n, v, umfram, nafn, auka):
 			else:
 				tempfylki[5] = round(summa - H)
 		
+		#x heldur utan um númer mánaðar
 		x = []
 		skil = []
 		for i in range(0, len(stodur)):
 			x.append(i)
 		skil.append(x)
 		skil.append(stodur)
+		#skil er fylki með tveimur fylkjum þar sem fyrra stakið er númer mánaðar og seinna er staða láns á þeim tíma
 		return skil
 		
+	#athuga fyrst hvort það sé einhver höfuðstóll/tímabil
 	if(n == 0) or (H == 0):
 		if(nafn == 'lan1'):
 			tempfylki[0] = 0.0
@@ -178,10 +183,11 @@ def verdAfborganirEin(H, n, v, vb, umfram, nafn, auka):
 		
 		#Fyrsti mánuðurinn:
 		greidsla = afb + (vt+vbt)*eftirs + umfram
-		eftirs = eftirs - afb - 0.99*umfram
+		eftirs = eftirs - afb - 0.99*umfram #0.99 útaf uppgreiðslugjald er 1%
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
 		
+		#Mánuðirnir á milli:
 		while(round(eftirs) >= afb):
 			greidsla = afb + (vt+vbt)*eftirs
 			eftirs = eftirs - afb
@@ -195,6 +201,7 @@ def verdAfborganirEin(H, n, v, vb, umfram, nafn, auka):
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
 		
+		#Setja inn heildarlántökukostnað á réttan stað í tempfylki, auka=0 er með umfram og auka=1 er óbreytt lán
 		if(nafn == 'lan1'):
 			if(auka == 0):
 				tempfylki[0] = round(summa - H)
@@ -211,12 +218,14 @@ def verdAfborganirEin(H, n, v, vb, umfram, nafn, auka):
 			else:
 				tempfylki[5] = round(summa - H)
 		
+		#x heldur utan um númer mánaðar
 		x = []
 		skil = []
 		for i in range(0, len(stodur)):
 			x.append(i)
 		skil.append(x)
 		skil.append(stodur)
+		#skil er fylki með tveimur fylkjum þar sem fyrra stakið er númer mánaðar og seinna er staða láns á þeim tíma
 		return skil
 		
 	if(n == 0) or (H == 0):
@@ -254,11 +263,12 @@ def overdGreidslurEin(H, n, v, umfram, nafn, auka):
 
 		#Fyrsti mánuðurinn:
 		vextir = v*eftirs
-		afb = greidsla - vextir + 0.99*umfram
+		afb = greidsla - vextir + 0.99*umfram #0.99 útaf uppgreiðslugjald er 1%
 		eftirs = eftirs - afb
 		summa = summa + greidsla + umfram
 		stodur.append(round(eftirs))
 		
+		#Mánuðirnir á milli:
 		while(round(eftirs) >= greidsla - vextir):
 			vextir = v*eftirs
 			afb = greidsla - vextir
@@ -273,6 +283,7 @@ def overdGreidslurEin(H, n, v, umfram, nafn, auka):
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
 		
+		#Setja inn heildarlántökukostnað á réttan stað í tempfylki, auka=0 er með umfram og auka=1 er óbreytt lán
 		if(nafn == 'lan1'):
 			if(auka == 0):
 				tempfylki[0] = round(summa - H)
@@ -289,12 +300,14 @@ def overdGreidslurEin(H, n, v, umfram, nafn, auka):
 			else:
 				tempfylki[5] = round(summa - H)
 		
+		#x heldur utan um númer mánaðar
 		x = []
 		skil = []
 		for i in range(0, len(stodur)):
 			x.append(i)
 		skil.append(x)
 		skil.append(stodur)
+		#skil er fylki með tveimur fylkjum þar sem fyrra stakið er númer mánaðar og seinna er staða láns á þeim tíma
 		return skil
 		
 	if(n == 0) or (H == 0):
@@ -310,6 +323,7 @@ def overdGreidslurEin(H, n, v, umfram, nafn, auka):
 		return [[],[]]
 
 	elif(vt == 0):
+		#ef það eru engir vextir, þá verður greiðslan, og þar með afborgunin, sú sama fyrir jafnar greiðslur og jafnar afborganir
 		return overdAfborganirEin(H, nt, 0, umfram, nafn, auka)
 	else:
 		A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
@@ -339,11 +353,12 @@ def verdGreidslurEin(H, n, v, vb, umfram, nafn, auka):
 		#Fyrsti mánuðurinn:
 		eftirs = eftirs + vb*eftirs
 		greidsla = (1+vb)*greidsla
-		afb = greidsla - v*eftirs + 0.99*umfram
+		afb = greidsla - v*eftirs + 0.99*umfram #0.99 útaf uppgreiðslugjald er 1%
 		eftirs = eftirs - afb
 		summa = summa + greidsla + umfram
 		stodur.append(round(eftirs))
 		
+		#Mánuðirnir á milli:
 		while(round(eftirs) >= greidsla - v*eftirs):
 			eftirs = eftirs + vb*eftirs
 			greidsla = (1+vb)*greidsla
@@ -359,6 +374,7 @@ def verdGreidslurEin(H, n, v, vb, umfram, nafn, auka):
 		summa = summa + greidsla
 		stodur.append(round(eftirs))
 		
+		#Setja inn heildarlántökukostnað á réttan stað í tempfylki, auka=0 er með umfram og auka=1 er óbreytt lán
 		if(nafn == 'lan1'):
 			if(auka == 0):
 				tempfylki[0] = round(summa - H)
@@ -375,12 +391,14 @@ def verdGreidslurEin(H, n, v, vb, umfram, nafn, auka):
 			else:
 				tempfylki[5] = round(summa - H)
 		
+		#x heldur utan um númer mánaðar
 		x = []
 		skil = []
 		for i in range(0, len(stodur)):
 			x.append(i)
 		skil.append(x)
 		skil.append(stodur)
+		#skil er fylki með tveimur fylkjum þar sem fyrra stakið er númer mánaðar og seinna er staða láns á þeim tíma
 		return skil
 		
 	if(n == 0) or (H == 0):
@@ -396,8 +414,10 @@ def verdGreidslurEin(H, n, v, vb, umfram, nafn, auka):
 		return [[],[]]
 	
 	elif(vbt == 0):
+		#ef það er engin verðbólga reiknast þetta eins og óverðtryggt lán
 		return overdGreidslurEin(H, nt, vt, umfram, nafn, auka)
 	elif(v == 0):
+		#ef það eru engir vextir, þá verður greiðslan, og þar með afborgunin, sú sama fyrir jafnar greiðslur og jafnar afborganir
 		return verdAfborganirEin(H, nt, 0, vbt, umfram, nafn, auka)
 	else:
 		A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
@@ -437,7 +457,7 @@ def overdAfborganirMan(H, n, v, umfram, nafn, auka):
 		#keyrum þetta á meðan summa afborgunar og umframgreiðslu er minni en eftirstaðan (svo eftirstaðan fer ekki í mínustölu)
 		while(round(eftirs) >= afb+0.99*umfram):
 			greidsla = afb + vt*eftirs + umfram
-			eftirs = eftirs - afb - 0.99*umfram		#0.99 útaf 1% fer í uppgreiðslukosntaður
+			eftirs = eftirs - afb - 0.99*umfram #0.99 útaf uppgreiðslugjald er 1%
 			summa = summa + greidsla
 			stodur.append(round(eftirs))
 		
@@ -453,10 +473,11 @@ def overdAfborganirMan(H, n, v, umfram, nafn, auka):
 		else:
 			umfram = (eftirs - afb)/0.99
 			greidsla = afb + vt*eftirs + umfram
-			eftirs = eftirs - afb - 0.99*umfram		# == eftirs - afb - (eftirs - afb) = 0
+			eftirs = eftirs - afb - 0.99*umfram
 			summa = summa + greidsla
 			stodur.append(round(eftirs))
 		
+		#Setja inn heildarlántökukostnað á réttan stað í tempfylki, auka=0 er með umfram og auka=1 er óbreytt lán
 		if(nafn == 'lan1'):
 			if(auka == 0):
 				tempfylki[0] = round(summa - H)
@@ -473,12 +494,14 @@ def overdAfborganirMan(H, n, v, umfram, nafn, auka):
 			else:
 				tempfylki[5] = round(summa - H)
 		
+		#x heldur utan um númer mánaðar
 		x = []
 		skil = []
 		for i in range(0, len(stodur)):
 			x.append(i)
 		skil.append(x)
 		skil.append(stodur)
+		#skil er fylki með tveimur fylkjum þar sem fyrra stakið er númer mánaðar og seinna er staða láns á þeim tíma
 		return skil
 
 
@@ -515,7 +538,7 @@ def verdAfborganirMan(H, n, v, vb, umfram, nafn, auka):
 		#keyrum þetta á meðan summa afborgunar og umframgreiðslu er minni en eftirstaðan (svo eftirstaðan fer ekki í mínustölu)
 		while(round(eftirs) >= afb+0.99*umfram):
 			greidsla = afb + (vt+vbt)*eftirs + umfram
-			eftirs = eftirs - afb - 0.99*umfram		#0.99 útaf 1% fer í uppgreiðslukosntaður
+			eftirs = eftirs - afb - 0.99*umfram #0.99 útaf uppgreiðslugjald er 1%
 			summa = summa + greidsla
 			stodur.append(round(eftirs))
 		
@@ -535,6 +558,7 @@ def verdAfborganirMan(H, n, v, vb, umfram, nafn, auka):
 			summa = summa + greidsla
 			stodur.append(round(eftirs))
 		
+		#Setja inn heildarlántökukostnað á réttan stað í tempfylki, auka=0 er með umfram og auka=1 er óbreytt lán
 		if(nafn == 'lan1'):
 			if(auka == 0):
 				tempfylki[0] = round(summa - H)
@@ -551,12 +575,14 @@ def verdAfborganirMan(H, n, v, vb, umfram, nafn, auka):
 			else:
 				tempfylki[5] = round(summa - H)
 		
+		#x heldur utan um númer mánaðar
 		x = []
 		skil = []
 		for i in range(0, len(stodur)):
 			x.append(i)
 		skil.append(x)
 		skil.append(stodur)
+		#skil er fylki með tveimur fylkjum þar sem fyrra stakið er númer mánaðar og seinna er staða láns á þeim tíma
 		return skil
 
 
@@ -576,7 +602,7 @@ def overdGreidslurMan(H, n, v, umfram, nafn, auka):
 
 		#keyrum þetta á meðan afborgunin = greidsla-v*eftirs+0.99*umfram er minni en eftirstaðan
 		while(round(eftirs) >= greidsla-v*eftirs+0.99*umfram):
-			afb = greidsla - v*eftirs + 0.99*umfram		#þar sem v*eftirs = vextir #0.99 útaf 1% fer í uppgreiðslukosntaður
+			afb = greidsla - v*eftirs + 0.99*umfram #0.99 útaf uppgreiðslugjald er 1%
 			eftirs = eftirs - afb
 			summa = summa + greidsla + umfram
 			stodur.append(round(eftirs))
@@ -589,12 +615,13 @@ def overdGreidslurMan(H, n, v, umfram, nafn, auka):
 			stodur.append(round(eftirs))
 		#síðasti mánuðurinn: ef afborgunin er minni, þá þurfum við fyrst að reikna hver umframgreiðslan þarf að vera
 		else:
-			umfram = (eftirs - (greidsla - v*eftirs))/0.99		#þar sem greidsla-v*eftirs er afborgunin (án umframgreiðslu)
+			umfram = (eftirs - (greidsla - v*eftirs))/0.99 #þar sem greidsla-v*eftirs er afborgunin (án umframgreiðslu)
 			afb = greidsla - v*eftirs + 0.99*umfram
 			eftirs = eftirs - afb
 			summa = summa + greidsla + umfram
 			stodur.append(round(eftirs))
 		
+		#Setja inn heildarlántökukostnað á réttan stað í tempfylki, auka=0 er með umfram og auka=1 er óbreytt lán
 		if(nafn == 'lan1'):
 			if(auka == 0):
 				tempfylki[0] = round(summa - H)
@@ -611,12 +638,14 @@ def overdGreidslurMan(H, n, v, umfram, nafn, auka):
 			else:
 				tempfylki[5] = round(summa - H)
 		
+		#x heldur utan um númer mánaðar
 		x = []
 		skil = []
 		for i in range(0, len(stodur)):
 			x.append(i)
 		skil.append(x)
 		skil.append(stodur)
+		#skil er fylki með tveimur fylkjum þar sem fyrra stakið er númer mánaðar og seinna er staða láns á þeim tíma
 		return skil
 		
 	#áður en við förum í temp þarf að ath hvort n=0 eða v=0 svo við séum ekki að deila með 0 og fá keyrsluvillu
@@ -633,7 +662,8 @@ def overdGreidslurMan(H, n, v, umfram, nafn, auka):
 		return [[],[]]
 	
 	elif(v == 0):
-			return overdAfborganirMan(H, n, 0, umfram, nafn, auka)
+		#ef það eru engir vextir, þá verður greiðslan, og þar með afborgunin, sú sama fyrir jafnar greiðslur og jafnar afborganir
+		return overdAfborganirMan(H, n, 0, umfram, nafn, auka)
 	else:
 		A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
 		if(H > A-v*H+0.99*umfram):
@@ -663,7 +693,7 @@ def verdGreidslurMan(H, n, v, vb, umfram, nafn, auka):
 		while(round((1+vb)*eftirs) >= (1+vb)*greidsla-v*eftirs+0.99*umfram): 	
 			eftirs = (1+vb)*eftirs
 			greidsla = (1+vb)*greidsla
-			afb = greidsla - v*eftirs + 0.99*umfram		#þar sem v*eftirs = vextir #0.99 útaf 1% fer í uppgreiðslukosntaður
+			afb = greidsla - v*eftirs + 0.99*umfram	#0.99 útaf uppgreiðslugjald er 1%
 			eftirs = eftirs - afb
 			summa = summa + greidsla + umfram
 			stodur.append(round(eftirs))
@@ -680,12 +710,13 @@ def verdGreidslurMan(H, n, v, vb, umfram, nafn, auka):
 		else:
 			eftirs = (1+vb)*eftirs
 			greidsla = (1+vb)*greidsla
-			umfram = (eftirs - (greidsla - v*eftirs))/0.99		#þar sem greidsla-v*eftirs er afborgunin (án umframgreiðslu)
+			umfram = (eftirs - (greidsla - v*eftirs))/0.99	#þar sem greidsla-v*eftirs er afborgunin (án umframgreiðslu)
 			afb = greidsla - v*eftirs + 0.99*umfram
 			eftirs = eftirs - afb
 			summa = summa + greidsla + umfram
 			stodur.append(round(eftirs))
 		
+		#Setja inn heildarlántökukostnað á réttan stað í tempfylki, auka=0 er með umfram og auka=1 er óbreytt lán
 		if(nafn == 'lan1'):
 			if(auka == 0):
 				tempfylki[0] = round(summa - H)
@@ -702,12 +733,14 @@ def verdGreidslurMan(H, n, v, vb, umfram, nafn, auka):
 			else:
 				tempfylki[5] = round(summa - H)
 		
+		#x heldur utan um númer mánaðar
 		x = []
 		skil = []
 		for i in range(0, len(stodur)):
 			x.append(i)
 		skil.append(x)
 		skil.append(stodur)
+		#skil er fylki með tveimur fylkjum þar sem fyrra stakið er númer mánaðar og seinna er staða láns á þeim tíma
 		return skil
 		
 	#áður en við förum í temp þarf að ath hvort n=0 eða v=0 svo við séum ekki að deila með 0 og fá keyrsluvillu
@@ -724,8 +757,10 @@ def verdGreidslurMan(H, n, v, vb, umfram, nafn, auka):
 		return [[],[]]
 	
 	elif(vb == 0):
+		#ef það er engin verðbólga reiknast þetta eins og óverðtryggt lán
 		return overdGreidslurMan(H, n, v, umfram, nafn, auka)
 	elif(v == 0): 
+		#ef það eru engir vextir, þá verður greiðslan, og þar með afborgunin, sú sama fyrir jafnar greiðslur og jafnar afborganir
 		return verdAfborganirMan(H, n, 0, vb, umfram, nafn, auka)
 	else:
 		A = H*((vt*(1+vt)**nt)/(((1+vt)**nt)-1))
