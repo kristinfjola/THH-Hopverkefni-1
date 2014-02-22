@@ -9,6 +9,8 @@ fjarmagns = 0.8
 globvextir = 0
 globfjarmagns = 0
 vb = 0
+
+
 #=========================================================
 """
 Notkun: hvad_er_best_ad_gera(b)
@@ -78,7 +80,7 @@ Eftir: 	vextir eru vextirnir á viðeigandi reikningi m.t.t. verðbólgu
 """
 def raunvx(vt,b):
 	#óverðtryggt - breytist ekki með verðbólgu
-	#raunvextir = nafnvextir - verðbólga
+	#raunvextir = (1+nafnvextir) / (1+verðbólga) -1
 	if vt==0:
 		if b==0:
 			vextir = (1+0.036)/(1+vb) -1
@@ -141,34 +143,17 @@ def sparivx(vt,b):
 
 
 
-
-
-
 """Föll sem snúa að sparnaði og gröfum"""
 
 
-##L = lagt fyrir á mánuði
-##nt = mánuðir í sparnað 
-##v = vextir í prósentum
-##vb = verðbólga í prósentum
-##stodur = fylki, stak fyrir hvern mánuð, staða á reikning á hverjum tímapunkti
-##vextir = fylki, stak fyrir hvern mánuð, vextir sem maður fær í hverjum mánuði, lagt við í lok 
-##summa = heildarupphæð á tímapunkti á reikningi
-
-#eingreiðsla = 0
-#Mánaðalega = 1
-
 ## Fall sem tekur inn breytur úr GUI og sendir á sparnaðarföll og vistar verðbólgu í global breytu.
-## Notkun: spar(Umframgreiðsla, mánuðir sparað, verðbólga síðustu x mánaða(0, 5, 10, 15), verðtryggt eða ekki (0/1), 
-##	eingreiðsla eða mánaðaleg greiðsla(0/1), bundið í x mánuði (12, 18, 24, 36...))
-"""
-Notkun: fylki = spar(L, verdb, verdtrygg, manadagr, bundid)
-Fyrir: L er umframgreiðsla (gildi int tala), verdb er gildi sem kemur úr dropdown þegar notandi velur verðbólgu (gildi 0, 5, 10, 15), 
-		verdtrygg er hvort notandi valdi verðtryggðan sparnað eða ekki (gildi 0 eða 1), 
-		manadagr er hvort notandi valdi eingreiðslu eða mánaðageiðslu (gildi 0 eða 1) og 
-		bundid er val notanda úr dropdown hversu lengi hann var tilbúinn að binda sparnað (gildi 12, 18, 24, 36, 48, 60)
-Eftir: fylki er fylki úr föllunum manadalega eda eingreidsla eftir innputi
-"""
+
+## Notkun: fylki = spar(L, verdb, verdtrygg, manadagr, bundid)
+## Fyrir: L er umframgreiðsla (gildi int tala), verdb er gildi sem kemur úr dropdown þegar notandi velur verðbólgu (gildi 0, 5, 10, 15), 
+##		verdtrygg er hvort notandi valdi verðtryggðan sparnað eða ekki (gildi óverðtryggður = 0 eða verðtryggður = 1), 
+##		manadagr er hvort notandi valdi eingreiðslu eða mánaðageiðslu (gildi eingreiðsla = 0 eða mánaðalega = 1) og 
+##		bundid er val notanda úr dropdown hversu lengi hann var tilbúinn að binda sparnað (gildi 12, 18, 24, 36, 48, 60)
+## Eftir: fylki með fylkjum með upplýsingum um stöðu á reikningi á hverjum tímapunkti árs (Síðasta hvers mánaðar)
 def spar(L, verdb, verdtrygg, manadagr, bundid):
 	global vb
 	if(verdb == 0): 		#verðbólga núna
@@ -182,7 +167,7 @@ def spar(L, verdb, verdtrygg, manadagr, bundid):
 	else:					#verðbólga 0 ef allt klikkar
 		vb = 0.0
 
-	v = sparivx(verdtrygg, bundid) 
+	v = sparivx(verdtrygg, bundid) ## fá vexti úr vaxtafalli
 
 	if verdtrygg == 1:
 		if manadagr == 1:
@@ -196,34 +181,50 @@ def spar(L, verdb, verdtrygg, manadagr, bundid):
 			return eingreidsla(L, 12, v, 0.0)
 
 
+##L = lagt fyrir á mánuði
+##nt = mánuðir í sparnað 
+##v = vextir í prósentum
+##vb = verðbólga í prósentum
+##stodur = fylki, stak fyrir hvern mánuð, staða á reikning á hverjum tímapunkti
+##vextir = fylki, stak fyrir hvern mánuð, vextir sem maður fær í hverjum mánuði, lagt við í lok 
+##summa = heildarupphæð á tímapunkti á reikningi
 
-#Verðtryggt, vextir og verðbætur borgað 31.des (verðbólga sú sama út allt árið)
-#Notkun: verdtryggtArs(Lagt fyrir á mán, fjöldi mánaða, vextir, verðbólga/bætur)
+#Fall sem spar kallar á sem reiknar út mánaðalegar innborganir á sparnað. Verðtryggðir reikningar borga verðbætur út mánaðalega, vextir og verðbætur borgað 31.des (verðbólga sú sama út allt árið)
+
+## Notkun: fylki = manadalega(L, nt, v, vt)
+## Fyrir: L er hversu mikið er lagt fyrir á mánuði, nt er fjöldi mánaða,  v er vextir, vt er verðbólga
+## Eftir: fylki með fylkjum með upplýsingum um stöðu á reikningi á hverjum tímapunkti árs (Síðasta hvers mánaðar)
 def manadalega(L, nt, v, vt):
 	global globvextir
 	global globfjarmagns
 	summa = 0
-	stodur = [L]
+	stodur = [L]    ## Y ásinn
 	vextir = []
 	vextirAr = []
 	verdbaetur = []
 	verdbaeturAr = []
-	x = []
-	skil = []
+	x = []			## X ásinn
+	skil = []		## [ [X ásinn] , [Y ásinn] ]
 	for i in range(0,nt):
+		## Erum með fylki x fyrir x ásinn, Setjum inn [0,1,2,3,4...]
 		x.append(i)
 		summa = (summa + L)*(1+(vt/12))
-		verdbaetur.append(summa*(vt/12))
-		verdbaeturAr.append(summa*(vt/12))
-		vextir.append(summa * (v/12))
-		vextirAr.append(summa * (v/12))
+		verdbaetur.append(summa*(vt/12))		##Bætum núverandi verðbótum í verðbætur fylkið fyrir verðbætur alls (til þess að vita hversu mikla vexti maður fékk alls)
+		verdbaeturAr.append(summa*(vt/12))		##Bætum núverandi verðbótum í verðbætu fylkið fyir bara árið
+		vextir.append(summa * (v/12))			##Bætum núverandi vöxtum í vaxtafylkið fyrir vexti alls (til þess að vita hversu mikla vexti maður fékk alls)
+		vextirAr.append(summa * (v/12))			##Bætum núverandi vöxtum í vaxtafylkið fyrir bara árið
+
+		## Ef árið er búið (mánuður 12) þá bætum við vöxtum við upphæð og drögum fjármagnstekjuskatt frá 
 		if (i+1)%12 == 0 and i != 0:		
-			stodur.append(int(math.ceil(summa + sum(vextirAr)*fjarmagns)))
+			stodur.append(int(math.ceil(summa + sum(vextirAr)*fjarmagns - sum(verdbaeturAr)*(1-fjarmagns))))
 			summa = summa + sum(vextirAr)*fjarmagns - (sum(verdbaeturAr)*(1-fjarmagns))
-			vextirAr = []
+			## Núllum vexti og verðbólg til þess að reikna það aftur á næsta ári
+			vextirAr = []    
 			verdbaeturAr = []
 		else:
 			stodur.append(int(math.ceil(summa)))
+
+	## Heildarvextir á sparnaði og greiddur fjármagnstekjuskattur geymdur í global breytu svo önnur föll sem þurfa að nota sömu breytu geti sótt þær
 	globvextir = sum(vextir)*fjarmagns + sum(verdbaetur)*fjarmagns
 	globfjarmagns = sum(vextir)*(1-fjarmagns) + sum(verdbaetur)*(1-fjarmagns)
 	x.append(nt)
@@ -235,325 +236,64 @@ def manadalega(L, nt, v, vt):
 ##Fall sem reiknar upphæð eftir tiltekinn tíma þegar eingreiðsla er valin
 ## Fallið tekur tilit til verðbólgu. Vextir, verðbætur og fjármagnstekjuskattur greitt 31. des
 
+## Notkun: fylki = eingreidsla(L, nt, v, vt):
+## Fyrir: L er hversu mikið er lagt fyrir á mánuði, nt er fjöldi mánaða,  v er vextir, vt er verðbólga
+## Eftir: fylki með fylkjum með upplýsingum um stöðu á reikningi á hverjum tímapunkti árs (Síðasta hvers mánaðar)
 def eingreidsla(L, nt, v, vt):
 	global globvextir
 	global globfjarmagns
 	summa = L
-	stodur = [L]
+	stodur = [L] ## Y ásinn
 	vextir = []
 	vextirAr = []
 	verdbaetur = []
 	verdbaeturAr = []
-	x = []
-	skil = []
+	x = []			## X ásinn
+	skil = []		## [ [X ásinn] , [Y ásinn] ]
 	for i in range(0, nt):
+		## Erum með fylki x fyrir x ásinn, Setjum inn [0,1,2,3,4...]
 		x.append(i)
 		summa = summa * (1+(vt/12))
-		verdbaetur.append(summa*(vt/12))
-		verdbaeturAr.append(summa*(vt/12))
-		vextir.append(summa * (v/12))
-		vextirAr.append(summa * (v/12))
+		verdbaetur.append(summa*(vt/12))		##Bætum núverandi verðbótum í verðbætur fylkið fyrir verðbætur alls (til þess að vita hversu mikla vexti maður fékk alls)
+		verdbaeturAr.append(summa*(vt/12))		##Bætum núverandi verðbótum í verðbætu fylkið fyir bara árið
+		vextir.append(summa * (v/12))			##Bætum núverandi vöxtum í vaxtafylkið fyrir vexti alls (til þess að vita hversu mikla vexti maður fékk alls)
+		vextirAr.append(summa * (v/12))			##Bætum núverandi vöxtum í vaxtafylkið fyrir bara árið
+		
+		## Ef árið er búið bætum við við vöxtum og drögum frá fjármagnstekjuskatt
 		if (i+1)%12 == 0 and i != 0:
-			stodur.append(int(math.ceil(summa + sum(vextirAr)*fjarmagns)))
+			stodur.append(int(math.ceil(summa + sum(vextirAr)*fjarmagns - sum(verdbaeturAr)*(1-fjarmagns))))
 			summa = summa + sum(vextirAr)*fjarmagns - (sum(verdbaeturAr)*(1-fjarmagns))
+			## Núllstillum ársvexti og ársverðbólgu því við erum að fara í nýtt ár
 			vextirAr = []
 			verdbaeturAr = []
 		else:
 			stodur.append(int(math.ceil(summa)))
+
+	## Heildarvextir á sparnaði og greiddur fjármagnstekjuskattur geymdur í global breytu svo önnur föll sem þurfa að nota sömu breytu geti sótt þær
 	globvextir = sum(vextir)*fjarmagns + sum(verdbaetur)*fjarmagns
 	globfjarmagns = sum(vextir)*(1-fjarmagns) + sum(verdbaetur)*(1-fjarmagns)
+	## Bætum síðasta stakinu í x fylkið
 	x.append(nt)
+	## Bætum x fylkinu og y fylkinu í skil fylkið fyrir matplot
 	skil.append(x)
 	skil.append(stodur)
 	return skil
 
 
-
-"""
-Notkun: ars = fa_arsvexti()
-Fyrir: global breytan globalvextir er til
-Eftir: ars eru vextir sem notandi fékk á síðasta sparnað
-"""
+## Notkun: ars = fa_arsvexti()
+## Fyrir: global breytan globalvextir er til
+## Eftir: ars eru vextir sem notandi fékk á síðasta sparnað
 def fa_arsvexti():
 	global globvextir
 	return int(math.ceil(globvextir))
 
-"""
-Notkun: fjarmagns = fa_fjarmagnstekjuskatt()
-Fyrir: global breytan globalfjarmagns er til
-Eftir: fjarmagns er fjármagnstekjuskatturinn sem notandi þurfti að greiða af síðasta sparnaði
-"""
+
+## Notkun: fjarmagns = fa_fjarmagnstekjuskatt()
+## Fyrir: global breytan globalfjarmagns er til
+## Eftir: fjarmagns er fjármagnstekjuskatturinn sem notandi þurfti að greiða af síðasta sparnaði
 def fa_fjarmagnstekjuskatt():
 	global globfjarmagns
 	return int(math.ceil(globfjarmagns))
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"""
-Notkun: fa_bestu_sparnadarleid()
-Fyrir: 	Besta sparnaÃ°arleiÃ° hefur veriÃ° valin
-Eftir:	besta_spar er strengur meÃ° nafni Ã¡ valinni sparnaÃ°arleiÃ°
-"""
-def fa_bestu_sparnadarleid():
-	return besta_spar[0]
-"""
-Notkun: fa_uppl_um_bestu_sparnadarleid()
-Fyrir: 	Besta sparnaÃ°arleiÃ° hefur veriÃ° valin
-Eftir:	uppl_um_bestu_leid er strengur meÃ° lÃ½singu Ã¡ valinni sparnaÃ°arleiÃ°
-"""
-def fa_uppl_um_sparnadarleid():
-	return besta_spar[4]
-"""
-====
-Reiknar raunvexti reiknings. Ef verÃ°tryggÃ°ur breytast vextirnir meÃ° verÃ°bÃ³lgunni
-Ef Ã³verÃ°tryggÃ°ur minnka/hÃ¦kka raunvextir m.t.t. verÃ°bÃ³lgu
-Notkun: raunvx(vt,b,vb)
-Fyrir: 	vt er 1 ef verÃ°tryggÃ°ur reikningur, 0 annars. 
-		b er binditÃ­minn Ã­ mÃ¡nuÃ°um.
-		vb er verÃ°bÃ³lga sem reiknaÃ° er meÃ° (ef 3 prÃ³sent verÃ°bÃ³lga er vb = 0.03)
-Eftir: 	vextir eru vextirnir Ã¡ viÃ°eigandi reikningi m.t.t. verÃ°bÃ³lgu 
-"""
-def raunvx(vt,b):
-	#Ã³verÃ°tryggt - breytist ekki meÃ° verÃ°bÃ³lgu
-	#raunvextir = nafnvextir - verÃ°bÃ³lga
-	if vt==0:
-		if b==0:
-			vextir = 0.036-vb
-		elif b==12:
-			vextir = 0.046-vb
-		elif b==18:
-			vextir = 0.048-vb
-		elif b==24:
-			vextir = 0.048-vb
-		else:
-			vextir = 1000
-	#verÃ°tryggt - breytist meÃ° verÃ°bÃ³lgu
-	else:
-		if vt==1:
-			if b==36:
-				vextir = 0.0175
-			elif b==48:
-				vextir = 0.0185
-			elif b==60:
-				vextir = 0.0195
-			else:
-				vextir = 1000
-	return vextir
-#======================================================
-"""
-
-Fall sem skilar vÃ¶xtum reiknings, Ã³hÃ¡Ã° verÃ°bÃ³lgu.
-Notkun: sparivx(vt,b)
-Fyrir: 	vt er 1 ef verÃ°tryggÃ°ur reikningur, 0 annars. 
-		b er binditÃ­minn Ã­ mÃ¡nuÃ°um.
-Eftir: 	vextir eru vextirnir Ã¡ viÃ°eigandi reikningi.
-"""
-def sparivx(vt,b):
-	if vt==0:
-		if b==0:
-			vextir = 0.036
-		elif b==12:
-			vextir = 0.046
-		elif b==18:
-			vextir = 0.048
-		elif b==24:
-			vextir = 0.053
-		else:
-			vextir = 1000
-	else:
-		if vt==1:
-			if b==36:
-				vextir = 0.0175
-			elif b==48:
-				vextir = 0.0185
-			elif b==60:
-				vextir = 0.0195
-			else:
-				vextir = 1000 
-	return vextir
-#===========================================================
-
-
-
-
-
-
-
-
-
-"""FÃ¶ll sem snÃºa aÃ° sparnaÃ°i og grÃ¶fum"""
-
-
-##L = lagt fyrir Ã¡ mÃ¡nuÃ°i
-##nt = mÃ¡nuÃ°ir Ã­ sparnaÃ° 
-##v = vextir Ã­ prÃ³sentum
-##vb = verÃ°bÃ³lga Ã­ prÃ³sentum
-##stodur = fylki, stak fyrir hvern mÃ¡nuÃ°, staÃ°a Ã¡ reikning Ã¡ hverjum tÃ­mapunkti
-##vextir = fylki, stak fyrir hvern mÃ¡nuÃ°, vextir sem maÃ°ur fÃ¦r Ã­ hverjum mÃ¡nuÃ°i, lagt viÃ° Ã­ lok 
-##summa = heildarupphÃ¦Ã° Ã¡ tÃ­mapunkti Ã¡ reikningi
-
-#eingreiÃ°sla = 0
-#MÃ¡naÃ°alega = 1
-
-## Fall sem tekur inn breytur Ãºr GUI og sendir Ã¡ sparnaÃ°arfÃ¶ll og vistar verÃ°bÃ³lgu Ã­ global breytu.
-## Notkun: spar(UmframgreiÃ°sla, mÃ¡nuÃ°ir sparaÃ°, verÃ°bÃ³lga sÃ­Ã°ustu x mÃ¡naÃ°a(0, 5, 10, 15), verÃ°tryggt eÃ°a ekki (0/1), 
-##	eingreiÃ°sla eÃ°a mÃ¡naÃ°aleg greiÃ°sla(0/1), bundiÃ° Ã­ x mÃ¡nuÃ°i (12, 18, 24, 36...))
-"""
-Notkun: fylki = spar(L, verdb, verdtrygg, manadagr, bundid)
-Fyrir: L er umframgreiÃ°sla (gildi int tala), verdb er gildi sem kemur Ãºr dropdown Ã¾egar notandi velur verÃ°bÃ³lgu (gildi 0, 5, 10, 15), 
-		verdtrygg er hvort notandi valdi verÃ°tryggÃ°an sparnaÃ° eÃ°a ekki (gildi 0 eÃ°a 1), 
-		manadagr er hvort notandi valdi eingreiÃ°slu eÃ°a mÃ¡naÃ°ageiÃ°slu (gildi 0 eÃ°a 1) og 
-		bundid er val notanda Ãºr dropdown hversu lengi hann var tilbÃºinn aÃ° binda sparnaÃ° (gildi 12, 18, 24, 36, 48, 60)
-Eftir: fylki er fylki Ãºr fÃ¶llunum manadalega eda eingreidsla eftir innputi
-"""
-def spar(L, verdb, verdtrygg, manadagr, bundid):
-	global vb
-	if(verdb == 0): 		#verÃ°bÃ³lga nÃºna
-		vb = 0.031
-	elif(verdb == 5): 		#verÃ°bÃ³lga 5 Ã¡r
-		vb = 0.0607868852459016
-	elif(verdb == 10): 		#verÃ°bÃ³lga 10 Ã¡r
-		vb = 0.0619421487603305
-	elif(verdb == 15):		#verÃ°bÃ³lga 15 Ã¡r
-		vb = 0.0560276243093922
-	else:					#verÃ°bÃ³lga 0 ef allt klikkar
-		vb = 0.0
-
-	v = sparivx(verdtrygg, bundid) 
-
-	if verdtrygg == 1:
-		if manadagr == 1:
-			return manadalega(L, 12, v, vb)
-		else:
-			return eingreidsla(L, 12, v, vb)
-	else:
-		if manadagr == 1:
-			return manadalega(L, 12, v, 0.0)
-		else:
-			return eingreidsla(L, 12, v, 0.0)
-
-
-
-#VerÃ°tryggt, vextir og verÃ°bÃ¦tur borgaÃ° 31.des (verÃ°bÃ³lga sÃº sama Ãºt allt Ã¡riÃ°)
-#Notkun: verdtryggtArs(Lagt fyrir Ã¡ mÃ¡n, fjÃ¶ldi mÃ¡naÃ°a, vextir, verÃ°bÃ³lga/bÃ¦tur)
-def manadalega(L, nt, v, vt):
-	global globvextir
-	global globfjarmagns
-	summa = 0
-	stodur = [L]
-	vextir = []
-	vextirAr = []
-	verdbaetur = []
-	verdbaeturAr = []
-	x = []
-	skil = []
-	for i in range(0,nt):
-		x.append(i)
-		summa = (summa + L)*(1+(vt/12))
-		verdbaetur.append(summa*(vt/12))
-		verdbaeturAr.append(summa*(vt/12))
-		vextir.append(summa * (v/12))
-		vextirAr.append(summa * (v/12))
-		if (i+1)%12 == 0 and i != 0:		
-			stodur.append(int(math.ceil(summa + sum(vextirAr)*fjarmagns)))
-			summa = summa + sum(vextirAr)*fjarmagns - (sum(verdbaeturAr)*(1-fjarmagns))
-			vextirAr = []
-			verdbaeturAr = []
-		else:
-			stodur.append(int(math.ceil(summa)))
-	globvextir = sum(vextir)*fjarmagns + sum(verdbaetur)*fjarmagns
-	globfjarmagns = sum(vextir)*(1-fjarmagns) + sum(verdbaetur)*(1-fjarmagns)
-	x.append(nt)
-	skil.append(x)
-	skil.append(stodur)
-	return skil
-
-
-##Fall sem reiknar upphÃ¦Ã° eftir tiltekinn tÃ­ma Ã¾egar eingreiÃ°sla er valin
-## FalliÃ° tekur tilit til verÃ°bÃ³lgu. Vextir, verÃ°bÃ¦tur og fjÃ¡rmagnstekjuskattur greitt 31. des
-
-def eingreidsla(L, nt, v, vt):
-	global globvextir
-	global globfjarmagns
-	summa = L
-	stodur = [L]
-	vextir = []
-	vextirAr = []
-	verdbaetur = []
-	verdbaeturAr = []
-	x = []
-	skil = []
-	for i in range(0, nt):
-		x.append(i)
-		summa = summa * (1+(vt/12))
-		verdbaetur.append(summa*(vt/12))
-		verdbaeturAr.append(summa*(vt/12))
-		vextir.append(summa * (v/12))
-		vextirAr.append(summa * (v/12))
-		if (i+1)%12 == 0 and i != 0:
-			stodur.append(int(math.ceil(summa + sum(vextirAr)*fjarmagns)))
-			summa = summa + sum(vextirAr)*fjarmagns - (sum(verdbaeturAr)*(1-fjarmagns))
-			vextirAr = []
-			verdbaeturAr = []
-		else:
-			stodur.append(int(math.ceil(summa)))
-	globvextir = sum(vextir)*fjarmagns + sum(verdbaetur)*fjarmagns
-	globfjarmagns = sum(vextir)*(1-fjarmagns) + sum(verdbaetur)*(1-fjarmagns)
-	x.append(nt)
-	skil.append(x)
-	skil.append(stodur)
-	return skil
-
-
-
-"""
-Notkun: ars = fa_arsvexti()
-Fyrir: global breytan globalvextir er til
-Eftir: ars eru vextir sem notandi fÃ©kk Ã¡ sÃ­Ã°asta sparnaÃ°
-"""
-def fa_arsvexti():
-	global globvextir
-	return int(math.ceil(globvextir))
-
-"""
-Notkun: fjarmagns = fa_fjarmagnstekjuskatt()
-Fyrir: global breytan globalfjarmagns er til
-Eftir: fjarmagns er fjÃ¡rmagnstekjuskatturinn sem notandi Ã¾urfti aÃ° greiÃ°a af sÃ­Ã°asta sparnaÃ°i
-"""
-def fa_fjarmagnstekjuskatt():
-	global globfjarmagns
-	return int(math.ceil(globfjarmagns))
 

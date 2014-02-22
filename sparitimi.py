@@ -5,8 +5,8 @@ import math
 globfjarmagns = 0
 globvextir = 0
 
-## Fall sem kallad er a ur vidmdti til thess aÃ° fa upp hversu mikid tharf ad leggja inn til thess ad nÃ¡ uppi tiltekna upphaed Ã¡ tilteknum tima.
-## sparitimi.innlogn(upphaed sem safna Ã¡ uppi, vextir, ar, eingreidsla eda ekki (0 eÃ°a 1))
+## Fall sem kallad er a ur vidmoti til thess ağ fa upp hversu mikid tharf ad leggja inn til thess ad ná uppi tiltekna upphaed á tilteknum tima.
+## sparitimi.innlogn(upphaed sem safna á uppi, vextir, ar, eingreidsla eda ekki (0 eğa 1))
 def innlogn(heild, v, nt, manada):
 	v = v/100.0
 	nt = nt * 12
@@ -15,10 +15,10 @@ def innlogn(heild, v, nt, manada):
 	else:
 		return eingreidslaSparInnlogn(nt, v, heild)
 
-## 0 = Ã³verÃ°tryggÃ°ur
-## 1 = verÃ°tryggÃ°ur
-## Fall sem kallad er a ur vidmoti til thess ad fa upp hversu lengi tharf aÃ° spara til Ã¾ess aÃ° na uppi tiltekna upphaed thegar tiltekin upphaed er logd inn.
-## sparitimi.timabil(Upphaed sem leggja a inn a manudi, vextir, upphaed sem safna a uppa, eingreidsla eÃ°a ekki (0 eÃ°a 1))
+## 0 = óverğtryggğur
+## 1 = verğtryggğur
+## Fall sem kallad er a ur vidmoti til thess ad fa upp hversu lengi tharf ağ spara til şess ağ na uppi tiltekna upphaed thegar tiltekin upphaed er logd inn.
+## sparitimi.timabil(Upphaed sem leggja a inn a manudi, vextir, upphaed sem safna a uppa, eingreidsla eğa ekki (0 eğa 1))
 def timabil(L, v, heild, manada, vt):
 	v = v/100.0
 	verdb15 = 0.0560276243093922
@@ -44,123 +44,125 @@ def manadalegurSparInnlogn(nt, v, heild):
 	i = 0
 	for i in range(1, nt+1):
 		temp = temp + (1+(v/12))**i
-	return "ÃÃº Ã¾arft aÃ° leggja inn " + str(int(1.0*heild/temp)) + " kr. Ã¡ mÃ¡nuÃ°i til Ã¾ess aÃ° komast uppÃ­ " + str(heild) + " kr."
+	return "Şú şarft ağ leggja inn " + str(int(1.0*heild/temp)) + " kr. á mánuği til şess ağ komast uppí " + str(heild) + " kr."
 
 
-## Fall sem skilar hversu mikiÃ° Ã¾Ãº Ã¾arft aÃ° leggja inn Ã­ upphafi til Ã¾ess aÃ° eiga Ã¡kveÃ°na upphÃ¦Ã° eftir eitthvaÃ° marga mÃ¡nuÃ°i
+## Fall sem skilar hversu mikiğ şú şarft ağ leggja inn í upphafi til şess ağ eiga ákveğna upphæğ eftir eitthvağ marga mánuği
 
 ##Notkun: innlogn = eingreidslaSparInnlogn(nt, v, heild)
 ##Fyrir: nt er timabil i arum, v er vextir a float formi (0.0X fyrir X prosent vexti) og heild er upphaed sem safna a uppi
-##Eftir: innlogn er strengur sem segir notanda hversu mikiÃ° hann tharf ad leggja inn i upphafi
+##Eftir: innlogn er strengur sem segir notanda hversu mikiğ hann tharf ad leggja inn i upphafi
 def eingreidslaSparInnlogn(nt, v, heild):
 	innlogn = heild/(pow((1+v),(nt/12.0)))
-	return "ÃÃº Ã¾arft aÃ° leggja inn " + str(int(innlogn)) + " kr. Ã­ upphafi til Ã¾ess aÃ° nÃ¡ uppÃ­ " + str(heild) + " kr."
+	return "Şú şarft ağ leggja inn " + str(int(innlogn)) + " kr. í upphafi til şess ağ ná uppí " + str(heild) + " kr."
 
 
 ##Fall sem skiar manudum i manudum og arum
 
 ## Notkun: strengur = manudirIAr(tala)
 ## Fyrir: tala >= 0
-## Eftir: strengur er tala skippt nidur Ã­ manudi og ar
+## Eftir: strengur er tala skippt nidur í manudi og ar
 def manudirIAr(tala):
 	ar = tala / 12
 	man = tala % 12
 	if ar == 0:
 		if man == 1:
-			return str(man) + " mÃ¡nuÃ°"
+			return str(man) + " mánuğ"
 		else:	
-			return str(man) + " mÃ¡nuÃ°i"
+			return str(man) + " mánuği"
 	elif man == 0:
-		return str(ar) + " Ã¡r"
+		return str(ar) + " ár"
 	else:
 		if man == 1:
-			return str(ar) + " Ã¡r og " + str(man) + " mÃ¡nuÃ°"
+			return str(ar) + " ár og " + str(man) + " mánuğ"
 		else:	
-			return str(ar) + " Ã¡r og " + str(man) + " mÃ¡nuÃ°i"
+			return str(ar) + " ár og " + str(man) + " mánuği"
 
 
-## Timinn sem tekur aÃ° spara uppÃ­ Ã¡kveÃ°na upphÃ¦Ã°
-## FalliÃ° gerir rÃ¡Ã° fyrir vÃ¶xtum greiddum Ã¡rlega, verÃ°bÃ³lgu og Ã¾ar meÃ° verÃ°bÃ³tum greiddum mÃ¡naÃ°alega ef reikningur er verÃ°tryggÃ°ur og fjÃ¡rmagnstekjuskatti sem er dreginn frÃ¡ Ã¡rlega.
-## Ekki Ã­ samrÃ¦mi viÃ° bankanetreiknivÃ©lar Ã¾ar sem Ã¾ar eru vextir greiddir Ãºt strax. (Ãessi aÃ°ferÃ° segir lengri tÃ­ma)
+## Timinn sem tekur ağ spara uppí ákveğna upphæğ
+## Falliğ gerir ráğ fyrir vöxtum greiddum árlega, verğbólgu og şar meğ verğbótum greiddum mánağalega ef reikningur er verğtryggğur og fjármagnstekjuskatti sem er dreginn frá árlega.
+## Ekki í samræmi viğ bankanetreiknivélar şar sem şar eru vextir greiddir út strax. (Şessi ağferğ segir lengri tíma)
 
 ## Notkun: timi = manadalegurSpar(L, v, vt, heild)
-## Fyrir: L er mÃ¡naÃ°aleg innlÃ¶gn, v er Ã¡rsvextir, vt er verÃ°bÃ³lga og heild er upphÃ¦Ã° sem notandi vill safna uppÃ­.
-## Eftir: timi er strengur sem segir notanda hversu lengi hann er aÃ° safna uppÃ­ tiltekna upphÃ¦Ã° meÃ° tiltekinni innlÃ¶gn Ã¡ mÃ¡nuÃ°i
+## Fyrir: L er mánağaleg innlögn, v er ársvextir, vt er verğbólga og heild er upphæğ sem notandi vill safna uppí.
+## Eftir: timi er strengur sem segir notanda hversu lengi hann er ağ safna uppí tiltekna upphæğ meğ tiltekinni innlögn á mánuği
 def manadalegurSparTimi(L, v, vt, heild):
+
 	global globvextir
 	global globfjarmagns
+
 	fjarmagns = 0.8
 	summa = 0
 	stodur = [L]
-	vextir = []
 	vextirAr = []
-	verdbaetur = []
-	verdbaeturAr = []
+	verdbaeturAr = [] 
 	for i in range(0,10000):
+		
+		## Ef summan er orğin hærri en markmidsupphaed, tha skilum vid manudum
 		if summa >= heild:
 			manAr = manudirIAr(i)
 			if vt == 0:
-				return "ÃÃº Ã¾arft aÃ° spara Ã­ "+ str(manAr) + " til Ã¾ess aÃ° nÃ¡ uppÃ­ "+ str(heild) + " kr."
+				return "Şú şarft ağ spara í "+ str(manAr) + " til şess ağ ná uppí "+ str(heild) + " kr."
 			else:
-				return "ÃÃº Ã¾arft aÃ° spara Ã­ "+ str(manAr) + " til Ã¾ess aÃ° nÃ¡ uppÃ­ "+ str(heild) + " kr. miÃ°aÃ° viÃ° verÃ°bÃ³lgu sÃ­Ã°ustu 15 Ã¡ra"
+				return "Şú şarft ağ spara í "+ str(manAr) + " til şess ağ ná uppí "+ str(heild) + " kr. miğağ viğ verğbólgu síğustu 15 ára"
 		elif i == 12000:
 			manAr = manudirIAr(i)
-			return "ÃÃº Ã¾arft aÃ° spara Ã­ "+ str(manAr) + " eÃ°a lengur. Reyndu aÃ° leggja meira fyrir."
+			return "Şú şarft ağ spara í "+ str(manAr) + " eğa lengur. Reyndu ağ leggja meira fyrir."
+		
 		summa = (summa + L)*(1+(vt/12))
-		verdbaetur.append(summa*(vt/12))
+		## Bætum í fylkin fyrir verğbætur og vextir 
 		verdbaeturAr.append(summa*(vt/12))
-		vextir.append(summa * v/12)
 		vextirAr.append(summa * v/12)
 		if (i+1)%12 == 0 and i != 0:		
-			stodur.append(math.ceil(summa + sum(vextirAr)*fjarmagns))
+			stodur.append(int(math.ceil(summa + sum(vextirAr)*fjarmagns - sum(verdbaeturAr)*(1-fjarmagns))))
 			summa = summa + sum(vextirAr)*fjarmagns - (sum(verdbaeturAr)*(1-fjarmagns))
+
+			## Núllstillum svo fylkin fyrir næsta ár
 			vextirAr = []
 			verdbaeturAr = []
 		else:
 			stodur.append(math.ceil(summa))
-	globvextir = sum(vextir)*fjarmagns + sum(verdbaetur)*fjarmagns
-	globfjarmagns = sum(vextir)*(1-fjarmagns) + sum(verdbaetur)*(1-fjarmagns)
-	return "VirkaÃ°i ekki"
+	return "Virkaği ekki"
 
-## Fall sem skilar tÃ­ma sem Ã¾aÃ° tekur aÃ° safna uppÃ­ Ã¡kveÃ°na upphÃ¦Ã° meÃ° eingreiÃ°slu
+## Fall sem skilar tíma sem şağ tekur ağ safna uppí ákveğna upphæğ meğ eingreiğslu
 
 ## Notkun: timi = eingreidsla(L, nt, v, vt)
-## Fyrir: L er mÃ¡naÃ°aleg innlÃ¶gn, v er Ã¡rsvextir, vt er verÃ°bÃ³lga og heild er upphÃ¦Ã° sem notandi vill safna uppÃ­.
-## Eftir: timi er strengur sem segir notanda hversu lengi hann er aÃ° safna uppÃ­ tiltekna upphÃ¦Ã° meÃ° tiltekinni eigreiÃ°slu.
+## Fyrir: L er mánağaleg innlögn, v er ársvextir, vt er verğbólga og heild er upphæğ sem notandi vill safna uppí.
+## Eftir: timi er strengur sem segir notanda hversu lengi hann er ağ safna uppí tiltekna upphæğ meğ tiltekinni eigreiğslu.
 def eingreidslaSparTimi(L, v, vt, heild):
 	global globvextir
 	global globfjarmagns
+
 	fjarmagns = 0.8
 	summa = L
 	stodur = [L]
-	vextir = []
 	vextirAr = []
-	verdbaetur = []
 	verdbaeturAr = []
-	x = []
-	skil = []
+
 	for i in range(0, 10000):
+		
+		## Ef summan er orğin hærri en markmidsupphaedin tha skilum vid manudunum
 		if summa >= heild:
 			manAr = manudirIAr(i)
 			if vt == 0:
-				return "ÃÃº Ã¾arft aÃ° spara Ã­ " + str(manAr) + " til Ã¾ess aÃ° nÃ¡ uppÃ­ " + str(heild) + " kr."
+				return "Şú şarft ağ spara í " + str(manAr) + " til şess ağ ná uppí " + str(heild) + " kr."
 			else:
-				return "ÃÃº Ã¾arft aÃ° spara Ã­ " + str(manAr) + " til Ã¾ess aÃ° nÃ¡ uppÃ­ " + str(heild) + " kr. miÃ°aÃ° viÃ° verÃ°bÃ³lgu sÃ­Ã°ustu 15 Ã¡ra"
+				return "Şú şarft ağ spara í " + str(manAr) + " til şess ağ ná uppí " + str(heild) + " kr. miğağ viğ verğbólgu síğustu 15 ára"
 		elif i == 12000:
 			manAr = manudirIAr(i)
-			return "ÃÃº Ã¾arft aÃ° spara Ã­ " + str(manAr) + " eÃ°a lengur. Reyndu aÃ° leggja meira fyrir."
+			return "Şú şarft ağ spara í " + str(manAr) + " eğa lengur. Reyndu ağ leggja meira fyrir."
+		
+		## Bætum í fylkin fyrir verğbætur og vexti
 		summa = summa * (1+(vt/12))
-		verdbaetur.append(summa*(vt/12))
 		verdbaeturAr.append(summa*(vt/12))
-		vextir.append(summa * (v/12))
 		vextirAr.append(summa * (v/12))
 		if (i+1)%12 == 0 and i != 0:
-			stodur.append(math.ceil(summa + sum(vextirAr)*fjarmagns))
+			stodur.append(int(math.ceil(summa + sum(vextirAr)*fjarmagns - sum(verdbaeturAr)*(1-fjarmagns))))
 			summa = summa + sum(vextirAr)*fjarmagns - (sum(verdbaeturAr)*(1-fjarmagns))
+
+			## Núllstillum svo fylkin fyrir næsta ár
 			vextirAr = []
 			verdbaeturAr = []
 		else:
-			stodur.append(math.ceil(summa))
-	globvextir = sum(vextir)*fjarmagns + sum(verdbaetur)*fjarmagns
-	globfjarmagns = sum(vextir)*(1-fjarmagns) + sum(verdbaetur)*(1-fjarmagns)
-	return "VirkaÃ°i ekki"
+			stodur.append(math.ceil(summa))		
+	return "Virkaği ekki"
